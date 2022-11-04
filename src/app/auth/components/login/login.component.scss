@@ -1,0 +1,14 @@
+.mat-card:last-child {
+  background: rgba($color: #424242, $alpha: 0.7);
+  display: flex;
+}
+
+.mat-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mat-card-actions {
+  display: flex;
+}
