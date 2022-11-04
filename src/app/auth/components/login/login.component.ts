@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   templateUrl: './login.component.html',
@@ -16,4 +16,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  public get username(): AbstractControl | null {
+    return this.loginForm.get('username');
+  }
+
+  public get password(): AbstractControl | null {
+    return this.loginForm.get('password');
+  }
 }
