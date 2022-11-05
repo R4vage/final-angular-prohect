@@ -20,7 +20,7 @@ yarn-error.log
 .settings/
 *.sublime-workspace
 .prettierrc
-
+.prettierignore
 
 # Visual Studio Code
 .vscode/*

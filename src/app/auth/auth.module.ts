@@ -5,9 +5,18 @@ import { MaterialModule } from '../material/material.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import * as fromAuthStore from './auth-store/reducers';
 
 @NgModule({
   declarations: [LoginComponent],
-  imports: [CommonModule, MaterialModule, AuthRoutingModule, ReactiveFormsModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    AuthRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    StoreModule.forFeature(fromAuthStore.authStoreFeatureKey, fromAuthStore.reducers, { metaReducers: fromAuthStore.metaReducers }),
+  ],
 })
 export class AuthModule {}
