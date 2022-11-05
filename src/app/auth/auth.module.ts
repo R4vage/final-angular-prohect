@@ -7,16 +7,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import * as fromAuthStore from './auth-store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './auth-store/auth.effects';
+import { LoginGuard } from '../core/guards/login.guard';
 
 @NgModule({
   declarations: [LoginComponent],
+  providers: [LoginGuard],
   imports: [
     CommonModule,
     MaterialModule,
     AuthRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forFeature(fromAuthStore.authStoreFeatureKey, fromAuthStore.reducers, { metaReducers: fromAuthStore.metaReducers }),
+    StoreModule.forFeature(fromAuthStore.authStoreFeatureKey, fromAuthStore.authReducer, { metaReducers: fromAuthStore.metaReducers }),
+    EffectsModule.forFeature([AuthEffects]),
   ],
 })
 export class AuthModule {}

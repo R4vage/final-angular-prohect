@@ -10,8 +10,15 @@ export interface AuthorizationSuccess {
   access_token: string;
   token_type: string;
   scope: string;
-  expire_in: bigint;
+  expire_in: number;
   refresh_token: string;
+}
+
+export interface RefreshResponse {
+  access_token: string;
+  token_type: string;
+  scope: string;
+  expire_in: number;
 }
 
 export function isAuthorizationSuccess(data: unknown): data is AuthorizationSuccess {
