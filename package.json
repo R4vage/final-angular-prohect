@@ -20,6 +20,9 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "base64-arraybuffer": "^1.0.2",
+    "install": "^0.13.0",
+    "npm": "^8.19.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
