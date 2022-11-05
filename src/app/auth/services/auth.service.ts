@@ -1,8 +1,9 @@
-import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest, HttpUrlEncodingCodec } from '@angular/common/http';
 import { HtmlParser } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 
 import { from, map, mergeMap, Observable, of, tap } from 'rxjs';
+import { AuthorizationDto, AuthorizationSuccess } from '../models/authorization.models';
 import { EncriptionService } from './encription.service';
 
 @Injectable({
@@ -14,26 +15,25 @@ export class AuthService {
   private readonly REDIRECT_URL = 'http://localhost:4200/auth';
   private readonly SCOPES = `user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing playlist-modify-private`;
   private readonly CODE_VERIFIER = 'HbryEbLfum7OUMF5HfrKvCT06M53tPZ5KcPKj-mmBiihdkaF2XF_mhjuwCLj.XOBahhLxndp32LQ3X1LPW.hY2AKOeIqKq2IJ.ENjVR_PlvTDbzWZ_5zRkGa';
-  private readonly STATE = this.encrypt.getRandomString(16);
-  private CODE_CHALLENGE!: string;
+  private readonly STATE = 'Cs5Jm6qjtreXI4IL';
 
   constructor(private http: HttpClient, private encrypt: EncriptionService) {}
 
   getAuthorizationUser() {
     return from(this.encrypt.generateCodeChallenge(this.CODE_VERIFIER)).pipe(
       map((codeChallenge) => {
-        this.CODE_CHALLENGE = codeChallenge;
         const url = new URL(this.URL);
-        const params = this.getQueryParameters(this.CLIENT_ID, this.REDIRECT_URL, this.STATE, this.SCOPES, codeChallenge);
+        const params = this.getQueryParametersAuthUser(this.CLIENT_ID, this.REDIRECT_URL, this.STATE, this.SCOPES, codeChallenge);
         params.keys().forEach((param) => {
           url.searchParams.set(param, params.get(param) as string);
         });
+
         return url;
       })
     );
   }
 
-  getQueryParameters(clientId: string, redirectURL: string, state: string, scopes: string, codeChallenge: string) {
+  getQueryParametersAuthUser(clientId: string, redirectURL: string, state: string, scopes: string, codeChallenge: string) {
     return new HttpParams().appendAll({
       client_id: clientId,
       response_type: 'code',
@@ -42,6 +42,30 @@ export class AuthService {
       scope: scopes,
       code_challenge_method: 'S256',
       code_challenge: codeChallenge,
+    });
+  }
+
+  getAccessToken(code: string, state: string) {
+    if (state !== this.STATE) {
+      throw Error('Something wrong happened, please try again');
+    }
+    const dataBody = {
+      grant_type: 'authorization_code',
+      code,
+      redirect_uri: this.REDIRECT_URL,
+      client_id: this.CLIENT_ID,
+      code_verifier: this.CODE_VERIFIER,
+    };
+    const bodyRequest = new HttpParams().appendAll(dataBody).toString();
+    return this.http.post<AuthorizationSuccess>('https://accounts.spotify.com/api/token', bodyRequest, {
+      headers: this.getHeaderAccessToken(this.CLIENT_ID, '21a60243753a4a1a8f01eb6f7649c3b7'),
+    });
+  }
+
+  getHeaderAccessToken(clientId: string, secretId: string) {
+    return new HttpHeaders({
+      'Authorization': `Basic ${this.encrypt.encodeString(`${clientId}:${secretId}`)}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
     });
   }
 }

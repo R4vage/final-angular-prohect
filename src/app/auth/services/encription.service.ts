@@ -25,4 +25,9 @@ export class EncriptionService {
     const base64Digest = base64encode(digest);
     return base64Digest.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
   }
+
+  encodeString(str: string) {
+    const data = new TextEncoder().encode(str);
+    return base64encode(data);
+  }
 }
