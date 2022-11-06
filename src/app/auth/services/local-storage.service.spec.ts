@@ -29,4 +29,8 @@ describe('LocalStorageService', () => {
     expect(localStorage.getItem('login')).toBeTruthy();
     expect(JSON.parse(localStorage.getItem('login') as string)).toEqual({ ...data, refresh_token: 'refresh' });
   });
+
+  afterEach(() => {
+    localStorage.clear();
+  });
 });

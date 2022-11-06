@@ -168,5 +168,6 @@ describe('AuthService', () => {
 
   afterEach(() => {
     httpTestingController.verify();
+    localStorage.clear();
   });
 });
