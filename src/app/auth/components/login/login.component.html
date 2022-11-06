@@ -1,19 +1,19 @@
 <div class="grid grid-cols-3 lg:grid-cols-7 min-h-screen items-center bg-gradient-to-br from-slate-700 to-slate-900">
-  <div class="invisible lg:visible lg:col-span-4 relative h-full overflow-x-hidden">
+  <div class="hidden lg:block lg:col-span-4 relative h-full overflow-x-hidden">
     <img class="h-full absolute right-0 min-w-max" src="assets/images/abstract-music-background-login-page.png" />
   </div>
-  <mat-card
-    class="col-span-1 justify-around mx-[-5rem] min-h-[20rem] h-[35vmin] min-w-[15rem] max-w-[25rem] shadow-lg shadow-indigo-500/50 bg-gradient-to-r from-teal-800 to-indigo-700 bg-opacity-80"
-  >
-    <mat-card-header class="justify-center mx-[-1rem] py-auto my-4 tracking-widest bg-opacity-40">
-      <mat-card-title class="w-full text-center first:mb-0">
-        <div class="text-3xl text-center justify-center items-center mb-[-12px] text-green-accent font-bold">Log in</div>
-      </mat-card-title>
-    </mat-card-header>
+  <div class="col-span-3 min-w-[15rem] max-w-full">
+    <mat-card class="justify-start shadow-lg shadow-indigo-500/50 bg-gradient-to-r from-teal-800 to-indigo-700 bg-opacity-80">
+      <mat-card-header class="justify-center mx-[-1rem] py-auto my-4 tracking-widest bg-opacity-40">
+        <mat-card-title class="w-full text-center first:mb-0">
+          <div class="text-3xl text-center justify-center items-center mb-[-12px] text-green-accent font-bold">Log in</div>
+        </mat-card-title>
+      </mat-card-header>
 
-    <mat-card-content> Log in to have access to the rest of the page! </mat-card-content>
-    <mat-card-actions class="w-full">
-      <button class="w-40 text-xl" mat-raised-button color="accent" routerLink="/login">Log in Spotify</button>
-    </mat-card-actions>
-  </mat-card>
+      <mat-card-content> Log in to have access to the rest of the page! </mat-card-content>
+      <mat-card-actions class="w-full">
+        <button class="w-40 text-xl" mat-raised-button color="accent" routerLink="/login">Log in Spotify</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>

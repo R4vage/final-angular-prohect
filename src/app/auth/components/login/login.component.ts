@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { NotificationService } from 'src/app/core/services/notification.service';
@@ -22,7 +22,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   state: string | null = null;
   error: string | null = null;
 
-  constructor(private store: Store<AuthState>, private authService: AuthService, private route: ActivatedRoute, private notification: NotificationService) {}
+  constructor(
+    private store: Store<AuthState>,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private notification: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams
@@ -33,7 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.state = params['state'];
           this.error = params['error'];
         }),
-        switchMap((params) => {
+        switchMap(() => {
           if (this.error) {
             throw Error(this.error);
           }
@@ -46,8 +52,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         next: (params) => {
           if (isAuthorizationSuccess(params)) {
             this.store.dispatch(loginSuccessful({ ...params }));
+            this.router.navigateByUrl('/home');
           } else {
-            window.location.href = params.href;
+            this.redirect(params);
           }
         },
         error: (err) => {
@@ -62,6 +69,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   getAccessCode(code: string, state: string): Observable<AuthorizationSuccess> {
     return this.authService.getAccessToken(code, state);
+  }
+
+  redirect(url: URL) {
+    window.location.href = `${url.href}`;
   }
 
   ngOnDestroy(): void {
