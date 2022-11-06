@@ -25,6 +25,7 @@ export class LocalStorageService {
       ...data,
       refresh_token: this.getRefreshCode(),
     };
+
     this.setLoginData(JSON.stringify(loginUpdated));
   }
 
