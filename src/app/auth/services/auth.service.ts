@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpRequest, HttpUrlEncodingCodec } from '@angular/common/http';
-import { HtmlParser } from '@angular/compiler';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { catchError, from, map, mergeMap, Observable, of, tap } from 'rxjs';
-import { AuthorizationDto, AuthorizationSuccess, RefreshResponse } from '../models/authorization.models';
+import { catchError, from, map } from 'rxjs';
+import { AuthorizationSuccess, RefreshResponse } from '../models/authorization.models';
 import { EncriptionService } from './encription.service';
 import { LocalStorageService } from './local-storage.service';
 
@@ -17,7 +16,7 @@ export class AuthService {
   private readonly REDIRECT_URL = 'http://localhost:4200/auth';
   private readonly SCOPES = `user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing playlist-modify-private`;
   private readonly CODE_VERIFIER = 'HbryEbLfum7OUMF5HfrKvCT06M53tPZ5KcPKj-mmBiihdkaF2XF_mhjuwCLj.XOBahhLxndp32LQ3X1LPW.hY2AKOeIqKq2IJ.ENjVR_PlvTDbzWZ_5zRkGa';
-  private readonly STATE = 'Cs5Jm6qjtreXI4IL';
+  readonly STATE = 'Cs5Jm6qjtreXI4IL';
 
   constructor(private http: HttpClient, private encrypt: EncriptionService, private localStorageService: LocalStorageService) {}
 
@@ -59,15 +58,17 @@ export class AuthService {
       code_verifier: this.CODE_VERIFIER,
     };
     const bodyRequest = new HttpParams().appendAll(dataBody).toString();
-    return this.http
-      .post<AuthorizationSuccess>(`${this.URL}/api/token`, bodyRequest, {
-        headers: this.getHeaderAccessToken(this.CLIENT_ID, this.SECRET_ID),
+    return this.http.post<AuthorizationSuccess>(`${this.URL}/api/token`, bodyRequest).pipe(
+      catchError((err) => {
+        if (err instanceof HttpErrorResponse) {
+          console.log(err);
+          const errMessage = err.error?.error as string;
+          throw Error(`Status ${err.status}: ${errMessage.replace(/_/, ' ')} `);
+        }
+
+        throw err;
       })
-      .pipe(
-        catchError((err) => {
-          throw err;
-        })
-      );
+    );
   }
 
   getHeaderAccessToken(clientId: string, secretId: string) {
