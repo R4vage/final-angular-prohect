@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, switchMap, takeUntil, tap, throwError } from 'rxjs';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { loginSuccessful } from '../../auth-store/auth.actions';
 import { AuthState } from '../../auth-store/reducers';
@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         }),
         switchMap(() => {
           if (this.error) {
-            throw Error(this.error);
+            const errorMessage = this.error;
+            return throwError(() => new Error(errorMessage.replace(/_/, ' ')));
           }
           return !this.code || !this.state
             ? this.login().pipe(takeUntil(this.subjectUnsubscriber))

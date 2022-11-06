@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { catchError, from, map } from 'rxjs';
+import { catchError, from, map, throwError } from 'rxjs';
 import { AuthorizationSuccess, RefreshResponse } from '../models/authorization.models';
 import { EncriptionService } from './encription.service';
 import { LocalStorageService } from './local-storage.service';
@@ -48,7 +48,7 @@ export class AuthService {
 
   getAccessToken(code: string, state: string) {
     if (state !== this.STATE) {
-      throw Error('Something wrong happened, please try again');
+      return throwError(() => new Error('Something wrong happened, please try again'));
     }
     const dataBody = {
       grant_type: 'authorization_code',
@@ -58,17 +58,9 @@ export class AuthService {
       code_verifier: this.CODE_VERIFIER,
     };
     const bodyRequest = new HttpParams().appendAll(dataBody).toString();
-    return this.http.post<AuthorizationSuccess>(`${this.URL}/api/token`, bodyRequest).pipe(
-      catchError((err) => {
-        if (err instanceof HttpErrorResponse) {
-          console.log(err);
-          const errMessage = err.error?.error as string;
-          throw Error(`Status ${err.status}: ${errMessage.replace(/_/, ' ')} `);
-        }
-
-        throw err;
-      })
-    );
+    return this.http.post<AuthorizationSuccess>(`${this.URL}/api/token`, bodyRequest, {
+      headers: this.getHeaderAccessToken(this.CLIENT_ID, this.SECRET_ID),
+    });
   }
 
   getHeaderAccessToken(clientId: string, secretId: string) {

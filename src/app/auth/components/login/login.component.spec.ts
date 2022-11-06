@@ -163,4 +163,16 @@ describe('LoginComponent', () => {
 
     expect(notification.showError).toHaveBeenCalledTimes(1);
   });
+
+  it('should redirect when the buttons is pressed', async () => {
+    const button = await loader.getHarness(
+      MatButtonHarness.with({
+        text: 'Log in Spotify',
+      })
+    );
+    await button.click();
+    await fixture.whenStable();
+
+    expect(location.path()).toBe('/login');
+  });
 });

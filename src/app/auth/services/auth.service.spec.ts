@@ -2,12 +2,12 @@ import { TestBed } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { EncriptionService } from './encription.service';
 import { LocalStorageService } from './local-storage.service';
 import { map, tap } from 'rxjs';
 
-import { AuthorizationSuccess } from '../models/authorization.models';
+import { AuthorizationSuccess, RefreshResponse } from '../models/authorization.models';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -46,6 +46,7 @@ describe('AuthService', () => {
     (encryptService.generateCodeChallenge as jasmine.Spy).and.callFake(async (str: string) => {
       return Promise.resolve(`${str}Modified_`);
     });
+    (localStorageService.getRefreshCode as jasmine.Spy).and.returnValue('refreshed');
   });
 
   it('should be created', () => {
@@ -92,21 +93,77 @@ describe('AuthService', () => {
     expect(authService.getHeaderAccessToken).toHaveBeenCalled();
   });
 
-  it('should throw error when state is not the correct', () => {
+  it('should give an error when the state is incorrect while trying to get access token', () => {
     const code = '1234';
 
     authService.getAccessToken(code, 'state2').subscribe({
+      next: () => {
+        fail('An error was expected');
+      },
       error: (err) => {
         expect(err).toBeTruthy();
+        expect(err).toEqual(new Error('Something wrong happened, please try again'));
+      },
+    });
+  });
+
+  it('should give an error when the post request is invalid while trying to get access token', () => {
+    const code = '1234';
+
+    authService.getAccessToken(code, authService.STATE).subscribe({
+      next: () => {
+        fail('An error was expected');
+      },
+      error: (err) => {
+        expect(err).toBeTruthy();
+        expect(err).toBeInstanceOf(HttpErrorResponse);
       },
     });
 
     const req = httpTestingController.expectOne(`${URL_AUTH}/api/token`);
 
     expect(req.request.method).toEqual('POST');
-    req.flush(request);
+    req.flush('Login failed', { status: 415, statusText: 'internal server error' });
+  });
 
-    expect(authService.getHeaderAccessToken).toHaveBeenCalled();
+  it('should refresh access token when given refresh token', () => {
+    spyOn(authService, 'getHeaderRefreshToken');
+
+    const refreshToken = 'refresh';
+    const refressRequest: RefreshResponse = {
+      access_token: '1234',
+      token_type: 'Bearer',
+      scope: 'scope',
+      expire_in: 0,
+    };
+    authService.refreshToken(refreshToken).subscribe({
+      next: (value) => {
+        expect(value).toBe(refressRequest);
+      },
+    });
+
+    const req = httpTestingController.expectOne(`${URL_AUTH}/api/token`);
+    expect(req.request.method).toEqual('POST');
+    req.flush(refressRequest);
+
+    expect(authService.getHeaderRefreshToken).toHaveBeenCalled();
+  });
+
+  it('should give an error when the post request is invalid while trying to refresh access token', () => {
+    const refreshToken = 'refresh';
+    authService.refreshToken(refreshToken).subscribe({
+      next: () => {
+        fail('An error was expected');
+      },
+      error: (err) => {
+        expect(err).toBeTruthy();
+        expect(err).toBeInstanceOf(HttpErrorResponse);
+        expect((err as HttpErrorResponse).error).toBe('Login failed');
+      },
+    });
+
+    const req = httpTestingController.expectOne(`${URL_AUTH}/api/token`);
+    req.flush('Login failed', { status: 415, statusText: 'internal server error' });
   });
 
   afterEach(() => {
