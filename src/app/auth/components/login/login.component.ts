@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AbstractControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { filter, Observable, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { NotificationService } from 'src/app/core/services/notification.service';
 import { loginSuccessful } from '../../auth-store/auth.actions';
 import { AuthState } from '../../auth-store/reducers';
 import { AuthorizationSuccess, isAuthorizationSuccess } from '../../models/authorization.models';
 import { AuthService } from '../../services/auth.service';
-import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   templateUrl: './login.component.html',
@@ -20,32 +20,40 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   code: string | null = null;
   state: string | null = null;
+  error: string | null = null;
 
-  constructor(private store: Store<AuthState>, private authService: AuthService, private route: ActivatedRoute, private locStorageService: LocalStorageService) {}
+  constructor(private store: Store<AuthState>, private authService: AuthService, private route: ActivatedRoute, private notification: NotificationService) {}
 
   ngOnInit(): void {
-    // this.route.queryParams
-    //   .pipe(
-    //     takeUntil(this.subjectUnsubscriber),
-    //     tap((params) => {
-    //       this.code = params['code'];
-    //       this.state = params['state'];
-    //     }),
-    //     switchMap((params) => {
-    //       return !this.code || !this.state
-    //         ? this.login().pipe(takeUntil(this.subjectUnsubscriber))
-    //         : this.getAccessCode(this.code, this.state).pipe(takeUntil(this.subjectUnsubscriber));
-    //     })
-    //   )
-    //   .subscribe({
-    //     next: (params) => {
-    //       if (isAuthorizationSuccess(params) && params.token_type === 'Bearer') {
-    //         this.store.dispatch(loginSuccessful({ ...params }));
-    //       } else if (!isAuthorizationSuccess(params)) {
-    //         window.location.href = params.href;
-    //       }
-    //     },
-    //   });
+    this.route.queryParams
+      .pipe(
+        takeUntil(this.subjectUnsubscriber),
+        tap((params) => {
+          this.code = params['code'];
+          this.state = params['state'];
+          this.error = params['error'];
+        }),
+        switchMap((params) => {
+          if (this.error) {
+            throw Error(this.error);
+          }
+          return !this.code || !this.state
+            ? this.login().pipe(takeUntil(this.subjectUnsubscriber))
+            : this.getAccessCode(this.code, this.state).pipe(takeUntil(this.subjectUnsubscriber));
+        })
+      )
+      .subscribe({
+        next: (params) => {
+          if (isAuthorizationSuccess(params)) {
+            this.store.dispatch(loginSuccessful({ ...params }));
+          } else {
+            window.location.href = params.href;
+          }
+        },
+        error: (err) => {
+          this.notification.showError(err, 'Authentication Error');
+        },
+      });
   }
 
   login() {
@@ -56,15 +64,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     return this.authService.getAccessToken(code, state);
   }
 
-  public get username(): AbstractControl | null {
-    return this.loginForm.get('username');
-  }
-
-  public get password(): AbstractControl | null {
-    return this.loginForm.get('password');
-  }
-
   ngOnDestroy(): void {
     this.subjectUnsubscriber.next(true);
+    this.subjectUnsubscriber.complete();
   }
 }

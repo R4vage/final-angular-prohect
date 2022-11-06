@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './root-store/app.effects';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
+import { ToastrModule } from 'ngx-toastr';
+import { CustomErrorHandler } from './core/services/custom-error-handler.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,11 +23,16 @@ import { TokenInterceptor } from './core/interceptors/token.interceptor';
     AppRoutingModule,
     BrowserAnimationsModule,
     AuthModule,
+    ToastrModule.forRoot(),
     StoreModule.forRoot(reducers, { metaReducers }),
     environment.production ? [] : StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([AppEffects]),
   ],
   providers: [
+    {
+      provide: ErrorHandler,
+      useClass: CustomErrorHandler,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

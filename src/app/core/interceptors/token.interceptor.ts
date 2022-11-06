@@ -12,10 +12,11 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(private localStorageService: LocalStorageService, private authService: AuthService, private store: Store<AuthState>) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const authRequest = this.addAccessTokenHeader(request, this.localStorageService.getAccessCode());
+    const authRequest: HttpRequest<unknown> =
+      this.localStorageService.getAccessCode() === '' ? request : this.addAccessTokenHeader(request, this.localStorageService.getAccessCode());
     return next.handle(authRequest).pipe(
       catchError((error: Response) => {
-        if ((error.status === 401, this.localStorageService.getAccessCode() !== '')) {
+        if (error.status === 401 && this.localStorageService.getAccessCode() !== '') {
           return this.refreshToken(request, next, this.localStorageService.getRefreshCode());
         }
         throw error;

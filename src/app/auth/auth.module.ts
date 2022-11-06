@@ -18,7 +18,6 @@ import { LoginGuard } from '../core/guards/login.guard';
     CommonModule,
     MaterialModule,
     AuthRoutingModule,
-    ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forFeature(fromAuthStore.authStoreFeatureKey, fromAuthStore.authReducer, { metaReducers: fromAuthStore.metaReducers }),
     EffectsModule.forFeature([AuthEffects]),

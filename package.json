@@ -29,6 +29,7 @@
     "base64-arraybuffer": "^1.0.2",
     "Buffer": "^0.0.0",
     "install": "^0.13.0",
+    "ngx-toastr": "^15.2.1",
     "npm": "^8.19.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

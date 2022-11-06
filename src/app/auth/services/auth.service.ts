@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpRequest, HttpUrlEncodingCodec 
 import { HtmlParser } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 
-import { from, map, mergeMap, Observable, of, tap } from 'rxjs';
+import { catchError, from, map, mergeMap, Observable, of, tap } from 'rxjs';
 import { AuthorizationDto, AuthorizationSuccess, RefreshResponse } from '../models/authorization.models';
 import { EncriptionService } from './encription.service';
 import { LocalStorageService } from './local-storage.service';
@@ -59,9 +59,15 @@ export class AuthService {
       code_verifier: this.CODE_VERIFIER,
     };
     const bodyRequest = new HttpParams().appendAll(dataBody).toString();
-    return this.http.post<AuthorizationSuccess>(`${this.URL}/api/token`, bodyRequest, {
-      headers: this.getHeaderAccessToken(this.CLIENT_ID, this.SECRET_ID),
-    });
+    return this.http
+      .post<AuthorizationSuccess>(`${this.URL}/api/token`, bodyRequest, {
+        headers: this.getHeaderAccessToken(this.CLIENT_ID, this.SECRET_ID),
+      })
+      .pipe(
+        catchError((err) => {
+          throw err;
+        })
+      );
   }
 
   getHeaderAccessToken(clientId: string, secretId: string) {
