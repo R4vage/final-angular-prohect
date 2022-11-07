@@ -28,7 +28,6 @@ export class AuthService {
         params.keys().forEach((param) => {
           url.searchParams.set(param, params.get(param) as string);
         });
-
         return url;
       })
     );
