@@ -34,7 +34,6 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
       provide: ErrorHandler,
       useClass: CustomErrorHandler,
     },
-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,

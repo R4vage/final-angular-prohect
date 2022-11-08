@@ -70,20 +70,19 @@ export class AuthService {
   }
 
   refreshToken(refreshToken: string) {
+    const client_id = this.CLIENT_ID;
     const dataBody = {
       grant_type: 'refresh_token',
       refresh_token: refreshToken,
-      client_id: this.CLIENT_ID,
+      client_id,
     };
-    const bodyRequest = new HttpParams().appendAll(dataBody).toString();
+    const bodyRequest = new HttpParams().appendAll(dataBody).toString().replace(' ', '');
     return this.http.post<RefreshResponse>(`${this.URL}/api/token`, bodyRequest, {
       headers: this.getHeaderRefreshToken(this.CLIENT_ID, this.SECRET_ID),
     });
   }
 
   getHeaderRefreshToken(clientId: string, secretId: string) {
-    console.log(this.encrypt.encodeString(`${clientId}:${secretId}`));
-
     return new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
     });

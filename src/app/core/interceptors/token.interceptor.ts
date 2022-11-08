@@ -19,6 +19,7 @@ export class TokenInterceptor implements HttpInterceptor {
       catchError((error: Response) => {
         if (error.status === 401 && this.localStorageService.getAccessCode() !== '' && this.count < 2) {
           this.count++;
+
           return this.refreshToken(request, next, this.localStorageService.getRefreshCode());
         }
         throw error;
@@ -27,10 +28,11 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   addAccessTokenHeader(request: HttpRequest<unknown>, accessToken: string) {
-    return request.clone({ headers: request.headers.set('Authorization', `Bearer ${accessToken}`) });
+    return request.clone({ setHeaders: { Authorization: `Bearer ${accessToken}` } });
   }
 
   refreshToken(request: HttpRequest<unknown>, next: HttpHandler, refreshToken: string) {
+    this.localStorageService.setAccessCode('');
     return this.authService.refreshToken(refreshToken).pipe(
       switchMap((response) => {
         this.localStorageService.saveTokens(response);
@@ -38,7 +40,6 @@ export class TokenInterceptor implements HttpInterceptor {
       }),
       catchError((error) => {
         this.store.dispatch(logOut());
-        console.log(error);
         throw error;
       })
     );

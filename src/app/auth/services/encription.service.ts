@@ -28,6 +28,6 @@ export class EncriptionService {
 
   encodeString(str: string) {
     const data = new TextEncoder().encode(str);
-    return base64encode(data);
+    return base64encode(data).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
   }
 }
