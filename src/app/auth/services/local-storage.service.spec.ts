@@ -18,6 +18,7 @@ describe('LocalStorageService', () => {
     spyOn(localStorageService, 'getRefreshCode').and.returnValue('refresh');
     const data = {
       access_token: 'access',
+      refresh_token: 'refresh',
       token_type: 'Bearer',
       scope: 'scope',
       expire_in: 10,

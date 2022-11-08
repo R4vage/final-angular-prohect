@@ -21,9 +21,9 @@ export class LocalStorageService {
 
   saveTokens(data: RefreshResponse) {
     this.setAccessCode(data.access_token);
+    this.setRefreshCode(data.refresh_token);
     const loginUpdated: AuthorizationSuccess = {
       ...data,
-      refresh_token: this.getRefreshCode(),
     };
 
     this.setLoginData(JSON.stringify(loginUpdated));

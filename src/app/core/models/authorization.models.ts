@@ -16,6 +16,7 @@ export interface AuthorizationSuccess {
 
 export interface RefreshResponse {
   access_token: string;
+  refresh_token: string;
   token_type: string;
   scope: string;
   expire_in: number;
