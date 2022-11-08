@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { NavData } from 'src/app/core/models/nav-data.models';
-import { SidenavToggle } from 'src/app/core/models/sidenav-toggle';
 import { sideNavData } from './nav-data';
 
 @Component({

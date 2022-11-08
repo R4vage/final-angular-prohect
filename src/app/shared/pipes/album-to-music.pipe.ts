@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Image, Item } from 'src/app/core/models/album.models';
-import { MusicCard } from 'src/app/core/models/music-card';
+import { MusicCard } from 'src/app/core/models/music-card.models';
 
 @Pipe({
   name: 'albumToMusic',

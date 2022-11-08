@@ -1,13 +1,16 @@
-<mat-card class="flex flex-col relative text-left max-h-1/4 bg-gradient-to-tl from-emerald-900 to-slate-800" *ngIf="musicData">
-  <img [src]="musicData.imageUrl" class="mb-7" />
+<mat-card class="flex flex-col relative text-left max-h-1/4 max-w-[360px] bg-gradient-to-tl from-emerald-900 to-slate-800" *ngIf="musicData">
+  <img [src]="musicData.imageUrl" class="mb-7 max-h-[337px]" />
   <mat-card-header class="flex flex-row justify-start ml-[-16px] truncate">
     <mat-card-title class="underline">
       {{ musicData.title | titleCardTruncate }}
     </mat-card-title>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content class="flex flex-col justify-center">
     <ng-container *ngIf="musicData.artist">
-      <span> {{ musicData.artist }} </span>
+      <span class="text-bold"> {{ musicData.artist }} </span>
+    </ng-container>
+    <ng-container *ngIf="musicData.description">
+      <div>{{ musicData.description }}</div>
     </ng-container>
     <div class="text-gray-400">{{ musicData.date | date }} {{ musicData.duration }}</div>
   </mat-card-content>

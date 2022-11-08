@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SidenavToggle } from 'src/app/core/models/sidenav-toggle';
 
 @Component({
   templateUrl: './layout.component.html',

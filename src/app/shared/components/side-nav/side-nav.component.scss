@@ -1,14 +1,8 @@
-mat-sidenav-container {
-  height: 100%;
+button {
+  padding: 0 0.2rem;
+  min-width: 24px;
 }
 
-.mat-list-item {
-  justify-items: center;
-  justify-content: center;
-  width: 1rem;
-
-  span.mat-list-item-content {
-    justify-items: center;
-    justify-content: center;
-  }
+mat-icon {
+  padding: 0;
 }

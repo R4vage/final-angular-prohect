@@ -7,13 +7,14 @@ import { RouterModule } from '@angular/router';
 import { MusicCardComponent } from './components/music-card/music-card.component';
 import { AlbumToMusicPipe } from './pipes/album-to-music.pipe';
 import { TitleCardTruncatePipe } from './pipes/title-card-truncate.pipe';
+import { PlaylistToMusicPipe } from './pipes/playlist-to-music.pipe';
 
 const COMPONENTS = [SideNavComponent, NavBarComponent, MusicCardComponent];
 
-const PIPES = [AlbumToMusicPipe];
+const PIPES = [AlbumToMusicPipe, TitleCardTruncatePipe, PlaylistToMusicPipe];
 
 @NgModule({
-  declarations: [...COMPONENTS, ...PIPES, TitleCardTruncatePipe],
+  declarations: [...COMPONENTS, ...PIPES],
   imports: [CommonModule, MaterialModule, RouterModule],
   exports: [...COMPONENTS, ...PIPES],
 })

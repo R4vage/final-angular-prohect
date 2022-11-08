@@ -19,7 +19,7 @@ module.exports = {
         layout: '64px repeat(5, minmax(0, 1fr))',
       },
       gridTemplateColumns: {
-        layout: 'repeat(2, minmax(115px, 1fr)) repeat(10, minmax(0, 1fr))',
+        layout: 'repeat(2, minmax(150px, 1fr)) repeat(10, minmax(0, 1fr))',
       },
     },
   },
