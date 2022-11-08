@@ -10,7 +10,7 @@ import { noop, of } from 'rxjs';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { MaterialModule } from 'src/app/material/material.module';
 import { AuthState, initialAuthState } from '../../auth-store/reducers';
-import { AuthorizationSuccess } from '../../models/authorization.models';
+import { AuthorizationSuccess } from '../../../core/models/authorization.models';
 import { AuthService } from '../../services/auth.service';
 
 import { HarnessLoader } from '@angular/cdk/testing';

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { catchError, from, map, throwError } from 'rxjs';
-import { AuthorizationSuccess, RefreshResponse } from '../models/authorization.models';
+import { AuthorizationSuccess, RefreshResponse } from '../../core/models/authorization.models';
 import { EncriptionService } from './encription.service';
 import { LocalStorageService } from './local-storage.service';
 
@@ -71,8 +71,9 @@ export class AuthService {
 
   refreshToken(refreshToken: string) {
     const dataBody = {
-      grant_type: 'authorization_code',
-      refresh_token: this.localStorageService.getRefreshCode(),
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+      client_id: this.CLIENT_ID,
     };
     const bodyRequest = new HttpParams().appendAll(dataBody).toString();
     return this.http.post<RefreshResponse>(`${this.URL}/api/token`, bodyRequest, {
@@ -81,8 +82,9 @@ export class AuthService {
   }
 
   getHeaderRefreshToken(clientId: string, secretId: string) {
+    console.log(this.encrypt.encodeString(`${clientId}:${secretId}`));
+
     return new HttpHeaders({
-      'Authorization': `Basic ${this.encrypt.encodeString(`${clientId}:${secretId}`)}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     });
   }

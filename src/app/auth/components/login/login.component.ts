@@ -6,7 +6,7 @@ import { Observable, Subject, switchMap, takeUntil, tap, throwError } from 'rxjs
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { loginSuccessful } from '../../auth-store/auth.actions';
 import { AuthState } from '../../auth-store/reducers';
-import { AuthorizationSuccess, isAuthorizationSuccess } from '../../models/authorization.models';
+import { AuthorizationSuccess, isAuthorizationSuccess } from '../../../core/models/authorization.models';
 import { AuthService } from '../../services/auth.service';
 
 @Component({

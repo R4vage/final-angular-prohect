@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { AuthorizationSuccess } from '../models/authorization.models';
+import { AuthorizationSuccess } from '../../core/models/authorization.models';
 
 export const loginSuccessful = createAction('[Login] User login successful ', props<AuthorizationSuccess>());
 

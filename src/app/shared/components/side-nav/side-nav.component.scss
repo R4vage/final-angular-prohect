@@ -1,0 +1,14 @@
+mat-sidenav-container {
+  height: 100%;
+}
+
+.mat-list-item {
+  justify-items: center;
+  justify-content: center;
+  width: 1rem;
+
+  span.mat-list-item-content {
+    justify-items: center;
+    justify-content: center;
+  }
+}

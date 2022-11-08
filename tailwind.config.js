@@ -14,6 +14,13 @@ module.exports = {
           accent: '#69f0ae',
         },
       },
+      gridTemplateRows: {
+        smlayout: '56px repeat(5, minmax(0, 1fr))',
+        layout: '64px repeat(5, minmax(0, 1fr))',
+      },
+      gridTemplateColumns: {
+        layout: 'repeat(2, minmax(115px, 1fr)) repeat(10, minmax(0, 1fr))',
+      },
     },
   },
   plugins: [],

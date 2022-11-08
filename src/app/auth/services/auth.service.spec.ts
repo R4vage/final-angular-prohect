@@ -7,7 +7,7 @@ import { EncriptionService } from './encription.service';
 import { LocalStorageService } from './local-storage.service';
 import { map, tap } from 'rxjs';
 
-import { AuthorizationSuccess, RefreshResponse } from '../models/authorization.models';
+import { AuthorizationSuccess, RefreshResponse } from '../../core/models/authorization.models';
 
 describe('AuthService', () => {
   let authService: AuthService;
