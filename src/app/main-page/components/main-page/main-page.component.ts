@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, tap } from 'rxjs';
-import { Albums } from 'src/app/core/models/album.models';
-import { Categories } from 'src/app/core/models/categories.models';
-import { Playlists } from 'src/app/core/models/playlist.models';
-import { AlbumService } from '../../services/album.service';
-import { CategoriesService } from '../../services/categories.service';
-import { PlaylistService } from '../../services/playlist.service';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AlbumItem } from 'src/app/core/models/album.models';
+import { CategoryItem } from 'src/app/core/models/categories.models';
+import { PlaylistItem } from 'src/app/core/models/playlist.models';
+import { selectAllAlbums } from '../../main-page-store/selectors/album.selectors';
+import { selectAllCategories } from '../../main-page-store/selectors/category.selectors';
+import { selectAllPlaylists } from '../../main-page-store/selectors/playlist.selectors';
 
 @Component({
   selector: 'app-main-page',
@@ -13,17 +14,17 @@ import { PlaylistService } from '../../services/playlist.service';
   styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit {
-  albums$!: Observable<Albums>;
-  featuredPlaylists$!: Observable<Playlists>;
-  availableCategories$!: Observable<Categories>;
+  albums$!: Observable<AlbumItem[]>;
+  featuredPlaylists$!: Observable<PlaylistItem[]>;
+  availableCategories$!: Observable<CategoryItem[]>;
 
   limitList = 5;
 
-  constructor(private albumService: AlbumService, private playlistService: PlaylistService, private availableCategories: CategoriesService) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.albums$ = this.albumService.getAlbumReleases(this.limitList);
-    this.featuredPlaylists$ = this.playlistService.getFeaturedPlaylists(this.limitList);
-    this.availableCategories$ = this.availableCategories.getFeaturedPlaylists(this.limitList);
+    this.albums$ = this.store.pipe(select(selectAllAlbums));
+    this.featuredPlaylists$ = this.store.pipe(select(selectAllPlaylists));
+    this.availableCategories$ = this.store.pipe(select(selectAllCategories));
   }
 }

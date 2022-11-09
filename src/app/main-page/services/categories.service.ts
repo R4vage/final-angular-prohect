@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class CategoriesService {
   private readonly URL = 'https://api.spotify.com/v1';
 
-  getFeaturedPlaylists(limit = 20, offset = 0) {
+  getAvailableCategories(limit = 20, offset = 0) {
     return this.http
       .get<MainCategoriesResponse>(`${this.URL}/browse/categories`, {
         params: this.getQueryParametersAvailableCategories(),

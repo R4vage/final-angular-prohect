@@ -4,7 +4,7 @@ export interface Main {
 
 export interface Albums {
   href: string;
-  items: Item[];
+  items: AlbumItem[];
   limit: number;
   next: string;
   offset: number;
@@ -12,7 +12,7 @@ export interface Albums {
   total: number;
 }
 
-export interface Item {
+export interface AlbumItem {
   album_type: AlbumTypeEnum;
   artists: Artist[];
   available_markets: string[];

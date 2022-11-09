@@ -12,7 +12,7 @@ import { LocalStorageService } from './local-storage.service';
 export class AuthService {
   private readonly CLIENT_ID = '1a742ee646b74af4a2a648a825f35326';
   private readonly SECRET_ID = '21a60243753a4a1a8f01eb6f7649c3b7';
-  private readonly URL = 'https://accounts.spotify.com';
+  readonly URL = 'https://accounts.spotify.com';
   private readonly REDIRECT_URL = 'http://localhost:4200/auth';
   private readonly SCOPES = `user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing playlist-modify-private`;
   private readonly CODE_VERIFIER = 'HbryEbLfum7OUMF5HfrKvCT06M53tPZ5KcPKj-mmBiihdkaF2XF_mhjuwCLj.XOBahhLxndp32LQ3X1LPW.hY2AKOeIqKq2IJ.ENjVR_PlvTDbzWZ_5zRkGa';
