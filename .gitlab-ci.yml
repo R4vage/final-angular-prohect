@@ -9,7 +9,7 @@ pages:
   script:
   - npm install -g @angular/cli@14.2.3
   - npm install
-  - ng build
+  - ng build --base-href
   - mkdir -p public
   - mv dist/tp-final-project/* public/
   artifacts:
