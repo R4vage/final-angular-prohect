@@ -11,9 +11,10 @@ pages:
   - npm install
   - ng build
   - mkdir -p public
-  - mv dist/tp-final-project* public/
+  - mv dist/* public/
   artifacts:
     paths:
     - public
   only:
   - main
+  - pages
