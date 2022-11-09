@@ -26,7 +26,7 @@ export class CategoriesResolver implements Resolve<boolean> {
       }),
 
       filter((categoryLoaded) => {
-        return !categoryLoaded;
+        return categoryLoaded;
       }),
       first(),
       finalize(() => {

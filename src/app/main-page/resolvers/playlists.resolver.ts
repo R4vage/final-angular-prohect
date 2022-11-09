@@ -25,7 +25,7 @@ export class PlaylistsResolver implements Resolve<boolean> {
         },
       }),
       filter((playlistLoaded) => {
-        return !playlistLoaded;
+        return playlistLoaded;
       }),
       first(),
       finalize(() => {

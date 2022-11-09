@@ -56,7 +56,7 @@ describe('LoginGuard', () => {
     mockIsLoggedOutSelector.setResult(false);
     store.refreshState();
 
-    const urlTreeLogIn = router.parseUrl('/');
+    const urlTreeLogIn = router.parseUrl('/home');
 
     guard.canActivate().subscribe({
       next: (bol) => {

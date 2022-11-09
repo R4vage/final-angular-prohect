@@ -15,7 +15,6 @@ describe('LocalStorageService', () => {
   });
 
   it('should save token in local storage', () => {
-    spyOn(localStorageService, 'getRefreshCode').and.returnValue('refresh');
     const data = {
       access_token: 'access',
       refresh_token: 'refresh',
@@ -26,7 +25,6 @@ describe('LocalStorageService', () => {
 
     localStorageService.saveTokens(data);
 
-    expect(localStorageService.getRefreshCode).toHaveBeenCalled();
     expect(localStorage.getItem('login')).toBeTruthy();
     expect(JSON.parse(localStorage.getItem('login') as string)).toEqual({ ...data, refresh_token: 'refresh' });
   });

@@ -13,7 +13,7 @@ export interface Albums {
 }
 
 export interface AlbumItem {
-  album_type: AlbumTypeEnum;
+  album_type: string;
   artists: Artist[];
   available_markets: string[];
   external_urls: ExternalUrls;
@@ -21,16 +21,11 @@ export interface AlbumItem {
   id: string;
   images: Image[];
   name: string;
-  release_date: Date;
-  release_date_precision: ReleaseDatePrecision;
+  release_date: Date | string;
+  release_date_precision: string;
   total_tracks: number;
-  type: AlbumTypeEnum;
+  type: string;
   uri: string;
-}
-
-export enum AlbumTypeEnum {
-  Album = 'album',
-  Single = 'single',
 }
 
 export interface Artist {
@@ -38,7 +33,7 @@ export interface Artist {
   href: string;
   id: string;
   name: string;
-  type: ArtistType;
+  type: string;
   uri: string;
 }
 
@@ -46,16 +41,8 @@ export interface ExternalUrls {
   spotify: string;
 }
 
-export enum ArtistType {
-  Artist = 'artist',
-}
-
 export interface Image {
   height: number;
   url: string;
   width: number;
-}
-
-export enum ReleaseDatePrecision {
-  Day = 'day',
 }

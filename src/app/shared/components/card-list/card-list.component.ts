@@ -2,15 +2,16 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-card-list',
-  templateUrl: './card-list.component.html',
-  styleUrls: ['./card-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: `
+    <section class="section">
+      <ng-content select="h2"></ng-content>
+
+      <ng-content select=".cards"></ng-content>
+    </section>
+  `,
+
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CardListComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class CardListComponent {
+  constructor() {}
 }

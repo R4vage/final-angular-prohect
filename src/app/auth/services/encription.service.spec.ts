@@ -39,7 +39,7 @@ describe('EncriptionService', () => {
     let str = 'test';
     let encodedString: string = encriptionService.encodeString(str);
 
-    expect(encodedString).toBe('dGVzdA==');
+    expect(encodedString).toBe('dGVzdA');
 
     str = 'Cal244D_2532AS-.ASc24';
     encodedString = encriptionService.encodeString(str);

@@ -25,7 +25,7 @@ export class AlbumsResolver implements Resolve<boolean> {
         },
       }),
       filter((productsLoaded) => {
-        return !productsLoaded;
+        return productsLoaded;
       }),
       first(),
       finalize(() => {

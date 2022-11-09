@@ -132,6 +132,7 @@ describe('AuthService', () => {
     const refreshToken = 'refresh';
     const refressRequest: RefreshResponse = {
       access_token: '1234',
+      refresh_token: 'refresh',
       token_type: 'Bearer',
       scope: 'scope',
       expire_in: 0,
