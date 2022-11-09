@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "baseHref": "/tp-final-project",
+            "baseHref": "/",
             "outputPath": "dist/tp-final-project",
             "index": "src/index.html",
             "main": "src/main.ts",
