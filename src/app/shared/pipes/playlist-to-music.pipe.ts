@@ -8,7 +8,6 @@ import { PlaylistItem, Playlists } from 'src/app/core/models/playlist.models';
 export class PlaylistToMusicPipe implements PipeTransform {
   transform(playlist: PlaylistItem): MusicCard {
     const defaultImage = 'assets/images/image-not-found.png';
-    console.log(playlist);
     return {
       title: playlist.name,
       imageUrl:

@@ -8,10 +8,12 @@ import { MusicCardComponent } from './components/music-card/music-card.component
 import { AlbumToMusicPipe } from './pipes/album-to-music.pipe';
 import { TitleCardTruncatePipe } from './pipes/title-card-truncate.pipe';
 import { PlaylistToMusicPipe } from './pipes/playlist-to-music.pipe';
+import { CategoryToMusicPipe } from './pipes/category-to-music.pipe';
+import { CardListComponent } from './components/card-list/card-list.component';
 
-const COMPONENTS = [SideNavComponent, NavBarComponent, MusicCardComponent];
+const COMPONENTS = [SideNavComponent, NavBarComponent, MusicCardComponent, CardListComponent];
 
-const PIPES = [AlbumToMusicPipe, TitleCardTruncatePipe, PlaylistToMusicPipe];
+const PIPES = [AlbumToMusicPipe, TitleCardTruncatePipe, PlaylistToMusicPipe, CategoryToMusicPipe];
 
 @NgModule({
   declarations: [...COMPONENTS, ...PIPES],

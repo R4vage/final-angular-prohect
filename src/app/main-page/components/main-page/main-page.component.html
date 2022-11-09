@@ -1,23 +1,34 @@
 <div class="grid grid-cols-5 gap-5 p-5">
-  <section class="flex flex-col gap-4 col-span-5">
+  <app-card-list class="flex flex-col gap-4 col-span-5">
     <h2 class="col-span-2 text-white">New Album Releases</h2>
 
     <div
       *ngIf="albums$ | async as albums"
-      class="overflow-x-hidden min-h-[300px] grid grid-flow-col auto-cols-[100%] sm:auto-cols-[46%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[17.5%] gap-8"
+      class="cards overflow-x-hidden min-h-[300px] grid grid-flow-col auto-cols-[100%] sm:auto-cols-[46%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[17.5%] gap-8"
     >
       <app-music-card *ngFor="let album of albums.items" [musicData]="album | albumToMusic" class=""></app-music-card>
     </div>
-  </section>
+  </app-card-list>
 
-  <section class="flex flex-col gap-4 col-span-5">
+  <app-card-list class="flex flex-col gap-4 col-span-5">
     <h2 class="col-span-2 text-white">Featured Playlists</h2>
 
     <div
       *ngIf="featuredPlaylists$ | async as featuredPlaylists"
-      class="overflow-x-hidden min-h-[300px] grid grid-flow-col auto-cols-[100%] sm:auto-cols-[46%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[17.5%] gap-8"
+      class="cards overflow-x-hidden min-h-[300px] grid grid-flow-col auto-cols-[100%] sm:auto-cols-[46%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[17.5%] gap-8"
     >
       <app-music-card *ngFor="let playlist of featuredPlaylists.items" [musicData]="playlist | playlistToMusic" class=""></app-music-card>
     </div>
-  </section>
+  </app-card-list>
+
+  <app-card-list class="flex flex-col gap-4 col-span-5">
+    <h2 class="col-span-2 text-white">Categories</h2>
+
+    <div
+      *ngIf="availableCategories$ | async as availableCategories"
+      class="cards overflow-x-hidden min-h-[300px] grid grid-flow-col auto-cols-[100%] sm:auto-cols-[46%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[17.5%] gap-8"
+    >
+      <app-music-card *ngFor="let category of availableCategories.items" [musicData]="category | categoryToMusic" class=""></app-music-card>
+    </div>
+  </app-card-list>
 </div>

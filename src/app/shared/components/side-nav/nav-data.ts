@@ -11,4 +11,14 @@ export const sideNavData: NavData[] = [
     routerLink: 'album',
     label: 'Album',
   },
+  {
+    icon: 'queue_music',
+    routerLink: 'playlist',
+    label: 'Playlist',
+  },
+  {
+    icon: 'smart_display',
+    routerLink: 'category',
+    label: 'Category',
+  },
 ];
