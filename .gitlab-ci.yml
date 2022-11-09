@@ -16,5 +16,4 @@ pages:
     paths:
     - public
   only:
-  - master
-  - pages
+  - main
