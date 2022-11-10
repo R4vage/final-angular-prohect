@@ -28,6 +28,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
     StoreModule.forRoot(reducers, { metaReducers }),
     environment.production ? [] : StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([AppEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [
     {
