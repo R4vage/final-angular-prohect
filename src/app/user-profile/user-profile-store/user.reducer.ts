@@ -1,21 +1,22 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { User } from 'src/app/core/models/user-profile.models';
 import * as UserActions from './user.actions';
 
 export const userFeatureKey = 'user';
 
-export interface State {
 
-}
 
-export const initialState: State = {
-
-};
+export const initialState: User | {} = {};
 
 export const reducer = createReducer(
   initialState,
 
-  on(UserActions.loadUsers, state => state),
-  on(UserActions.loadUsersSuccess, (state, action) => state),
-  on(UserActions.loadUsersFailure, (state, action) => state),
+  on(UserActions.loadUser, state => state),
+  on(UserActions.loadUsersSuccess, (state, action) => {
+    return {...action.data, userLoaded:true}
+  }),
+  on(UserActions.loadUsersFailure, (state, action) => {
+    throw new Error(action.error)
+  }),
 
 );

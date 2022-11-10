@@ -11,7 +11,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private restService: UserProfileRestService) { }
 
   ngOnInit(): void {
-    this.restService.getProfile()
+    this.restService.getProfile().subscribe(res => console.log(res))
   }
 
 }
