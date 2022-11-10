@@ -6,9 +6,9 @@ export interface Categories {
   href: string;
   items: CategoryItem[];
   limit: number;
-  next: string;
+  next: string | null;
   offset: number;
-  previous: null;
+  previous: string | null;
   total: number;
 }
 

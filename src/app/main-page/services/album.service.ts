@@ -13,7 +13,7 @@ export class AlbumService {
   getAlbumReleases(limit = 20, offset = 0) {
     return this.http
       .get<{ albums: Albums }>(`${this.URL}/browse/new-releases`, {
-        params: this.getQueryParametersNewReleases(),
+        params: this.getQueryParametersNewReleases(limit, offset),
       })
       .pipe(map((data) => data.albums));
   }

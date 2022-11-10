@@ -7,9 +7,9 @@ export interface Playlists {
   href: string;
   items: PlaylistItem[];
   limit: number;
-  next: null;
+  next: string | null;
   offset: number;
-  previous: null;
+  previous: string | null;
   total: number;
 }
 

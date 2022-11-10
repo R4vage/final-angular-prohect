@@ -8,12 +8,12 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class CategoriesService {
-  private readonly URL = 'https://api.spotify.com/v1';
+  readonly URL = 'https://api.spotify.com/v1';
 
   getAvailableCategories(limit = 20, offset = 0) {
     return this.http
       .get<MainCategoriesResponse>(`${this.URL}/browse/categories`, {
-        params: this.getQueryParametersAvailableCategories(),
+        params: this.getQueryParametersAvailableCategories(limit, offset),
       })
       .pipe(
         map((data) => {

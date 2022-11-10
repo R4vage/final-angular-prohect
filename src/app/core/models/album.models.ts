@@ -6,9 +6,9 @@ export interface Albums {
   href: string;
   items: AlbumItem[];
   limit: number;
-  next: string;
+  next: string | null;
   offset: number;
-  previous: null;
+  previous: string | null;
   total: number;
 }
 

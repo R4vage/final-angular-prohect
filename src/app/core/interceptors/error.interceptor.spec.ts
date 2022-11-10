@@ -57,7 +57,6 @@ describe('ErrorInterceptor', () => {
           fail('It should have failed');
         },
         error: (error) => {
-          console.log(error);
           expect(error).toBeTruthy();
           expect(error).toBeInstanceOf(String);
 
