@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap } from 'rxjs/operators';
 import { Observable, EMPTY, of } from 'rxjs';
 import * as UserActions from './user.actions';
+import { UserProfileRestService } from '../services/user-profile-rest.service';
 
 
 @Injectable()
@@ -11,10 +12,9 @@ export class UserEffects {
   loadUsers$ = createEffect(() => {
     return this.actions$.pipe( 
 
-      ofType(UserActions.loadUsers),
+      ofType(UserActions.loadUser),
       concatMap(() =>
-        /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        EMPTY.pipe(
+        this.restService.getProfile().pipe(
           map(data => UserActions.loadUsersSuccess({ data })),
           catchError(error => of(UserActions.loadUsersFailure({ error }))))
       )
@@ -22,5 +22,5 @@ export class UserEffects {
   });
 
 
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, private restService: UserProfileRestService) {}
 }
