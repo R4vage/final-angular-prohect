@@ -20,7 +20,7 @@ export class LoginGuard implements CanActivate {
 
   checkLogout(loggedOut: boolean) {
     if (!loggedOut) {
-      return this.router.parseUrl('/');
+      return this.router.parseUrl('/home');
     }
     return loggedOut;
   }

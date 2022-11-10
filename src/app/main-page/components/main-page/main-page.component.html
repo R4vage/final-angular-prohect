@@ -1,0 +1,34 @@
+<div class="grid grid-cols-5 gap-5 p-5">
+  <app-card-list class="album-section flex flex-col gap-4 col-span-5">
+    <h2 class="title col-span-2 text-white">New Album Releases</h2>
+
+    <div
+      *ngIf="albums$ | async as albums"
+      class="cards overflow-x-hidden min-h-[300px] grid grid-flow-col auto-cols-[100%] sm:auto-cols-[46%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[17.5%] gap-8"
+    >
+      <app-music-card *ngFor="let album of albums" [musicData]="album | albumToMusic" class="card"></app-music-card>
+    </div>
+  </app-card-list>
+
+  <app-card-list class="playlist-section flex flex-col gap-4 col-span-5">
+    <h2 class="title col-span-2 text-white">Featured Playlists</h2>
+
+    <div
+      *ngIf="featuredPlaylists$ | async as featuredPlaylists"
+      class="cards overflow-x-hidden min-h-[300px] grid grid-flow-col auto-cols-[100%] sm:auto-cols-[46%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[17.5%] gap-8"
+    >
+      <app-music-card *ngFor="let playlist of featuredPlaylists" [musicData]="playlist | playlistToMusic" class="card"></app-music-card>
+    </div>
+  </app-card-list>
+
+  <app-card-list class="categories-section flex flex-col gap-4 col-span-5">
+    <h2 class="title col-span-2 text-white">Categories</h2>
+
+    <div
+      *ngIf="availableCategories$ | async as availableCategories"
+      class="cards overflow-x-hidden min-h-[300px] grid grid-flow-col auto-cols-[100%] sm:auto-cols-[46%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[17.5%] gap-8"
+    >
+      <app-music-card *ngFor="let category of availableCategories" [musicData]="category | categoryToMusic" class="card"></app-music-card>
+    </div>
+  </app-card-list>
+</div>

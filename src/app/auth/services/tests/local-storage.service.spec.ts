@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from '../local-storage.service';
 
 describe('LocalStorageService', () => {
   let localStorageService: LocalStorageService;
@@ -15,9 +14,9 @@ describe('LocalStorageService', () => {
   });
 
   it('should save token in local storage', () => {
-    spyOn(localStorageService, 'getRefreshCode').and.returnValue('refresh');
     const data = {
       access_token: 'access',
+      refresh_token: 'refresh',
       token_type: 'Bearer',
       scope: 'scope',
       expire_in: 10,
@@ -25,7 +24,6 @@ describe('LocalStorageService', () => {
 
     localStorageService.saveTokens(data);
 
-    expect(localStorageService.getRefreshCode).toHaveBeenCalled();
     expect(localStorage.getItem('login')).toBeTruthy();
     expect(JSON.parse(localStorage.getItem('login') as string)).toEqual({ ...data, refresh_token: 'refresh' });
   });

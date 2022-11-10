@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { catchError, from, map, throwError } from 'rxjs';
-import { AuthorizationSuccess, RefreshResponse } from '../models/authorization.models';
+import { catchError, from, map, tap, throwError } from 'rxjs';
+import { AuthorizationSuccess, RefreshResponse } from '../../core/models/authorization.models';
 import { EncriptionService } from './encription.service';
 import { LocalStorageService } from './local-storage.service';
 
@@ -12,7 +12,7 @@ import { LocalStorageService } from './local-storage.service';
 export class AuthService {
   private readonly CLIENT_ID = '1a742ee646b74af4a2a648a825f35326';
   private readonly SECRET_ID = '21a60243753a4a1a8f01eb6f7649c3b7';
-  private readonly URL = 'https://accounts.spotify.com';
+  readonly URL = 'https://accounts.spotify.com';
   private readonly REDIRECT_URL = 'http://localhost:4200/auth';
   private readonly SCOPES = `user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing playlist-modify-private`;
   private readonly CODE_VERIFIER = 'HbryEbLfum7OUMF5HfrKvCT06M53tPZ5KcPKj-mmBiihdkaF2XF_mhjuwCLj.XOBahhLxndp32LQ3X1LPW.hY2AKOeIqKq2IJ.ENjVR_PlvTDbzWZ_5zRkGa';
@@ -70,11 +70,14 @@ export class AuthService {
   }
 
   refreshToken(refreshToken: string) {
+    const client_id = this.CLIENT_ID;
     const dataBody = {
-      grant_type: 'authorization_code',
-      refresh_token: this.localStorageService.getRefreshCode(),
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+      client_id,
     };
-    const bodyRequest = new HttpParams().appendAll(dataBody).toString();
+    console.log('executin');
+    const bodyRequest = new HttpParams().appendAll(dataBody).toString().replace(' ', '');
     return this.http.post<RefreshResponse>(`${this.URL}/api/token`, bodyRequest, {
       headers: this.getHeaderRefreshToken(this.CLIENT_ID, this.SECRET_ID),
     });
@@ -82,7 +85,6 @@ export class AuthService {
 
   getHeaderRefreshToken(clientId: string, secretId: string) {
     return new HttpHeaders({
-      'Authorization': `Basic ${this.encrypt.encodeString(`${clientId}:${secretId}`)}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     });
   }

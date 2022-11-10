@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
 import { loginSuccessful } from './auth/auth-store/auth.actions';
-import { AuthorizationSuccess } from './auth/models/authorization.models';
+import { AuthorizationSuccess } from './core/models/authorization.models';
 
 describe('AppComponent', () => {
   let app: AppComponent;

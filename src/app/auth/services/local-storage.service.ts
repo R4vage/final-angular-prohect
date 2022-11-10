@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthorizationSuccess, RefreshResponse } from '../models/authorization.models';
+import { AuthorizationSuccess, RefreshResponse } from '../../core/models/authorization.models';
 
 @Injectable({
   providedIn: 'root',
@@ -8,11 +8,11 @@ export class LocalStorageService {
   constructor() {}
 
   setAccessCode(accessCode: string) {
-    localStorage.setItem('accessCode', accessCode);
+    localStorage.setItem('accessToken', accessCode);
   }
 
   setRefreshCode(refreshCode: string) {
-    localStorage.setItem('refreshCode', refreshCode);
+    localStorage.setItem('refreshToken', refreshCode);
   }
 
   setLoginData(loginData: string) {
@@ -21,20 +21,20 @@ export class LocalStorageService {
 
   saveTokens(data: RefreshResponse) {
     this.setAccessCode(data.access_token);
+    this.setRefreshCode(data.refresh_token);
     const loginUpdated: AuthorizationSuccess = {
       ...data,
-      refresh_token: this.getRefreshCode(),
     };
 
     this.setLoginData(JSON.stringify(loginUpdated));
   }
 
   getAccessCode() {
-    return localStorage.getItem('accessCode') || '';
+    return localStorage.getItem('accessToken') || '';
   }
 
   getRefreshCode() {
-    return localStorage.getItem('refresfCode') || '';
+    return localStorage.getItem('refreshToken') || '';
   }
 
   getLoginData(): string {

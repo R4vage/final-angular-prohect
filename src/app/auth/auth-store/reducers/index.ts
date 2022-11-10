@@ -1,6 +1,6 @@
 import { ActionReducer, ActionReducerMap, createFeatureSelector, createReducer, createSelector, MetaReducer, on } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
-import { AuthorizationSuccess } from '../../models/authorization.models';
+import { AuthorizationSuccess } from '../../../core/models/authorization.models';
 import { loginSuccessful, logOut } from '../auth.actions';
 
 export const authStoreFeatureKey = 'authStore';
