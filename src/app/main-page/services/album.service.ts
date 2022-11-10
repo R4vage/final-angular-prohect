@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AlbumService {
-  private readonly URL = 'https://api.spotify.com/v1';
+  readonly URL = 'https://api.spotify.com/v1';
 
   getAlbumReleases(limit = 20, offset = 0) {
     return this.http

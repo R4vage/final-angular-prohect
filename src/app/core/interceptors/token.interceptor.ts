@@ -23,7 +23,6 @@ export class TokenInterceptor implements HttpInterceptor {
           return this.refreshToken(request, next, this.localStorageService.getRefreshCode());
         }
 
-        console.log(error);
         throw error;
       })
     );
@@ -38,7 +37,6 @@ export class TokenInterceptor implements HttpInterceptor {
       this.isRefreshingToken = true;
 
       this.tokenSubject.next(null);
-
       return this.authService.refreshToken(refreshToken).pipe(
         switchMap((response) => {
           this.tokenSubject.next(response.access_token);
@@ -52,6 +50,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }),
         catchError((error) => {
           this.store.dispatch(logOut());
+
           throw error;
         }),
         finalize(() => {

@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-
-import { EncriptionService } from './encription.service';
+import { EncriptionService } from '../encription.service';
 
 describe('EncriptionService', () => {
   let encriptionService: EncriptionService;

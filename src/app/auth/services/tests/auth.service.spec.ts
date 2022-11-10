@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthService } from './auth.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { EncriptionService } from './encription.service';
-import { LocalStorageService } from './local-storage.service';
 import { map, tap } from 'rxjs';
 
-import { AuthorizationSuccess, RefreshResponse } from '../../core/models/authorization.models';
+import { AuthService } from '../auth.service';
+import { EncriptionService } from '../encription.service';
+import { LocalStorageService } from '../local-storage.service';
+import { AuthorizationSuccess, RefreshResponse } from 'src/app/core/models/authorization.models';
 
 describe('AuthService', () => {
   let authService: AuthService;
