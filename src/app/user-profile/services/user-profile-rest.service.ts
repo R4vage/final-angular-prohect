@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AlbumItem } from 'src/app/core/models/album.models';
 import { UserAlbumsResponse, UserArtistsResponse, UserTracksResponse } from 'src/app/core/models/rest.models';
 import { User } from 'src/app/core/models/user-profile.models';
 
