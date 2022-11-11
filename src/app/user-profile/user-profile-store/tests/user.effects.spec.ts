@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
-import { UserEffects } from '../user.effects';
+import { UserEffects } from '../effects/user.effects';
 
 describe('UserEffects', () => {
   let actions$: Observable<any>;
@@ -10,10 +10,7 @@ describe('UserEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        UserEffects,
-        provideMockActions(() => actions$)
-      ]
+      providers: [UserEffects, provideMockActions(() => actions$)],
     });
 
     effects = TestBed.inject(UserEffects);

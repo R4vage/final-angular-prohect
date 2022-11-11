@@ -1,7 +1,7 @@
-import { reducer, initialState } from '../reducers/user.reducer';
+import { reducer, initialState } from '../reducers/top-albums.reducer';
 
-describe('User Reducer', () => {
-  describe('an unknown action', () => {
+describe('TopUserAlbum Reducer', () => {
+  describe('unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;
 
