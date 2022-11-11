@@ -14,7 +14,11 @@ export class AuthService {
   private readonly SECRET_ID = '21a60243753a4a1a8f01eb6f7649c3b7';
   readonly URL = 'https://accounts.spotify.com';
   private readonly REDIRECT_URL = 'http://localhost:4200/auth';
+<<<<<<< HEAD
   private readonly SCOPES = `user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing playlist-modify-private playlist-read-collaborative user-library-modify user-library-read user-follow-read user-top-read`;
+=======
+  private readonly SCOPES = `user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing playlist-modify-private playlist-read-collaborative user-library-modify user-library-read user-follow-read `;
+>>>>>>> f462325 (Added top user artists and tracks stores.)
   private readonly CODE_VERIFIER = 'HbryEbLfum7OUMF5HfrKvCT06M53tPZ5KcPKj-mmBiihdkaF2XF_mhjuwCLj.XOBahhLxndp32LQ3X1LPW.hY2AKOeIqKq2IJ.ENjVR_PlvTDbzWZ_5zRkGa';
   readonly STATE = 'Cs5Jm6qjtreXI4IL';
 
