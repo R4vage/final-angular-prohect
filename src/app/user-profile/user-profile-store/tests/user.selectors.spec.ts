@@ -1,10 +1,10 @@
-import * as fromUser from '../user.reducer';
-import { selectUserState } from '../user.selectors';
+import * as fromUser from '../reducers/user.reducer';
+import { selectUserState } from '../selectors/user.selectors';
 
 describe('User Selectors', () => {
   it('should select the feature state', () => {
     const result = selectUserState({
-      [fromUser.userFeatureKey]: {}
+      [fromUser.userFeatureKey]: {},
     });
 
     expect(result).toEqual({});
