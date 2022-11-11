@@ -1,1 +1,7 @@
 <p>user-profile works!</p>
+<app-card-list *ngIf="topUserTracks$ | async as tracks">
+    <h2>Tracks</h2>
+    <div *ngFor="let track of tracks" class="cards">
+        <app-track-card  [buttons]="true"[track]="track" ></app-track-card>
+    </div>
+</app-card-list>

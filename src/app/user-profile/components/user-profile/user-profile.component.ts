@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { User } from 'src/app/core/models/user-profile.models';
-import { UserProfileRestService } from '../../services/user-profile-rest.service';
-import { loadTopUserAlbums } from '../../user-profile-store/actions/top-albums.actions';
-import { TopUserAlbumsState } from '../../user-profile-store/reducers/top-albums.reducer';
-import { selectAllTopAlbums, selectAreTopAlbumsLoaded } from '../../user-profile-store/selectors/top-albums.selectors';
-import { selectIsUserLoaded } from '../../user-profile-store/selectors/user.selectors';
+import { Observable } from 'rxjs';
+import { Artist } from 'src/app/core/models/album.models';
+import { Track } from 'src/app/core/models/track.models';
+import { selectAllTopArtists } from '../../user-profile-store/selectors/top-artists.selectors';
+import { selectAllTopTracks } from '../../user-profile-store/selectors/top-tracks.selectors';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,15 +12,16 @@ import { selectIsUserLoaded } from '../../user-profile-store/selectors/user.sele
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
+  followedArtists$!: Observable<Artist[]>;
+  topUserTracks$!: Observable<Track[]>
 
-  constructor(private restService: UserProfileRestService, private store: Store<TopUserAlbumsState>, private userStore: Store<User>) { }
+
+  constructor( private store: Store) { }
 
   ngOnInit(): void {
-/*     this.restService.getUsersTopAlbums().subscribe(res => console.log(res));
-    this.restService.getProfile().subscribe(res => console.log(res));
-    this.restService.getUsersFollowedArtists().subscribe(res => console.log(res));
-    this.restService.getUsersSavedTracks().subscribe(res => console.log(res)); */
-
+    this.followedArtists$ = this.store.select(selectAllTopArtists);
+    this.topUserTracks$ = this.store.select(selectAllTopTracks);
+    this.topUserTracks$.subscribe(track => {console.log(track)})
 
   }
 

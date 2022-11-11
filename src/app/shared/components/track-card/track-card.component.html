@@ -1,0 +1,7 @@
+<mat-card>
+    <mat-card-header>
+        <h2>{{track.name}}</h2>
+    </mat-card-header>
+    <mat-card-content><img [src]="track.album.images[1].url"></mat-card-content>
+    <mat-card-subtitle>{{track.duration_ms | date:'mm:ss' }}</mat-card-subtitle>
+</mat-card>

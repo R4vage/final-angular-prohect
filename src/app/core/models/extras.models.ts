@@ -1,4 +1,4 @@
-export interface ImageData {
+export interface ImageInfo {
     height: number;
     url: string;
     width: number;

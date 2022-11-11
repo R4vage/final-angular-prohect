@@ -1,7 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-
-import { TopUserTrack } from '../top-user-track.model';
 import { Track } from 'src/app/core/models/track.models';
 
 export const loadTopUserTracks = createAction(
