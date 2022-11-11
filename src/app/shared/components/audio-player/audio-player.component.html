@@ -1,21 +1,27 @@
 <div class="flex flex-row justify-center gap-3 flex-wrap text-white">
   <div class="flex flex-row items-center">
-    <button (click)="playAudio()" color="accent" mat-fab class="">
+    <button (click)="playAudio()" color="accent" mat-fab class="play-button">
       <mat-icon *ngIf="!isPlayingAudio" class="">play_arrow</mat-icon>
       <mat-icon *ngIf="isPlayingAudio">pause</mat-icon>
     </button>
   </div>
   <div class="flex flex-row items-center">
-    <mat-slider [value]="floatToInteger((currentTime / durationSong) * 100)" #currentTimeBar [thumbLabel]="true" (input)="currentTimeManager(currentTimeBar.value)"></mat-slider>
-    <span *ngIf="durationSong" class="ml-2">{{ currentTime | secondTrackMusic }}/{{ audio.duration | secondTrackMusic }}</span>
+    <mat-slider
+      class="current-time-slider"
+      [value]="floatToInteger((currentTime / durationSong) * 100)"
+      #currentTimeBar
+      [thumbLabel]="true"
+      (input)="currentTimeManager(currentTimeBar.value)"
+    ></mat-slider>
+    <span *ngIf="durationSong" class="time-music ml-2">{{ currentTime | secondTrackMusic }}/{{ durationSong | secondTrackMusic }}</span>
   </div>
   <div class="flex flex-row items-center">
-    <button color="accent" mat-icon-button (click)="muteMusic(volumeBar.value)">
+    <button class="mute-button" color="accent" mat-icon-button (click)="muteMusic(volumeBar.value)">
       <mat-icon *ngIf="volumeBar.value === 0">volume_off</mat-icon>
       <mat-icon *ngIf="volumeBar.value > 0 && volumeBar.value <= 25">volume_mute</mat-icon>
       <mat-icon *ngIf="volumeBar.value > 25 && volumeBar.value <= 75">volume_down</mat-icon>
       <mat-icon *ngIf="volumeBar.value > 75">volume_up</mat-icon>
     </button>
-    <mat-slider [thumbLabel]="true" [(ngModel)]="volumeValueSlider" #volumeBar (input)="volumeManager(volumeBar.value)"></mat-slider>
+    <mat-slider class="volume-bar" [thumbLabel]="true" [(ngModel)]="volumeValueSlider" #volumeBar (input)="volumeManager(volumeBar.value)"></mat-slider>
   </div>
 </div>

@@ -18,6 +18,7 @@ export class TrackEffects {
         throw err;
       }),
       map((track) => {
+        console.log(track);
         return addTrack({ track });
       })
     );
