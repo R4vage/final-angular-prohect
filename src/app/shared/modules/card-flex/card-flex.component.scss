@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 h2{
     color: white;
     font-weight: 600;
@@ -11,4 +12,61 @@ h2{
     gap: 4em;
     align-self: center;
     padding-bottom: 1em;
+=======
+.cards{
+    display: flex;
+    flex-direction: row;
+    overflow-x: hidden;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+
+    .card:nth-of-type(2) {
+        display: hidden;
+    }
+}
+
+@media (max-width:450px) {
+    .card:nth-of-type(n + 3){
+        display: none;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+    .card:nth-of-type(n + 4){
+        display: none;
+    }
+}
+
+@media (max-width: 769px) {
+    .card:nth-of-type(n + 5){
+        display: none;
+    }
+}
+
+@media (max-width: 980px) {
+    .card:nth-of-type(n + 4){
+        display: none;
+    }
+}
+
+@media (max-width: 1220px) {
+    .card:nth-of-type(n + 5){
+        display: none;
+    }
+}
+
+@media (max-width: 1650px) {
+    .card:nth-of-type(n + 6){
+        display: none;
+    }
+}
+
+@media (min-width: 1650px) {
+    .card:nth-of-type(n + 8){
+        display: none;
+    }
+>>>>>>> 4ee285e (Track and Artist Card, shared flex for display)
 }

@@ -1,0 +1,36 @@
+:host{
+    display: inline-block;
+    width: 130px;
+}
+
+mat-card{
+    display: flex;
+    flex-direction: column;
+    img{
+        width: 100%;
+        height: fit-content;
+        object-fit: cover;
+        height: 100%;
+        max-height: 190px;
+    }
+
+    h2{
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+        white-space: nowrap;
+        width: max-content;
+        max-width: 100%;
+    }
+}
+
+@media (min-width:420px) {
+    :host{
+        width: 140px;
+    }
+}
+
+@media (min-width:769px) {
+    :host{
+        width: 230px;
+    }
+}
