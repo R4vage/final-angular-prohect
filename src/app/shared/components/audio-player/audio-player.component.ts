@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { BehaviorSubject, combineLatest, fromEvent, Observable, Subject, takeUntil, tap, throttleTime } from 'rxjs';
+import { prependListener } from 'process';
+import { BehaviorSubject, combineLatest, fromEvent, ignoreElements, Observable, Subject, takeUntil, tap, throttleTime } from 'rxjs';
 
 @Component({
   selector: 'app-audio-player',
@@ -10,6 +11,8 @@ import { BehaviorSubject, combineLatest, fromEvent, Observable, Subject, takeUnt
 export class AudioPlayerComponent implements OnInit, OnDestroy {
   @Input() musicURL!: string;
 
+  volumeValueSlider = 100;
+
   currentTime = 0;
   durationSong = 0;
   audio!: HTMLAudioElement;
@@ -18,6 +21,10 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   onDestroy$ = new Subject();
 
   isPlayingAudio = false;
+  isMuted = {
+    check: false,
+    previousValue: this.volumeValueSlider,
+  };
 
   constructor() {}
 
@@ -53,6 +60,20 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
 
   volumeManager(volume: number) {
     this.audio.volume = volume / 100;
+  }
+
+  muteMusic(volume: number) {
+    if (this.isMuted.check) {
+      this.audio.volume = this.isMuted.previousValue / 100;
+      this.volumeValueSlider = this.isMuted.previousValue;
+    } else {
+      this.audio.volume = 0;
+      this.volumeValueSlider = 0;
+    }
+    this.isMuted = {
+      check: !this.isMuted.check,
+      previousValue: volume,
+    };
   }
 
   currentTimeManager(time: number) {

@@ -10,12 +10,12 @@
     <span *ngIf="durationSong" class="ml-2">{{ currentTime | secondTrackMusic }}/{{ audio.duration | secondTrackMusic }}</span>
   </div>
   <div class="flex flex-row items-center">
-    <button color="accent" mat-icon-button>
+    <button color="accent" mat-icon-button (click)="muteMusic(volumeBar.value)">
       <mat-icon *ngIf="volumeBar.value === 0">volume_off</mat-icon>
       <mat-icon *ngIf="volumeBar.value > 0 && volumeBar.value <= 25">volume_mute</mat-icon>
       <mat-icon *ngIf="volumeBar.value > 25 && volumeBar.value <= 75">volume_down</mat-icon>
       <mat-icon *ngIf="volumeBar.value > 75">volume_up</mat-icon>
     </button>
-    <mat-slider value="100" [thumbLabel]="true" #volumeBar (input)="volumeManager(volumeBar.value)"></mat-slider>
+    <mat-slider [thumbLabel]="true" [(ngModel)]="volumeValueSlider" #volumeBar (input)="volumeManager(volumeBar.value)"></mat-slider>
   </div>
 </div>
