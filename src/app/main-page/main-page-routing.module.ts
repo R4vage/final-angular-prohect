@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TrackDetailResolver } from '../track-detail-page/resolvers/track-detail.resolver';
 import { LayoutComponent } from './components/layout/layout.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { AlbumsResolver } from './resolvers/albums.resolver';
@@ -18,6 +19,13 @@ const routes: Routes = [
           albums: AlbumsResolver,
           playlists: PlaylistsResolver,
           categories: CategoriesResolver,
+        },
+      },
+      {
+        path: 'track/:id',
+        loadChildren: () => import('../track-detail-page/track-detail-page.module').then((m) => m.TrackDetailPageModule),
+        resolve: {
+          track: TrackDetailResolver,
         },
       },
     ],

@@ -1,0 +1,21 @@
+<div class="flex flex-row justify-center gap-3 flex-wrap text-white">
+  <div class="flex flex-row items-center">
+    <button (click)="playAudio()" color="accent" mat-fab class="">
+      <mat-icon *ngIf="!isPlayingAudio" class="">play_arrow</mat-icon>
+      <mat-icon *ngIf="isPlayingAudio">pause</mat-icon>
+    </button>
+  </div>
+  <div class="flex flex-row items-center">
+    <mat-slider [value]="floatToInteger((currentTime / durationSong) * 100)" #currentTimeBar [thumbLabel]="true" (input)="currentTimeManager(currentTimeBar.value)"></mat-slider>
+    <span *ngIf="durationSong" class="ml-2">{{ currentTime | secondTrackMusic }}/{{ audio.duration | secondTrackMusic }}</span>
+  </div>
+  <div class="flex flex-row items-center">
+    <button color="accent" mat-icon-button>
+      <mat-icon *ngIf="volumeBar.value === 0">volume_off</mat-icon>
+      <mat-icon *ngIf="volumeBar.value > 0 && volumeBar.value <= 25">volume_mute</mat-icon>
+      <mat-icon *ngIf="volumeBar.value > 25 && volumeBar.value <= 75">volume_down</mat-icon>
+      <mat-icon *ngIf="volumeBar.value > 75">volume_up</mat-icon>
+    </button>
+    <mat-slider value="100" [thumbLabel]="true" #volumeBar (input)="volumeManager(volumeBar.value)"></mat-slider>
+  </div>
+</div>

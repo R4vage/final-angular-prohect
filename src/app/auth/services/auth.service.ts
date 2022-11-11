@@ -76,7 +76,6 @@ export class AuthService {
       refresh_token: refreshToken,
       client_id,
     };
-    console.log('executin');
     const bodyRequest = new HttpParams().appendAll(dataBody).toString().replace(' ', '');
     return this.http.post<RefreshResponse>(`${this.URL}/api/token`, bodyRequest, {
       headers: this.getHeaderRefreshToken(this.CLIENT_ID, this.SECRET_ID),

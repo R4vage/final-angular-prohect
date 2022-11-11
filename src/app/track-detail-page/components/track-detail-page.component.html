@@ -1,0 +1,40 @@
+<div class="min-h-full grid sm:grid-rows-2">
+  <div *ngIf="track$ | async as track" class="max-w-96 grid grid-cols-6 grid-rows-1 lg:grid-rows-2 gap-5 p-5 pt-10 bg-gradient-to-t from-slate-800 to-slate-700">
+    <div class="col-span-2 row-span-2 self-center sm:self-start md:self-end">
+      <img [src]="getImage(track)" class="" />
+    </div>
+    <div class="col-span-4 lg:row-start-2 col-start-3 self-center sm:self-start md:self-end flex flex-col justify-around text-white">
+      <div class="font-extrabold">Song</div>
+      <div class="title font-extrabold text-4xl pb-3">{{ track.name }}</div>
+      <div class="artist">
+        <span class="font-semibold">{{ track.artists | listArtists }}</span>
+        <span class="mx-1 font-semibold align-middle">•</span>
+        <span class="">{{ track.album.release_date | date: 'yyyy' }}</span>
+        <span class="mx-1 font-semibold align-middle">•</span>
+        <span>{{ track.duration_ms | date: 'mm:ss' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="m-0 p-[16px] h-full pt-10 bg-opacity-60 bg-gradient-to-t from-black to-slate-800">
+    <app-audio-player *ngIf="track$ | async as track" [musicURL]="track.preview_url"></app-audio-player>
+
+    <div *ngIf="track$ | async" class="flex flex-row justify-center gap-5">
+      <button color="accent" [disabled]="isTrackSaved" (click)="saveTrack(idTrack)" mat-raised-button class="text-xl font-semibold flex flex-row justify-center items-center">
+        <mat-icon class="inline-block sm:hidden sm:mr-2">favorite</mat-icon>
+        <span class="hidden sm:inline-block">Save Track</span>
+      </button>
+      <button color="warn" [disabled]="isTrackNotSaved" (click)="deleteTrack(idTrack)" mat-raised-button class="text-xl font-medium">
+        <mat-icon class="inline-block sm:hidden sm:mr-2">delete</mat-icon>
+        <span class="hidden sm:inline-block">Delete Track</span>
+      </button>
+    </div>
+
+    <!-- <div class="p-[30px] grid grid-cols-tableTracks gap-2 text-gray-400">
+      <span class=""># </span>
+      <span>TITLE</span>
+      <span class="">rel </span>
+    </div>
+    <div ></div> -->
+  </section>
+</div>

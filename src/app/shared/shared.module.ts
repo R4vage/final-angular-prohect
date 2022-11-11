@@ -10,14 +10,18 @@ import { TitleCardTruncatePipe } from './pipes/title-card-truncate.pipe';
 import { PlaylistToMusicPipe } from './pipes/playlist-to-music.pipe';
 import { CategoryToMusicPipe } from './pipes/category-to-music.pipe';
 import { CardListComponent } from './components/card-list/card-list.component';
+import { ListArtistsPipe } from './pipes/list-artists.pipe';
+import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SecondTrackMusicPipe } from './pipes/second-track-music.pipe';
 
 const COMPONENTS = [SideNavComponent, NavBarComponent, MusicCardComponent, CardListComponent];
 
-const PIPES = [AlbumToMusicPipe, TitleCardTruncatePipe, PlaylistToMusicPipe, CategoryToMusicPipe];
+const PIPES = [AlbumToMusicPipe, TitleCardTruncatePipe, PlaylistToMusicPipe, CategoryToMusicPipe, ListArtistsPipe, SecondTrackMusicPipe];
 
 @NgModule({
-  declarations: [...COMPONENTS, ...PIPES],
-  imports: [CommonModule, MaterialModule, RouterModule],
-  exports: [...COMPONENTS, ...PIPES],
+  declarations: [...COMPONENTS, ...PIPES, AudioPlayerComponent],
+  imports: [CommonModule, MaterialModule, RouterModule, FormsModule, ReactiveFormsModule],
+  exports: [...COMPONENTS, ...PIPES, AudioPlayerComponent],
 })
 export class SharedModule {}
