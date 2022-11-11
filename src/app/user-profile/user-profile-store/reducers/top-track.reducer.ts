@@ -1,6 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { TopUserTrack } from '../top-user-track.model';
 import * as TopUserTrackActions from '../actions/top-track.actions';
 import { Track } from 'src/app/core/models/track.models';
 
