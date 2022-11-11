@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserAlbumsResponse, UserArtistsResponse, UserTracksResponse } from 'src/app/core/models/rest.models';
+import { UserAlbumsResponse, UserTopArtistsResponse, UserTopTracksResponse } from 'src/app/core/models/rest.models';
 import { User } from 'src/app/core/models/user-profile.models';
 
 
@@ -25,11 +25,11 @@ export class UserProfileRestService {
     return this.http.get<UserAlbumsResponse>(`${this.URL}/me/albums`, this.options)
   }
 
-  getUsersFollowedArtists():Observable<UserArtistsResponse> {
-    return this.http.get<UserArtistsResponse>(`${this.URL}/me/following?type=artist`)
+  getUsersTopArtists():Observable<UserTopArtistsResponse> {
+    return this.http.get<UserTopArtistsResponse>(`${this.URL}/me/top/artists?time_range=medium_term&limit=10`)
   }
 
-  getUsersSavedTracks():Observable<UserTracksResponse> {
-    return this.http.get<UserTracksResponse>(`${this.URL}/me/tracks`)
+  getUsersTopTracks():Observable<UserTopTracksResponse> {
+    return this.http.get<UserTopTracksResponse>(`${this.URL}/me/top/tracks?time_range=medium_term&limit=10`)
   }
 }
