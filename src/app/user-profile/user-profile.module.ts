@@ -16,7 +16,9 @@ import { TopArtistEffects } from './user-profile-store/effects/top-artists.effec
 import { TopTracksEffect } from './user-profile-store/effects/top-tracks.effects';
 import { UserEffects } from './user-profile-store/effects/user.effects';
 import { SharedModule } from '../shared/shared.module';
-import { TrackCardModule } from '../shared/components/track-card/track-card.module';
+import { TrackCardModule } from '../shared/modules/track-card/track-card.module';
+import { CardFlexModule } from '../shared/modules/card-flex/card-flex.module';
+import { ArtistCardModule } from '../shared/modules/artist-card/artist-card.module';
 
 const Stores = [
   StoreModule.forFeature(fromUser.userFeatureKey, fromUser.reducer),
@@ -33,7 +35,9 @@ const Stores = [
     EffectsModule.forFeature([UserEffects, TopAlbumsEffects, TopArtistEffects, TopTracksEffect]),
     UserProfileRoutingModule,
     SharedModule,
-    TrackCardModule
+    TrackCardModule,
+    CardFlexModule,
+    ArtistCardModule
   ],
   providers: [UserProfileRestService],
 })

@@ -11,9 +11,10 @@ export class TopArtistEffects {
     return this.actions$.pipe(
       ofType(topArtistActions.loadTopUserArtists),
       concatMap(() =>
-        this.restService.getUsersFollowedArtists().pipe(
+        this.restService.getUsersTopArtists().pipe(
             map((data) => {
-            return topArtistActions.loadTopUserArtistsSuccess({ topUserArtists: data.artists.items })}),
+                console.log(data.items)
+            return topArtistActions.loadTopUserArtistsSuccess({ topUserArtists: data.items })}),
           catchError((error) => of(topArtistActions.loadTopUserArtistFailure({ error }))) 
         )
       )

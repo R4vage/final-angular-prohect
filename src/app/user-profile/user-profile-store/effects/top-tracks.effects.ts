@@ -12,15 +12,10 @@ export class TopTracksEffect {
     return this.actions$.pipe(
       ofType(topTrackActions.loadTopUserTracks),
       concatMap(() =>
-        this.restService.getUsersSavedTracks().pipe(
+        this.restService.getUsersTopTracks().pipe(
           map((data) => {
-            console.log(data);
-            let trackArray: Track[] = []
-            data.items.map(item => {
-                trackArray.push(item.track)
-            }) 
             return topTrackActions.loadTopUserTracksSuccess({
-              topUserTracks: trackArray,
+              topUserTracks: data.items,
             });
           }),
           catchError((error) =>

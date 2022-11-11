@@ -12,14 +12,14 @@ import { selectAllTopTracks } from '../../user-profile-store/selectors/top-track
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  followedArtists$!: Observable<Artist[]>;
+  topUserArtists$!: Observable<Artist[]>;
   topUserTracks$!: Observable<Track[]>
 
 
   constructor( private store: Store) { }
 
   ngOnInit(): void {
-    this.followedArtists$ = this.store.select(selectAllTopArtists);
+    this.topUserArtists$ = this.store.select(selectAllTopArtists);
     this.topUserTracks$ = this.store.select(selectAllTopTracks);
     this.topUserTracks$.subscribe(track => {console.log(track)})
 

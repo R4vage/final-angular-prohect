@@ -14,18 +14,28 @@ export interface UserAlbumsResponse extends PaginatedResponse {
   items: AlbumItem[];
 }
 
-export interface UserTracksResponse extends PaginatedResponse {
+export interface UserSavedTracksResponse extends PaginatedResponse {
   href: string;
   items: ResponseTracks[];
 }
+
+export interface UserTopTracksResponse extends PaginatedResponse {
+    href: string;
+    items: Track[];
+  }
 
 export interface ResponseTracks {
     track: Track
     added_at: string
 }
 
-export interface UserArtistsResponse {
+export interface UserSavedArtistsResponse {
     artists:Artists
+}
+
+export interface UserTopArtistsResponse {
+    href: string;
+    items: Artist[];
 }
 
 interface Artists extends PaginatedResponse{
