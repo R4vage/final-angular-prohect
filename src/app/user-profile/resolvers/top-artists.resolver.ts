@@ -13,7 +13,7 @@ import { selectAreTopArtistsLoaded, selectTopArtistsState } from '../user-profil
 @Injectable({
   providedIn: 'root',
 })
-export class FollowedArtistsResolver implements Resolve<boolean> {
+export class TopArtistsResolver implements Resolve<boolean> {
   loading = false;
   constructor(private store: Store<TopUserArtistState>) {}
 
