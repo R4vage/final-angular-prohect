@@ -39,6 +39,8 @@
         color: white;
         border-radius: 100px;
         box-shadow: 2px 2px 5px 5px rgba(6, 6, 6, 0.609);
+        max-width: unset;
+        object-fit: cover;
     }
     div{
         display: flex;
