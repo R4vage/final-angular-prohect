@@ -11,7 +11,12 @@ export interface PaginatedResponse {
 
 export interface UserAlbumsResponse extends PaginatedResponse {
   href: string;
-  items: AlbumItem[];
+  items: UserTopAlbumResponseItem[];
+}
+
+export interface UserTopAlbumResponseItem {
+  added_at:string;
+  album: AlbumItem
 }
 
 export interface UserSavedTracksResponse extends PaginatedResponse {
