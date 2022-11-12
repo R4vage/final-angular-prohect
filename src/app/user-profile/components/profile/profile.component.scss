@@ -1,0 +1,99 @@
+@import "_variables.scss";
+
+:host{
+    display: flex;
+    flex-direction: column;
+    padding-inline: 4em;
+    padding-block:2em;
+    background: $grey-to-blue-gradient;
+    width: 100%;
+    gap: 0.5em;
+    
+    h3{
+        align-self: left;
+        font-weight: 800;
+        font-family: 'Karla', sans-serif;
+        text-align: left;
+    }
+    h1{
+        font-weight: 900;
+        font-size: 3rem;
+        letter-spacing: -5px;
+        align-self: center;
+        font-family: 'Karla', sans-serif;
+    }
+}
+
+.user-image{
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img{
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        vertical-align: center;
+        background-color: rgb(43, 43, 43);
+        color: white;
+        border-radius: 100px;
+        box-shadow: 2px 2px 5px 5px rgba(6, 6, 6, 0.609);
+        max-width: unset;
+        object-fit: cover;
+    }
+    div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        vertical-align: center;
+        background-color: rgb(43, 43, 43);
+        color: white;
+        border-radius: 100px;
+        box-shadow: 2px 2px 5px 5px rgba(6, 6, 6, 0.609);
+
+        mat-icon{
+            transform: scale(3);
+        }
+
+    }
+}
+
+@media (min-width:520px) {
+    :host{
+        padding-inline:1em;
+        display: grid;
+        grid-template-areas:"image empty"
+                            "image profile"
+                            "image title"
+                            "image subtitle";
+        grid-template-columns: min-content max-content;
+        grid-column-gap: 3em;
+    .profile{
+        grid-area: profile;
+    }
+    .country{
+        grid-area: subtitle;
+    }
+    .user-image{
+        grid-area: image;
+    }
+    h1{
+        grid-area: title;
+    }
+
+    }
+}
+
+@media (min-width:769px) {
+    :host{
+        padding-left: 8em;
+
+        h1{
+            font-size: 6rem;
+        }
+    }
+}
