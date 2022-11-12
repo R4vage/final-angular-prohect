@@ -17,7 +17,7 @@ export const categoryInitialState: CategoryState = adapter.getInitialState({
 
 export const reducer = createReducer(
   categoryInitialState,
-  on(CategoryActions.allCategoriesLoaded, (state, action) => adapter.setAll(action.categories, { ...state, allCategoriesLoaded: true })),
+  on(CategoryActions.allCategoriesLoaded, (state, action) => adapter.upsertMany(action.categories, { ...state, allCategoriesLoaded: true })),
   on(CategoryActions.addCategory, (state, action) => adapter.addOne(action.category, state)),
   on(CategoryActions.upsertCategory, (state, action) => adapter.upsertOne(action.category, state)),
   on(CategoryActions.addCategories, (state, action) => adapter.addMany(action.categories, state)),

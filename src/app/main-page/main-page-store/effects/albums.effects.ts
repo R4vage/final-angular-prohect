@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, concatMap, map, retry } from 'rxjs';
 import { AlbumService } from '../../services/album.service';
-import { addAlbum, allAlbumsLoaded, loadAlbum, loadAlbums } from '../actions/albums.actions';
+import { addAlbum, allAlbumsLoaded, loadAlbum, loadAlbums, upsertAlbum } from '../actions/albums.actions';
 
 @Injectable()
 export class AlbumsEffects {
@@ -30,8 +30,7 @@ export class AlbumsEffects {
         throw err;
       }),
       map((album) => {
-        console.log(album);
-        return addAlbum({ album });
+        return upsertAlbum({ album });
       })
     );
   });

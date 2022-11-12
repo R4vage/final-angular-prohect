@@ -13,7 +13,7 @@ export const areAlbumsLoaded = createSelector(selectAlbumState, (state) => {
 });
 
 export function isAlbumInStore(id: string) {
-  return createSelector(selectAllAlbums, (albums) => !!albums.find((album) => album.id === id));
+  return createSelector(selectAllAlbums, (albums) => !!albums.find((album) => album.id === id && album.tracks));
 }
 
 export function selectAlbumById(idAlbum: string | number) {
