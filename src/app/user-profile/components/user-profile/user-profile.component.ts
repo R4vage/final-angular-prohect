@@ -21,8 +21,6 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.topUserArtists$ = this.store.select(selectAllTopArtists);
     this.topUserTracks$ = this.store.select(selectAllTopTracks);
-    this.topUserTracks$.subscribe(track => {console.log(track)})
-
   }
 
 }
