@@ -17,13 +17,13 @@ export const albumsInitialState: AlbumState = adapter.getInitialState({
 
 export const reducer = createReducer(
   albumsInitialState,
-  on(AlbumsActions.allAlbumsLoaded, (state, action) => adapter.setAll(action.albums, { ...state, allAlbumsLoaded: true })),
-  on(AlbumsActions.addAlbum, (state, action) => adapter.addOne(action.albums, state)),
-  on(AlbumsActions.upsertAlbum, (state, action) => adapter.upsertOne(action.albums, state)),
-  on(AlbumsActions.addAlbums, (state, action) => adapter.addMany(action.albumss, state)),
-  on(AlbumsActions.upsertAlbums, (state, action) => adapter.upsertMany(action.albumss, state)),
-  on(AlbumsActions.updateAlbum, (state, action) => adapter.updateOne(action.albums, state)),
-  on(AlbumsActions.updateAlbums, (state, action) => adapter.updateMany(action.albumss, state)),
+  on(AlbumsActions.allAlbumsLoaded, (state, action) => adapter.upsertMany(action.albums, { ...state, allAlbumsLoaded: true })),
+  on(AlbumsActions.addAlbum, (state, action) => adapter.addOne(action.album, state)),
+  on(AlbumsActions.upsertAlbum, (state, action) => adapter.upsertOne(action.album, state)),
+  on(AlbumsActions.addAlbums, (state, action) => adapter.addMany(action.albums, state)),
+  on(AlbumsActions.upsertAlbums, (state, action) => adapter.upsertMany(action.albums, state)),
+  on(AlbumsActions.updateAlbum, (state, action) => adapter.updateOne(action.album, state)),
+  on(AlbumsActions.updateAlbums, (state, action) => adapter.updateMany(action.albums, state)),
   on(AlbumsActions.deleteAlbum, (state, action) => adapter.removeOne(action.id, state)),
   on(AlbumsActions.deleteAlbums, (state, action) => adapter.removeMany(action.ids, state)),
   on(AlbumsActions.clearAlbums, (state) => adapter.removeAll(state))

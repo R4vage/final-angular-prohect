@@ -18,7 +18,7 @@ export const playlistInitialState: PlaylistState = adapter.getInitialState({
 
 export const reducer = createReducer(
   playlistInitialState,
-  on(PlaylistsActions.allPlaylistsLoaded, (state, action) => adapter.setAll(action.playlists, { ...state, allPlaylistsLoaded: true })),
+  on(PlaylistsActions.allPlaylistsLoaded, (state, action) => adapter.upsertMany(action.playlists, { ...state, allPlaylistsLoaded: true })),
   on(PlaylistsActions.addPlaylist, (state, action) => adapter.addOne(action.playlist, state)),
   on(PlaylistsActions.upsertPlaylist, (state, action) => adapter.upsertOne(action.playlist, state)),
   on(PlaylistsActions.addPlaylists, (state, action) => adapter.addMany(action.playlists, state)),

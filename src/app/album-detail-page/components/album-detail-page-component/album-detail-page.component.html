@@ -1,0 +1,66 @@
+<div class="min-h-full flex flex-col">
+  <div class="album-information max-w-96 grid grid-cols-6 grid-rows-1 lg:grid-rows-2 gap-5 p-5 pt-10 bg-gradient-to-t from-slate-800 to-slate-700">
+    <ng-container *ngIf="album$ | async as album">
+      <div class="col-span-2 row-span-2 self-center sm:self-start md:self-end">
+        <img [src]="getImage(album)" class="image-album" />
+      </div>
+      <div class="col-span-4 lg:row-start-2 col-start-3 self-center sm:self-start md:self-end flex flex-col justify-around text-white">
+        <div class="font-extrabold">{{ album.type | uppercase }}</div>
+        <div class="title font-extrabold text-5xl md:text-7xl pb-3">{{ album.name }}</div>
+        <div class="artists">
+          <span class="font-semibold">{{ album.artists | listArtists }}</span>
+          <span class="mx-1 font-semibold align-middle">•</span>
+          <span class="">{{ album.release_date | date: 'yyyy' }}</span>
+          <span class="mx-1 font-semibold align-middle">•</span>
+          <span class="">{{ album.total_tracks }} songs</span>
+          <span class="mx-1 font-semibold align-middle">•</span>
+          <span *ngIf="album.tracks">{{ album | albumTotalDuration | secondTrackMusic: true }}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <section class="m-0 p-[16px] h-full pt-10 bg-opacity-60 bg-gradient-to-t from-black to-slate-800">
+    <div *ngIf="album$ | async" class="flex flex-row justify-center gap-5">
+      <button
+        color="accent"
+        [disabled]="isAlbumSaved"
+        (click)="saveAlbum(idAlbum)"
+        mat-raised-button
+        class="save-button text-xl font-semibold flex flex-row justify-center items-center"
+      >
+        <mat-icon class="inline-block sm:hidden sm:mr-2">favorite</mat-icon>
+        <span class="hidden sm:inline-block">Save Album</span>
+      </button>
+      <button color="warn" [disabled]="isAlbumNotSaved" (click)="deleteAlbum(idAlbum)" mat-raised-button class="delete-button text-xl font-medium">
+        <mat-icon class="inline-block sm:hidden sm:mr-2">delete</mat-icon>
+        <span class="hidden sm:inline-block">Delete Album</span>
+      </button>
+    </div>
+    <div class="sticky z-20 top-0 px-[30px] py-4 grid grid-cols-tableTracks gap-2 text-gray-400">
+      <span class=""># </span>
+      <span>TITLE</span>
+      <mat-icon class="place-self-end self-center">browse_gallery</mat-icon>
+    </div>
+
+    <ng-container *ngIf="album$ | async as album">
+      <ng-container *ngIf="album.tracks">
+        <div
+          *ngFor="let track of album.tracks.items; index as i"
+          [routerLink]="['/track', track.id]"
+          class="track a px-[30px] py-3 grid grid-cols-tableTracks gap-2 text-gray-200 hover:bg-opacity-30 hover:bg-slate-100"
+        >
+          <div class="index self-center">{{ i + 1 }}</div>
+          <div class="track-name flex flex-col">
+            <div>{{ track.name }}</div>
+            <div class="flex flex-row items-center">
+              <mat-icon *ngIf="track.explicit">explicit</mat-icon>
+              <div class="track-artist self-end">{{ track.artists | listArtists }}</div>
+            </div>
+          </div>
+          <div class="track-duration text-right self-center">{{ track.duration_ms / 1000 | secondTrackMusic }}</div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </section>
+</div>
