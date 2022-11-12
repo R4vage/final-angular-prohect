@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
@@ -5,11 +6,12 @@ import { Observable } from 'rxjs';
 import { PlaylistsEffects } from '../playlists.effects';
 
 describe('PlaylistsEffects', () => {
-  let actions$: Observable<any>;
+  let actions$: Observable<unknown>;
   let effects: PlaylistsEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [PlaylistsEffects, provideMockActions(() => actions$)],
     });
 
