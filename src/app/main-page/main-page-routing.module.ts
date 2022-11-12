@@ -28,6 +28,10 @@ const routes: Routes = [
           track: TrackDetailResolver,
         },
       },
+      {
+        path:'profile',
+        loadChildren: () => import('../user-profile/user-profile.module').then((m) => m.UserProfileModule),
+      }
     ],
   },
 ];
