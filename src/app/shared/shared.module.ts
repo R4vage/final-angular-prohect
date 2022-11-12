@@ -14,14 +14,15 @@ import { ListArtistsPipe } from './pipes/list-artists.pipe';
 import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SecondTrackMusicPipe } from './pipes/second-track-music.pipe';
+import { AlbumTotalDurationPipe } from './pipes/album-total-duration.pipe';
 
-const COMPONENTS = [SideNavComponent, NavBarComponent, MusicCardComponent, CardListComponent];
+const COMPONENTS = [SideNavComponent, NavBarComponent, MusicCardComponent, CardListComponent, AudioPlayerComponent];
 
-const PIPES = [AlbumToMusicPipe, TitleCardTruncatePipe, PlaylistToMusicPipe, CategoryToMusicPipe, ListArtistsPipe, SecondTrackMusicPipe];
+const PIPES = [AlbumToMusicPipe, TitleCardTruncatePipe, PlaylistToMusicPipe, CategoryToMusicPipe, ListArtistsPipe, SecondTrackMusicPipe, AlbumTotalDurationPipe];
 
 @NgModule({
-  declarations: [...COMPONENTS, ...PIPES, AudioPlayerComponent],
+  declarations: [...COMPONENTS, ...PIPES],
   imports: [CommonModule, MaterialModule, RouterModule, FormsModule, ReactiveFormsModule],
-  exports: [...COMPONENTS, ...PIPES, AudioPlayerComponent],
+  exports: [...COMPONENTS, ...PIPES],
 })
 export class SharedModule {}

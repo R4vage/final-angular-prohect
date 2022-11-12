@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { selectTrackById } from '../track-detail-store/selectors/track.selectors
   templateUrl: './track-detail-page.component.html',
   styleUrls: ['./track-detail-page.component.scss'],
 })
-export class TrackDetailPageComponent implements OnInit {
+export class TrackDetailPageComponent implements OnInit, OnDestroy {
   track$!: Observable<Track | undefined>;
   subcription!: Subscription;
   idTrack!: string;
@@ -81,5 +81,9 @@ export class TrackDetailPageComponent implements OnInit {
 
     this.isTrackSaved = false;
     this.isTrackNotSaved = true;
+  }
+
+  ngOnDestroy(): void {
+    this.subcription.unsubscribe();
   }
 }

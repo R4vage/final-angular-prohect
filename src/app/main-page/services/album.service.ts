@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
-import { Albums } from 'src/app/core/models/album.models';
+import { map, switchMap, throwError } from 'rxjs';
+import { Album, AlbumItem, Albums } from 'src/app/core/models/album.models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,6 +9,44 @@ import { environment } from 'src/environments/environment';
 })
 export class AlbumService {
   readonly URL = 'https://api.spotify.com/v1';
+
+  getAlbum(albumId: string) {
+    return this.http.get<Album>(`${this.URL}/albums/${albumId}`);
+  }
+
+  saveAlbum(albumId: string) {
+    const queryParams = new HttpParams().append('ids', albumId);
+
+    return this.checkSavedAlbum(albumId).pipe(
+      switchMap((isAlbumSaved) => {
+        if (!isAlbumSaved[0]) {
+          return this.http.put(`${this.URL}/me/albums`, { ids: [albumId] }, { params: queryParams });
+        }
+        return throwError(() => Error('The album is already saved'));
+      })
+    );
+  }
+
+  deleteAlbum(albumId: string) {
+    const queryParams = new HttpParams().append('ids', albumId);
+
+    return this.checkSavedAlbum(albumId).pipe(
+      switchMap((isAlbumSaved) => {
+        if (isAlbumSaved[0]) {
+          return this.http.delete(`${this.URL}/me/albums`, { params: queryParams });
+        }
+        return throwError(() => Error("The album wasn't in the User's Saved Albums"));
+      })
+    );
+  }
+
+  checkSavedAlbum(albumId: string) {
+    const queryParams = new HttpParams().append('ids', albumId);
+
+    return this.http.get<boolean[]>(`${this.URL}/me/albums/contains`, {
+      params: queryParams,
+    });
+  }
 
   getAlbumReleases(limit = 20, offset = 0) {
     return this.http
