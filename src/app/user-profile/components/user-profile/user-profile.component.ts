@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit {
     this.topUserArtists$ = this.store.select(selectAllTopArtists);
     this.topUserTracks$ = this.store.select(selectAllTopTracks);
     this.user$ = this.store.select(selectUserState);
-    this.user$.subscribe(next=>console.log(next))
+    this.user$.subscribe(next=>console.log(next.images[0].url))
   }
 
 }
