@@ -1,0 +1,13 @@
+
+$emerald: #064e3b;
+$slate: #64748b;
+$pink: #ec4899;
+$yellow: #eab308;
+$grey: rgb(140, 139, 139);
+$blue: rgb(55, 65, 81);
+$background-color: $blue;
+
+$emerald-gradient: linear-gradient(160deg, $emerald, $slate);
+$pink-gradient: linear-gradient(160deg, $pink, $yellow);
+$grey-to-blue-gradient: linear-gradient(180deg, $grey, $blue)
+

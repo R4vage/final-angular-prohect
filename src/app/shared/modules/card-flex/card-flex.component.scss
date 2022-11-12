@@ -1,0 +1,14 @@
+h2{
+    color: white;
+    font-weight: 600;
+}
+
+.cards{
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    justify-content: space-between;
+    gap: 4em;
+    align-self: center;
+    padding-bottom: 1em;
+}
