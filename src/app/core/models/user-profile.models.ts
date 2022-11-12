@@ -1,3 +1,5 @@
+import { ImageInfo } from "./extras.models";
+
 export interface User {
   country: string;
   display_name: string;
@@ -15,7 +17,7 @@ export interface User {
   };
   href: string;
   id: string;
-  images: [];
+  images: ImageInfo[];
   product: string;
   type: string;
   uri: string;
