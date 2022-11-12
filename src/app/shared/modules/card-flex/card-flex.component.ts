@@ -5,9 +5,12 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
   template: `
     <section class="section">
       <h2>{{name}}</h2>
-      <ng-content select=".cards"></ng-content>
+      <div class="cards">
+        <ng-content select=".card"></ng-content>
+      </div>
     </section>
   `,
+  styleUrls: ['./card-flex.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardFlexComponent{

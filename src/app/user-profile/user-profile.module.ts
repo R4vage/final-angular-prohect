@@ -16,9 +16,8 @@ import { TopArtistEffects } from './user-profile-store/effects/top-artists.effec
 import { TopTracksEffect } from './user-profile-store/effects/top-tracks.effects';
 import { UserEffects } from './user-profile-store/effects/user.effects';
 import { SharedModule } from '../shared/shared.module';
-import { TrackCardModule } from '../shared/modules/track-card/track-card.module';
 import { CardFlexModule } from '../shared/modules/card-flex/card-flex.module';
-import { ArtistCardModule } from '../shared/modules/artist-card/artist-card.module';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const Stores = [
   StoreModule.forFeature(fromUser.userFeatureKey, fromUser.reducer),
@@ -28,16 +27,14 @@ const Stores = [
 ]
 
 @NgModule({
-  declarations: [UserProfileComponent],
+  declarations: [UserProfileComponent, ProfileComponent],
   imports: [
     CommonModule,
     ...Stores,
     EffectsModule.forFeature([UserEffects, TopAlbumsEffects, TopArtistEffects, TopTracksEffect]),
     UserProfileRoutingModule,
     SharedModule,
-    TrackCardModule,
-    CardFlexModule,
-    ArtistCardModule
+    CardFlexModule
   ],
   providers: [UserProfileRestService],
 })

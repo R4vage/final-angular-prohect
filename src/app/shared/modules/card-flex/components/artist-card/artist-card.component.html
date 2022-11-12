@@ -1,0 +1,5 @@
+<mat-card class="custom-transition" [class.mat-elevation-z8]="true">
+    <mat-card-content ><img [src]="artist.images[0].url"></mat-card-content>
+    <h2 [matTooltip]="artist.name" matTooltipHideDelay="0" matTooltipHideDelay="above">{{artist.name}}</h2>
+    <mat-icon>star_border</mat-icon>
+</mat-card>

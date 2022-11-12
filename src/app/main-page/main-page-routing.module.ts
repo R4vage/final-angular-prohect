@@ -20,6 +20,10 @@ const routes: Routes = [
           categories: CategoriesResolver,
         },
       },
+      {
+        path: 'profile',
+        loadChildren: () => import('../user-profile/user-profile.module').then((m) => m.UserProfileModule),
+      }
     ],
   },
 ];

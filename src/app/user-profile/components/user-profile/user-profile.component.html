@@ -1,11 +1,6 @@
-<p>user-profile works!</p>
 <app-card-flex name="Top Tracks" *ngIf="topUserTracks$ | async as tracks">
-    <div class="cards">
-        <app-track-card *ngFor="let track of tracks" [buttons]="true"[track]="track" class="card"></app-track-card>
-    </div>
+    <app-track-card *ngFor="let track of tracks" [buttons]="true"[track]="track" class="card"></app-track-card>
 </app-card-flex>
 <app-card-flex name="Top Artists" *ngIf="topUserArtists$ | async as artists">
-    <div class="cards">
-        <app-artist-card *ngFor="let artist of artists" [buttons]="true"[artist]="artist" class="card"></app-artist-card>
-    </div>
+    <app-artist-card *ngFor="let artist of artists" [buttons]="true" [artist]="artist" class="card"></app-artist-card>
 </app-card-flex>
