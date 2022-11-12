@@ -2,21 +2,20 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
-import { AlbumService } from 'src/app/main-page/services/album.service';
 
-import { AlbumsEffects } from '../albums.effects';
+import { TrackEffects } from './track.effects';
 
-describe('AlbumsEffects', () => {
+describe('TrackEffects', () => {
   let actions$: Observable<unknown>;
-  let effects: AlbumsEffects;
+  let effects: TrackEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [AlbumsEffects, AlbumService, provideMockActions(() => actions$)],
+      providers: [TrackEffects, provideMockActions(() => actions$)],
     });
 
-    effects = TestBed.inject(AlbumsEffects);
+    effects = TestBed.inject(TrackEffects);
   });
 
   it('should be created', () => {

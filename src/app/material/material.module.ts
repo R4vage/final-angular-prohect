@@ -14,6 +14,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 
+import { MatSliderModule } from '@angular/material/slider';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 const MATERIAL_COMPONENTS = [
   MatButtonModule,
   MatCardModule,
@@ -27,6 +30,8 @@ const MATERIAL_COMPONENTS = [
   MatTabsModule,
   MatProgressSpinnerModule,
   MatListModule,
+  MatSliderModule,
+  MatProgressBarModule,
 ];
 
 @NgModule({
