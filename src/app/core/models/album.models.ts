@@ -89,7 +89,7 @@ export interface ExternalUrls {
 }
 
 export interface ExternalIDS {
-  isrc: string;
+  upc: string;
 }
 
 export interface Image {
