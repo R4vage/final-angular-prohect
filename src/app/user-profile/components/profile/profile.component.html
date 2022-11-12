@@ -1,1 +1,9 @@
-<p>profile works!</p>
+
+
+<h3 class="profile">Profile</h3>
+<div class="user-image">
+    <img *ngIf="user.images[0];else user_letter" [src]="user.images[0]">
+    <ng-template #user_letter><div><mat-icon>person_outline</mat-icon></div></ng-template>
+</div>
+<h3 class="country">{{user.country}}</h3>
+<h1>{{user.display_name}}</h1>

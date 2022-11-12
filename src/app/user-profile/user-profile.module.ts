@@ -18,6 +18,7 @@ import { UserEffects } from './user-profile-store/effects/user.effects';
 import { SharedModule } from '../shared/shared.module';
 import { CardFlexModule } from '../shared/modules/card-flex/card-flex.module';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MatIconModule } from '@angular/material/icon';
 
 const Stores = [
   StoreModule.forFeature(fromUser.userFeatureKey, fromUser.reducer),
@@ -34,7 +35,9 @@ const Stores = [
     EffectsModule.forFeature([UserEffects, TopAlbumsEffects, TopArtistEffects, TopTracksEffect]),
     UserProfileRoutingModule,
     SharedModule,
-    CardFlexModule
+    CardFlexModule,
+
+    MatIconModule
   ],
   providers: [UserProfileRestService],
 })
