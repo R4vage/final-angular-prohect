@@ -17,8 +17,8 @@ export class TrackDetailPageComponent implements OnInit {
   track$!: Observable<Track | undefined>;
   subcription!: Subscription;
   idTrack!: string;
-  isTrackSaved = false;
-  isTrackNotSaved = false;
+  isTrackSaved = true;
+  isTrackNotSaved = true;
 
   isThereAnError = false;
   value = 0;
@@ -49,8 +49,8 @@ export class TrackDetailPageComponent implements OnInit {
           this.isTrackNotSaved = !isTrackSaved;
         },
         error: () => {
-          this.isTrackSaved = false;
-          this.isTrackNotSaved = false;
+          this.isTrackSaved = true;
+          this.isTrackNotSaved = true;
         },
       });
   }
@@ -64,6 +64,7 @@ export class TrackDetailPageComponent implements OnInit {
         });
       },
     });
+
     this.isTrackSaved = true;
     this.isTrackNotSaved = false;
   }

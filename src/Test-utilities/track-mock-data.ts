@@ -199,16 +199,6 @@ export const trackMockData: Track = {
         url: 'https://i.scdn.co/image/ab67616d0000b273b4d32739e136e672f913e8b8',
         width: 640,
       },
-      {
-        height: 300,
-        url: 'https://i.scdn.co/image/ab67616d00001e02b4d32739e136e672f913e8b8',
-        width: 300,
-      },
-      {
-        height: 64,
-        url: 'https://i.scdn.co/image/ab67616d00004851b4d32739e136e672f913e8b8',
-        width: 64,
-      },
     ],
     name: 'Free Free Free (feat.幾田りら)',
     release_date: '2022-07-27',

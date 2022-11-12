@@ -1,27 +1,28 @@
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Location } from '@angular/common';
-import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick } from '@angular/core/testing';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockSelector, MockStore, provideMockStore } from '@ngrx/store/testing';
-import { Observable, observable, of } from 'rxjs';
+import { MockStore } from '@ngrx/store/testing';
+import { noop, Observable, of, throwError } from 'rxjs';
 import { MaterialModule } from 'src/app/material/material.module';
 import { TrackService } from '../services/track.service';
 
 import { TrackDetailPageComponent } from './track-detail-page.component';
 
-import * as TrackSelectors from '../track-detail-store/selectors/track.selectors';
-import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
-import { TrackState } from '../track-detail-store/reducers/tracks.reducer';
-import { Track } from 'src/app/core/models/track.models';
-import { trackMockData } from 'src/Test-utilities/track-mock-data';
 import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { ListArtistsPipe } from 'src/app/shared/pipes/list-artists.pipe';
-import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/audio-player.component';
 import { FormsModule } from '@angular/forms';
 import { MatButtonHarness } from '@angular/material/button/testing';
+import { By } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
+import { Track } from 'src/app/core/models/track.models';
+import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/audio-player.component';
+import { ListArtistsPipe } from 'src/app/shared/pipes/list-artists.pipe';
+import { trackMockData } from 'src/Test-utilities/track-mock-data';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SecondTrackMusicPipe } from 'src/app/shared/pipes/second-track-music.pipe';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('TrackDetailPageComponent', () => {
   let component: TrackDetailPageComponent;
@@ -32,27 +33,35 @@ describe('TrackDetailPageComponent', () => {
   let router: Router;
   let trackService: TrackService;
   let location: Location;
-  let store: MockStore;
 
-  let mockSelectTrackById;
+  let snackbar: MatSnackBar;
+
   const ID_TRACK = 'testParamsTrack';
   const TRACK = trackMockData;
   beforeEach(async () => {
-    const trackServiceSpy = jasmine.createSpyObj(TrackService, ['checkSavedTrack']);
+    const trackServiceSpy = jasmine.createSpyObj(TrackService, ['checkSavedTrack', 'saveTrack', 'deleteTrack']);
+    const snackbarSpy = jasmine.createSpyObj(MatSnackBar, ['open']);
 
     trackServiceSpy.checkSavedTrack.and.returnValue(of([true]));
+    trackServiceSpy.saveTrack.and.returnValue(of([true]));
+    trackServiceSpy.deleteTrack.and.returnValue(of([true]));
+
+    snackbarSpy.open.and.callFake(noop);
 
     await TestBed.configureTestingModule({
       imports: [
         MaterialModule,
         FormsModule,
+        NoopAnimationsModule,
         RouterTestingModule.withRoutes([
           { path: 'track/:id', component: TrackDetailPageComponent },
           { path: 'track', component: TrackDetailPageComponent },
         ]),
       ],
-      declarations: [TrackDetailPageComponent, ListArtistsPipe, AudioPlayerComponent],
+      declarations: [TrackDetailPageComponent, ListArtistsPipe, AudioPlayerComponent, SecondTrackMusicPipe],
       providers: [
+        { provide: MatSnackBar, useValue: snackbarSpy },
+
         {
           provide: Store,
           useValue: {
@@ -84,6 +93,7 @@ describe('TrackDetailPageComponent', () => {
     el = fixture.debugElement;
 
     trackService = TestBed.inject(TrackService);
+    snackbar = TestBed.inject(MatSnackBar);
 
     spyOn(component, 'checkSavedTrack').and.callThrough();
 
@@ -109,7 +119,7 @@ describe('TrackDetailPageComponent', () => {
   it("should show track's image", () => {
     const trackImage = el.query(By.css('.image-track'));
     expect(trackImage).toBeTruthy();
-    expect(trackImage.attributes['src']).toBe('https://i.scdn.co/image/ab67616d0000b273b4d32739e136e672f913e8b8');
+    expect(trackImage.attributes['src']).toBe(TRACK.album.images[0].url);
   });
   it('should show title and artist names', () => {
     const trackTitle = el.query(By.css('.title'));
@@ -130,5 +140,74 @@ describe('TrackDetailPageComponent', () => {
 
     expect(buttons).toBeTruthy();
     expect(buttons.length).toBe(2);
+  });
+
+  it('should get image from track', () => {
+    const image = component.getImage(TRACK);
+
+    expect(image).toBe(TRACK.album.images[0].url);
+  });
+
+  it('should check if track was already saved', () => {
+    component.checkSavedTrack(TRACK.id);
+
+    expect(component.isTrackSaved).toBeTrue();
+    expect(component.isTrackNotSaved).toBeFalse();
+  });
+
+  it('should deactivate the buttons when an error appears while checking saved tracks', async () => {
+    (trackService.checkSavedTrack as jasmine.Spy).and.returnValue(throwError(() => new Error('error')));
+    component.checkSavedTrack(TRACK.id);
+
+    expect(component.isTrackSaved).toBeTrue();
+    expect(component.isTrackNotSaved).toBeTrue();
+
+    const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
+
+    buttons.forEach(async (button) => {
+      expect(await button.isDisabled()).toBeTrue();
+    });
+  });
+
+  it('should save track when save button is clicked', async () => {
+    component.isTrackSaved = false;
+
+    spyOn(component, 'saveTrack').and.callThrough();
+    const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
+
+    const saveButton = buttons[0];
+
+    expect(snackbar.open).not.toHaveBeenCalled();
+
+    await saveButton.click();
+    fixture.detectChanges();
+
+    expect(component.saveTrack).toHaveBeenCalled();
+    expect(component.isTrackSaved).toBeTrue();
+
+    expect(snackbar.open).toHaveBeenCalled();
+
+    expect(await saveButton.isDisabled()).toBeTrue();
+  });
+
+  it('should delete track when delete button is clicked', async () => {
+    component.isTrackNotSaved = false;
+
+    spyOn(component, 'deleteTrack').and.callThrough();
+    const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
+
+    const deleteButton = buttons[1];
+
+    expect(snackbar.open).not.toHaveBeenCalled();
+
+    await deleteButton.click();
+    fixture.detectChanges();
+
+    expect(component.deleteTrack).toHaveBeenCalled();
+    expect(component.isTrackNotSaved).toBeTrue();
+
+    expect(snackbar.open).toHaveBeenCalled();
+
+    expect(await deleteButton.isDisabled()).toBeTrue();
   });
 });

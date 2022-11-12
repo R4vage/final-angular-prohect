@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, switchMap, throwError } from 'rxjs';
+import { Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { Track } from 'src/app/core/models/track.models';
 
 @Injectable({
@@ -42,7 +42,7 @@ export class TrackService {
         if (isTrackSaved[0]) {
           return this.http.delete(`${this.URL}/me/tracks`, { params: queryParams });
         }
-        return throwError(() => Error("The track doesn't exist"));
+        return throwError(() => Error("The track wasn't in the User's Saved Tracks"));
       })
     );
   }
