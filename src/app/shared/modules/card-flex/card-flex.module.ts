@@ -7,13 +7,15 @@ import { TrackCardComponent } from './components/track-card/track-card.component
 import { ArtistCardComponent } from './components/artist-card/artist-card.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AlbumCardComponent } from './components/album-card/album-card.component';
+import { PlaylistCardComponent } from './components/playlist-card/playlist-card.component';
 
 @NgModule({
   declarations: [
     CardFlexComponent,
     TrackCardComponent,
     ArtistCardComponent,
-    AlbumCardComponent
+    AlbumCardComponent,
+    PlaylistCardComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { AlbumCardComponent } from './components/album-card/album-card.component
     CardFlexComponent,
     TrackCardComponent,
     ArtistCardComponent,
-    AlbumCardComponent
+    AlbumCardComponent,
+    PlaylistCardComponent
   ]
 })
 export class CardFlexModule { }

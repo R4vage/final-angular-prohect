@@ -17,6 +17,7 @@ export class SearchPageComponent implements OnInit {
   artists:Artist[] = [];
   tracks:Track[] = [];
   albums: AlbumItem[] = [];
+  playlists: PlaylistItem[] = []
   constructor(private restService: SearchRestService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -24,12 +25,12 @@ export class SearchPageComponent implements OnInit {
       next: params => {this.searchValue = params['value']} 
     })
     this.restService.searchItem(this.searchValue).subscribe(response => {
-      console.log(response.albums.items)
       this.searchResults = response
       this.artists = response.artists.items;
       this.tracks = response.tracks.items;
       this.albums = response.albums.items;
-      
+      this.playlists = response.playlists.items;
+      console.log(this.playlists)
     })
   }
 
