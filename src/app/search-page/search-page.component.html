@@ -1,0 +1,8 @@
+<div class="flexs-container">
+    <app-card-flex *ngIf="tracks.length > 0" name="Tracks">
+        <app-track-card *ngFor="let track of tracks" [track]="track" class="card"></app-track-card>
+    </app-card-flex>
+    <app-card-flex *ngIf="artists.length > 0" name="Artists">
+        <app-artist-card *ngFor="let artist of artists" [artist]="artist" class="card"></app-artist-card>
+    </app-card-flex>
+</div>
