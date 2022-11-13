@@ -15,10 +15,20 @@ import { AudioPlayerComponent } from './components/audio-player/audio-player.com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SecondTrackMusicPipe } from './pipes/second-track-music.pipe';
 import { AlbumTotalDurationPipe } from './pipes/album-total-duration.pipe';
+import { TracksFromPlaylistPipe } from './pipes/tracks-from-playlist.pipe';
 
 const COMPONENTS = [SideNavComponent, NavBarComponent, MusicCardComponent, CardListComponent, AudioPlayerComponent];
 
-const PIPES = [AlbumToMusicPipe, TitleCardTruncatePipe, PlaylistToMusicPipe, CategoryToMusicPipe, ListArtistsPipe, SecondTrackMusicPipe, AlbumTotalDurationPipe];
+const PIPES = [
+  AlbumToMusicPipe,
+  TitleCardTruncatePipe,
+  PlaylistToMusicPipe,
+  CategoryToMusicPipe,
+  ListArtistsPipe,
+  SecondTrackMusicPipe,
+  AlbumTotalDurationPipe,
+  TracksFromPlaylistPipe,
+];
 
 @NgModule({
   declarations: [...COMPONENTS, ...PIPES],

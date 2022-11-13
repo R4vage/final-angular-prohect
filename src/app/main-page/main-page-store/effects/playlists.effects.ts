@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { concatMap, map, retry } from 'rxjs';
+import { catchError, concatMap, map, retry } from 'rxjs';
 import { PlaylistService } from '../../services/playlist.service';
-import { allPlaylistsLoaded, loadPlaylists } from '../actions/playlists.actions';
+import { allPlaylistsLoaded, loadPlaylist, loadPlaylists, upsertPlaylist } from '../actions/playlists.actions';
 
 @Injectable()
 export class PlaylistsEffects {
@@ -19,5 +20,22 @@ export class PlaylistsEffects {
     );
   });
 
-  constructor(private actions$: Actions, private playlistService: PlaylistService) {}
+  addPlaylist$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(loadPlaylist),
+      concatMap((action) => {
+        return this.playlistService.getPlaylist(action.id);
+      }),
+      catchError((err) => {
+        this.router.navigateByUrl('/home');
+        throw err;
+      }),
+      map((playlist) => {
+        console.log(playlist);
+        return upsertPlaylist({ playlist });
+      })
+    );
+  });
+
+  constructor(private actions$: Actions, private playlistService: PlaylistService, private router: Router) {}
 }

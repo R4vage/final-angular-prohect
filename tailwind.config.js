@@ -20,7 +20,8 @@ module.exports = {
       },
       gridTemplateColumns: {
         layout: 'repeat(2, minmax(150px, 1fr)) repeat(10, minmax(0, 1fr))',
-        tableTracks: '16px, 5fr, minmax(40px,1fr)',
+        tableTracks: '25px, 5fr, minmax(40px,1fr)',
+        playlistTracks: '25px, 2fr, 2fr, minmax(40px,1fr)',
       },
     },
   },

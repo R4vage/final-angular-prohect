@@ -1,3 +1,4 @@
+import { User } from 'src/app/core/models/user-profile.models';
 import * as fromUser from '../reducers/user.reducer';
 import { selectUserState } from '../selectors/user.selectors';
 
@@ -7,6 +8,6 @@ describe('User Selectors', () => {
       [fromUser.userFeatureKey]: {},
     });
 
-    expect(result).toEqual({});
+    expect(result).toEqual({} as User);
   });
 });

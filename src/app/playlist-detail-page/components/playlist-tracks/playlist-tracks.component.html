@@ -1,0 +1,26 @@
+<div class="sticky z-20 top-0 px-[30px] py-4 grid grid-cols-playlistTracks gap-2 text-gray-400">
+  <span class=""># </span>
+  <span>TITLE</span>
+  <span>ALBUM</span>
+  <mat-icon class="place-self-end self-center">browse_gallery</mat-icon>
+</div>
+
+<div *ngFor="let track of tracks; index as i" class="track px-[30px] py-3 grid grid-cols-playlistTracks gap-2 text-gray-200 hover:bg-opacity-30 hover:bg-slate-100">
+  <div class="index self-center">{{ i + 1 }}</div>
+  <div class="track-name flex flex-col">
+    <div [routerLink]="['/track', track.id]" class="hover:underline hover:font-medium cursor-pointer">{{ track.name }}</div>
+    <div class="flex flex-row items-center">
+      <mat-icon *ngIf="track.explicit">explicit</mat-icon>
+      <div class="track-artist self-end">{{ track.artists | listArtists }}</div>
+    </div>
+  </div>
+  <div [routerLink]="['/album', track.album.id]" class="hover:underline hover:font-medium cursor-pointer">{{ track.album.name }}</div>
+  <div class="flex flex-row justify-end gap-4">
+    <button (click)="saveAndDeleteTrack(track.id, i)" mat-icon-button>
+      <mat-icon *ngIf="!isTracksSaved[i]">favorite_border</mat-icon>
+      <mat-icon *ngIf="isTracksSaved[i]">favorite</mat-icon>
+    </button>
+
+    <div class="track-duration text-right self-center">{{ track.duration_ms / 1000 | secondTrackMusic }}</div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="min-h-full flex flex-col">
+  <div class="playlist-information max-w-96 grid grid-cols-6 grid-rows-1 lg:grid-rows-2 gap-5 p-5 pt-10 bg-gradient-to-t from-slate-800 to-slate-700">
+    <ng-container *ngIf="playlist$ | async as playlist">
+      <div class="col-span-2 row-span-2 self-center sm:self-start md:self-end">
+        <img [src]="getImage(playlist)" class="image-playlist" />
+      </div>
+      <div class="col-span-4 lg:row-start-2 col-start-3 self-center sm:self-start md:self-end flex flex-col justify-around text-white">
+        <div class="font-extrabold">{{ playlist.type | uppercase }}</div>
+        <div class="title font-extrabold text-5xl md:text-7xl pb-3">{{ playlist.name }}</div>
+        <div class="artists">
+          <span *ngIf="playlist.description" class="font-semibold">{{ playlist.description }}</span>
+          <span class="mx-1 font-semibold align-middle">•</span>
+          <span class="">{{ playlist.followers.total | number }} followers</span>
+          <span class="mx-1 font-semibold align-middle">•</span>
+          <span *ngIf="playlist.owner.display_name">{{ playlist.owner.display_name }} songs</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <section class="m-0 p-[16px] h-full pt-10 bg-opacity-60 bg-gradient-to-t from-black to-slate-800">
+    <ng-container *ngIf="playlist$ | async as playlist">
+      <app-playlist-tracks [tracks]="playlist | tracksFromPlaylist"></app-playlist-tracks>
+    </ng-container>
+  </section>
+</div>

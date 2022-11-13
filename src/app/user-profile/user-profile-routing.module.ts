@@ -13,9 +13,9 @@ const routes: Routes = [
     resolve: {
       user: UserResolver,
       topAlbums: TopUserAlbumsResolver,
-      topArtists:TopArtistsResolver,
-      topTracks: TopUserTracksResolver
-    }
+      topArtists: TopArtistsResolver,
+      topTracks: TopUserTracksResolver,
+    },
   },
 ];
 

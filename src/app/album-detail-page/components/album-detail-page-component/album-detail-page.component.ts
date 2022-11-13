@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
@@ -13,7 +13,7 @@ import { AlbumService } from 'src/app/main-page/services/album.service';
   templateUrl: './album-detail-page.component.html',
   styleUrls: ['./album-detail-page.component.scss'],
 })
-export class AlbumDetailPageComponent implements OnInit {
+export class AlbumDetailPageComponent implements OnInit, OnDestroy {
   album$!: Observable<Album | undefined>;
   subscription!: Subscription;
 
@@ -80,5 +80,9 @@ export class AlbumDetailPageComponent implements OnInit {
 
     this.isAlbumSaved = false;
     this.isAlbumNotSaved = true;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

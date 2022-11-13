@@ -1,4 +1,4 @@
-import { ImageInfo } from "./extras.models";
+import { ImageInfo } from './extras.models';
 
 export interface Main {
   albums: Albums;
@@ -84,7 +84,7 @@ export interface Artist {
   name: string;
   type: string;
   uri: string;
-  images: ImageInfo[]
+  images: ImageInfo[];
 }
 
 export interface ExternalUrls {

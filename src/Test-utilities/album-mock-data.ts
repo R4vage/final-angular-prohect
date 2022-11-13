@@ -1,6 +1,6 @@
 import { Album, AlbumItem } from 'src/app/core/models/album.models';
 
-export const albumMockData: AlbumItem[] = [
+export const albumMockData = [
   {
     album_type: 'album',
     artists: [
@@ -13,6 +13,13 @@ export const albumMockData: AlbumItem[] = [
         name: 'Blessd',
         type: 'artist',
         uri: 'spotify:artist:1TA5sGRlKUJXBN4ZyJuDIX',
+        images: [
+          {
+            height: 0,
+            url: 'string',
+            width: 0,
+          },
+        ],
       },
     ],
     available_markets: [
@@ -1141,7 +1148,7 @@ export const albumMockData: AlbumItem[] = [
   },
 ];
 
-export const albumWithTracksMockData: Album = {
+export const albumWithTracksMockData = {
   album_type: 'album',
   artists: [
     {
