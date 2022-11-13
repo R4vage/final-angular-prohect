@@ -25,7 +25,8 @@ import { AlbumCardComponent } from './components/album-card/album-card.component
   exports:[
     CardFlexComponent,
     TrackCardComponent,
-    ArtistCardComponent
+    ArtistCardComponent,
+    AlbumCardComponent
   ]
 })
 export class CardFlexModule { }
