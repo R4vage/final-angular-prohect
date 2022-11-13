@@ -1,4 +1,5 @@
-import { AlbumItem, Artist } from './album.models';
+import { AlbumItem, Albums, Artist } from './album.models';
+import { MainPlaylistResponse, PlaylistItem } from './playlist.models';
 import { Track } from './track.models';
 
 export interface PaginatedResponse {
@@ -46,4 +47,11 @@ export interface UserTopArtistsResponse {
 interface Artists extends PaginatedResponse{
     href:string;
     items: Artist[]
+}
+
+export interface SearchResults extends PaginatedResponse {
+  albums: Albums;
+  artists: UserTopArtistsResponse;
+  tracks: UserTopTracksResponse;
+  playlists: MainPlaylistResponse;
 }

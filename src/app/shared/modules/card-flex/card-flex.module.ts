@@ -6,12 +6,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TrackCardComponent } from './components/track-card/track-card.component';
 import { ArtistCardComponent } from './components/artist-card/artist-card.component';
 import { MatIconModule } from '@angular/material/icon';
+import { AlbumCardComponent } from './components/album-card/album-card.component';
 
 @NgModule({
   declarations: [
     CardFlexComponent,
     TrackCardComponent,
-    ArtistCardComponent
+    ArtistCardComponent,
+    AlbumCardComponent
   ],
   imports: [
     CommonModule,
