@@ -8,4 +8,7 @@
     <app-card-flex *ngIf="albums.length > 0" name="Albums">
         <app-album-card *ngFor="let album of albums" [album]="album" class="card"></app-album-card>
     </app-card-flex>
+    <app-card-flex *ngIf="playlists.length > 0" name="Playlists">
+        <app-playlist-card *ngFor="let playlist of playlists" [playlist]="playlist" class="card"></app-playlist-card>
+    </app-card-flex>
 </div>
