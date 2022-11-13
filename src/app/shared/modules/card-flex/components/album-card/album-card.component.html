@@ -1,1 +1,5 @@
-<p>album-card works!</p>
+<mat-card class="custom-transition" [class.mat-elevation-z8]="true">
+    <h2 [matTooltip]="album.name" matTooltipHideDelay="0" matTooltipHideDelay="above">{{album.name}}</h2>
+    <mat-card-content ><img [src]="album.images.length > 0 ? album.images[0].url : '/assets/image-not-found.png'"></mat-card-content>
+    <mat-icon>star_border</mat-icon>
+</mat-card>
