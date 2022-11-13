@@ -1,4 +1,4 @@
-<div class="min-h-full flex flex-col">
+<div class="min-h-full">
   <div class="playlist-information max-w-96 grid grid-cols-6 grid-rows-1 lg:grid-rows-2 gap-5 p-5 pt-10 bg-gradient-to-t from-slate-800 to-slate-700">
     <ng-container *ngIf="playlist$ | async as playlist">
       <div class="col-span-2 row-span-2 self-center sm:self-start md:self-end">
@@ -19,6 +19,23 @@
   </div>
 
   <section class="m-0 p-[16px] h-full pt-10 bg-opacity-60 bg-gradient-to-t from-black to-slate-800">
+    <div *ngIf="playlist$ | async" class="flex flex-row justify-center gap-5">
+      <button
+        color="accent"
+        [disabled]="isPlaylistFollowed"
+        (click)="followPlaylist(idUser, idPlaylist)"
+        mat-raised-button
+        class="follow-button text-xl font-semibold flex flex-row justify-center items-center"
+      >
+        <mat-icon class="inline-block sm:hidden sm:mr-2">favorite</mat-icon>
+        <span class="hidden sm:inline-block">Save Playlist</span>
+      </button>
+      <button color="warn" [disabled]="isPlaylistNotFollowed" (click)="unfollowPlaylist(idUser, idPlaylist)" mat-raised-button class="unfollow-button text-xl font-medium">
+        <mat-icon class="inline-block sm:hidden sm:mr-2">delete</mat-icon>
+        <span class="hidden sm:inline-block">Delete Playlist</span>
+      </button>
+    </div>
+
     <ng-container *ngIf="playlist$ | async as playlist">
       <app-playlist-tracks [tracks]="playlist | tracksFromPlaylist"></app-playlist-tracks>
     </ng-container>

@@ -16,9 +16,9 @@ export class PlaylistService {
   }
 
   followPlaylist(userId: string, playlistId: string, isInUserPublicPlaylist = true) {
-    return this.checkSavedPlaylist(userId, playlistId).pipe(
-      switchMap((isPlaylistSaved) => {
-        if (!isPlaylistSaved[0]) {
+    return this.checkFollowedPlaylist(userId, playlistId).pipe(
+      switchMap((isPlaylistFollowed) => {
+        if (!isPlaylistFollowed[0]) {
           return this.http.put(`${this.URL}/playlists/${playlistId}/followers`, { public: isInUserPublicPlaylist });
         }
         return throwError(() => Error('The playlist is already followed'));
@@ -27,9 +27,9 @@ export class PlaylistService {
   }
 
   unfollowPlaylist(userId: string, playlistId: string) {
-    return this.checkSavedPlaylist(userId, playlistId).pipe(
-      switchMap((isPlaylistSaved) => {
-        if (isPlaylistSaved[0]) {
+    return this.checkFollowedPlaylist(userId, playlistId).pipe(
+      switchMap((isPlaylistFollowed) => {
+        if (isPlaylistFollowed[0]) {
           return this.http.delete(`${this.URL}/playlists/${playlistId}/followers`);
         }
         return throwError(() => Error("The playlist wasn't in the User's followed Playlists"));
@@ -37,7 +37,7 @@ export class PlaylistService {
     );
   }
 
-  checkSavedPlaylist(userId: string, playlistId: string) {
+  checkFollowedPlaylist(userId: string, playlistId: string) {
     const queryParams = new HttpParams().append('ids', userId);
 
     return this.http.get<boolean[]>(`${this.URL}/playlists/${playlistId}/followers/contains`, {

@@ -21,10 +21,10 @@ export class PlaylistDetailPageComponent implements OnInit {
 
   playlist!: Playlist | undefined;
 
-  isPlaylistSaved = true;
-  isPlaylistNotSaved = true;
+  isPlaylistFollowed = true;
+  isPlaylistNotFollowed = true;
 
-  isTrackSaved = true;
+  isTrackFollowed = true;
 
   constructor(private store: Store, private route: ActivatedRoute, private playlistService: PlaylistService, private snackbar: MatSnackBar) {}
 
@@ -45,7 +45,7 @@ export class PlaylistDetailPageComponent implements OnInit {
       .subscribe({
         next: (userId) => {
           this.idUser = userId;
-          this.checkSavedPlaylist(this.idUser, this.idPlaylist);
+          this.checkFollowedPlaylist(this.idUser, this.idPlaylist);
         },
       });
   }
@@ -54,18 +54,18 @@ export class PlaylistDetailPageComponent implements OnInit {
     return playlist.images[0].url;
   }
 
-  checkSavedPlaylist(userId: string, playlistId: string) {
+  checkFollowedPlaylist(userId: string, playlistId: string) {
     this.playlistService
-      .checkSavedPlaylist(userId, playlistId)
-      .pipe(map((isPlaylistSavedArray) => isPlaylistSavedArray[0]))
+      .checkFollowedPlaylist(userId, playlistId)
+      .pipe(map((isPlaylistFollowedArray) => isPlaylistFollowedArray[0]))
       .subscribe({
-        next: (isPlaylistSaved) => {
-          this.isPlaylistSaved = isPlaylistSaved;
-          this.isPlaylistNotSaved = !isPlaylistSaved;
+        next: (isPlaylistFollowed) => {
+          this.isPlaylistFollowed = isPlaylistFollowed;
+          this.isPlaylistNotFollowed = !isPlaylistFollowed;
         },
         error: () => {
-          this.isPlaylistSaved = true;
-          this.isPlaylistNotSaved = true;
+          this.isPlaylistFollowed = true;
+          this.isPlaylistNotFollowed = true;
         },
       });
   }
@@ -80,8 +80,8 @@ export class PlaylistDetailPageComponent implements OnInit {
       },
     });
 
-    this.isPlaylistSaved = true;
-    this.isPlaylistNotSaved = false;
+    this.isPlaylistFollowed = true;
+    this.isPlaylistNotFollowed = false;
   }
 
   unfollowPlaylist(userId: string, playlistId: string) {
@@ -94,8 +94,8 @@ export class PlaylistDetailPageComponent implements OnInit {
       },
     });
 
-    this.isPlaylistSaved = false;
-    this.isPlaylistNotSaved = true;
+    this.isPlaylistFollowed = false;
+    this.isPlaylistNotFollowed = true;
   }
 
   ngOnDestroy(): void {

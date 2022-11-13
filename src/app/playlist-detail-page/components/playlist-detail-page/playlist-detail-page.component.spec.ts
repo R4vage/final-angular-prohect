@@ -1,4 +1,6 @@
 import { HarnessLoader } from '@angular/cdk/testing';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { Location } from '@angular/common';
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
@@ -10,10 +12,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { noop, Observable, of, throwError } from 'rxjs';
 import { Playlist } from 'src/app/core/models/playlist.models';
-import { PlaylistService } from 'src/app/main-page/services/album.service';
 import { PlaylistService } from 'src/app/main-page/services/playlist.service';
 import { MaterialModule } from 'src/app/material/material.module';
-import { albumWithTracksMockData } from 'src/Test-utilities/album-mock-data';
+import { ListArtistsPipe } from 'src/app/shared/pipes/list-artists.pipe';
+import { SecondTrackMusicPipe } from 'src/app/shared/pipes/second-track-music.pipe';
+import { TracksFromPlaylistPipe } from 'src/app/shared/pipes/tracks-from-playlist.pipe';
+import { TrackService } from 'src/app/track-detail-page/services/track.service';
+import { playlistWithTracksMockData } from 'src/Test-utilities/playlist-mock-data';
+import { PlaylistTracksComponent } from '../playlist-tracks/playlist-trackscomponent';
 
 import { PlaylistDetailPageComponent } from './playlist-detail-page.component';
 
@@ -25,26 +31,31 @@ describe('PlaylistDetailPageComponent', () => {
 
   let loader: HarnessLoader;
   let router: Router;
-  let albumService: PlaylistService;
+  let playlistService: PlaylistService;
   let location: Location;
 
   let snackbar: MatSnackBar;
 
   const ID_PLAYLIST = 'testParamsPlaylist';
+  const ID_USER = 'testman';
   const PLAYLIST = playlistWithTracksMockData;
 
   beforeEach(async () => {
-    const albumServiceSpy = jasmine.createSpyObj(PlaylistService, ['checkSavedPlaylist', 'savePlaylist', 'deletePlaylist']);
+    const playlistServiceSpy = jasmine.createSpyObj(PlaylistService, ['checkFollowedPlaylist', 'followPlaylist', 'unfollowPlaylist']);
+    const trackServiceSpy = jasmine.createSpyObj(TrackService, ['checkSavedTrack', 'saveTrack', 'deleteTrack']);
+
     const snackbarSpy = jasmine.createSpyObj(MatSnackBar, ['open']);
 
-    albumServiceSpy.checkSavedPlaylist.and.returnValue(of([true]));
-    albumServiceSpy.savePlaylist.and.returnValue(of([true]));
-    albumServiceSpy.deletePlaylist.and.returnValue(of([true]));
+    playlistServiceSpy.checkFollowedPlaylist.and.returnValue(of([true]));
+    playlistServiceSpy.followPlaylist.and.returnValue(of([true]));
+    playlistServiceSpy.unfollowPlaylist.and.returnValue(of([true]));
+
+    trackServiceSpy.checkSavedTrack.and.returnValue(of([true, true, true]));
 
     snackbarSpy.open.and.callFake(noop);
 
     await TestBed.configureTestingModule({
-      declarations: [PlaylistDetailPageComponent],
+      declarations: [PlaylistDetailPageComponent, TracksFromPlaylistPipe, SecondTrackMusicPipe, ListArtistsPipe, PlaylistTracksComponent],
       imports: [
         MaterialModule,
         NoopAnimationsModule,
@@ -55,7 +66,7 @@ describe('PlaylistDetailPageComponent', () => {
       ],
       providers: [
         { provide: MatSnackBar, useValue: snackbarSpy },
-
+        { provide: TrackService, useValue: trackServiceSpy },
         {
           provide: Store,
           useValue: {
@@ -79,34 +90,49 @@ describe('PlaylistDetailPageComponent', () => {
       ],
     }).compileComponents();
 
+    router = TestBed.inject(Router);
+    location = TestBed.inject(Location);
+
     fixture = TestBed.createComponent(PlaylistDetailPageComponent);
     component = fixture.componentInstance;
+    el = fixture.debugElement;
+
+    playlistService = TestBed.inject(PlaylistService);
+    snackbar = TestBed.inject(MatSnackBar);
+
+    spyOn(component, 'checkFollowedPlaylist').and.callThrough();
+
+    router.initialNavigation();
+    await router.navigate(['/playlist', ID_PLAYLIST]);
+
+    loader = TestbedHarnessEnvironment.loader(fixture);
+
     fixture.detectChanges();
   });
 
   it('should create and redirect correctly', async () => {
     expect(component).toBeTruthy();
-    expect(location.path()).toBe(`/album/${ID_PLAYLIST}`);
+    expect(location.path()).toBe(`/playlist/${ID_PLAYLIST}`);
     expect(component.idPlaylist).toBe(ID_PLAYLIST);
-    expect(component.checkSavedPlaylist).toHaveBeenCalledOnceWith(component.idPlaylist);
+    expect(component.checkFollowedPlaylist).toHaveBeenCalled();
   });
 
-  it('should create album information section', () => {
-    const albumInformation = el.query(By.css('.album-information'));
-    expect(albumInformation).toBeTruthy();
+  it('should create playlist information section', () => {
+    const playlistInformation = el.query(By.css('.playlist-information'));
+    expect(playlistInformation).toBeTruthy();
   });
-  it("should show album's image", () => {
-    const albumImage = el.query(By.css('.image-album'));
-    expect(albumImage).toBeTruthy();
-    expect(albumImage.attributes['src']).toBe(PLAYLIST.images[0].url);
+  it("should show playlist's image", () => {
+    const playlistImage = el.query(By.css('.image-playlist'));
+    expect(playlistImage).toBeTruthy();
+    expect(playlistImage.attributes['src']).toBe(PLAYLIST.images[0].url);
   });
   it('should show title and artist names', () => {
-    const albumTitle = el.query(By.css('.title'));
-    const albumArtistsList = el.query(By.css('.artists'));
+    const playlistTitle = el.query(By.css('.title'));
+    const playlistArtistsList = el.query(By.css('.artists'));
 
-    expect(albumTitle).toBeTruthy();
-    expect(albumArtistsList).toBeTruthy();
-    expect(albumArtistsList.nativeElement.textContent).toBe('Blessd•2022•13 songs•00:43:19');
+    expect(playlistTitle).toBeTruthy();
+    expect(playlistArtistsList).toBeTruthy();
+    expect(playlistArtistsList.nativeElement.textContent).toBe('The chillest beats to help you relax, study, code, and focus.•4,792,780 followers•Spotify songs');
   });
 
   it('should display correctly the buttons', async () => {
@@ -119,7 +145,7 @@ describe('PlaylistDetailPageComponent', () => {
   it('should display correctly the tracks', () => {
     const tracks = el.queryAll(By.css('.track'));
 
-    expect(tracks.length).toBe(13);
+    expect(tracks.length).toBe(3);
 
     const firstTrack = tracks[0];
     const trackIndex = firstTrack.query(By.css('.index'));
@@ -128,30 +154,30 @@ describe('PlaylistDetailPageComponent', () => {
     const trackDuration = firstTrack.query(By.css('.track-duration'));
 
     expect(trackIndex.nativeElement.textContent).toBe('1');
-    expect(trackName.nativeElement.textContent).toContain('Barrio Antioquia');
-    expect(trackArtist.nativeElement.textContent).toBe('Blessd');
-    expect(trackDuration.nativeElement.textContent).toBe('02:51');
+    expect(trackName.nativeElement.textContent).toContain('Through The Window');
+    expect(trackArtist.nativeElement.textContent).toBe('BLVKSHP');
+    expect(trackDuration.nativeElement.textContent).toBe('02:46');
   });
 
-  it('should get image from album', () => {
+  it('should get image from playlist', () => {
     const image = component.getImage(PLAYLIST);
 
     expect(image).toBe(PLAYLIST.images[0].url);
   });
 
-  it('should check if album was already saved', () => {
-    component.checkSavedPlaylist(PLAYLIST.id);
+  it('should check if playlist was already followd', () => {
+    component.checkFollowedPlaylist(ID_USER, PLAYLIST.id);
 
-    expect(component.isPlaylistSaved).toBeTrue();
-    expect(component.isPlaylistNotSaved).toBeFalse();
+    expect(component.isPlaylistFollowed).toBeTrue();
+    expect(component.isPlaylistNotFollowed).toBeFalse();
   });
 
-  it('should deactivate the buttons when an error appears while checking saved albums', async () => {
-    (albumService.checkSavedPlaylist as jasmine.Spy).and.returnValue(throwError(() => new Error('error')));
-    component.checkSavedPlaylist(PLAYLIST.id);
+  it('should deactivate the buttons when an error appears while checking followd playlists', async () => {
+    (playlistService.checkFollowedPlaylist as jasmine.Spy).and.returnValue(throwError(() => new Error('error')));
+    component.checkFollowedPlaylist(ID_USER, PLAYLIST.id);
 
-    expect(component.isPlaylistSaved).toBeTrue();
-    expect(component.isPlaylistNotSaved).toBeTrue();
+    expect(component.isPlaylistFollowed).toBeTrue();
+    expect(component.isPlaylistNotFollowed).toBeTrue();
 
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
 
@@ -160,45 +186,45 @@ describe('PlaylistDetailPageComponent', () => {
     });
   });
 
-  it('should save album when save button is clicked', async () => {
-    component.isPlaylistSaved = false;
+  it('should follow playlist when follow button is clicked', async () => {
+    component.isPlaylistFollowed = false;
 
-    spyOn(component, 'savePlaylist').and.callThrough();
+    spyOn(component, 'followPlaylist').and.callThrough();
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
 
-    const saveButton = buttons[0];
+    const followButton = buttons[0];
 
     expect(snackbar.open).not.toHaveBeenCalled();
 
-    await saveButton.click();
+    await followButton.click();
     fixture.detectChanges();
 
-    expect(component.savePlaylist).toHaveBeenCalled();
-    expect(component.isPlaylistSaved).toBeTrue();
+    expect(component.followPlaylist).toHaveBeenCalled();
+    expect(component.isPlaylistFollowed).toBeTrue();
 
     expect(snackbar.open).toHaveBeenCalled();
 
-    expect(await saveButton.isDisabled()).toBeTrue();
+    expect(await followButton.isDisabled()).toBeTrue();
   });
 
-  it('should delete album when delete button is clicked', async () => {
-    component.isPlaylistNotSaved = false;
+  it('should unfollow playlist when unfollow button is clicked', async () => {
+    component.isPlaylistNotFollowed = false;
 
-    spyOn(component, 'deletePlaylist').and.callThrough();
+    spyOn(component, 'unfollowPlaylist').and.callThrough();
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
 
-    const deleteButton = buttons[1];
+    const unfollowButton = buttons[1];
 
     expect(snackbar.open).not.toHaveBeenCalled();
 
-    await deleteButton.click();
+    await unfollowButton.click();
     fixture.detectChanges();
 
-    expect(component.deletePlaylist).toHaveBeenCalled();
-    expect(component.isPlaylistNotSaved).toBeTrue();
+    expect(component.unfollowPlaylist).toHaveBeenCalled();
+    expect(component.isPlaylistNotFollowed).toBeTrue();
 
     expect(snackbar.open).toHaveBeenCalled();
 
-    expect(await deleteButton.isDisabled()).toBeTrue();
+    expect(await unfollowButton.isDisabled()).toBeTrue();
   });
 });

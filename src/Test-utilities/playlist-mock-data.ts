@@ -183,7 +183,7 @@ export const playlistsMockData: PlaylistItem[] = [
   },
 ];
 
-export const playlistWithTracksMockData = {
+export const playlistWithTracksMockData: Playlist = {
   collaborative: false,
   description: 'The chillest beats to help you relax, study, code, and focus.',
   external_urls: {
@@ -220,7 +220,7 @@ export const playlistWithTracksMockData = {
     href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWWQRwui0ExPn/tracks?offset=0&limit=100&locale=es-419,es',
     items: [
       {
-        added_at: '2022-11-11T00:01:00Z',
+        added_at: new Date('2022-11-11T00:01:00Z'),
         added_by: {
           external_urls: {
             spotify: 'https://open.spotify.com/user/',
@@ -316,7 +316,7 @@ export const playlistWithTracksMockData = {
         },
       },
       {
-        added_at: '2022-11-11T00:01:00Z',
+        added_at: new Date('2022-11-11T00:01:00Z'),
         added_by: {
           external_urls: {
             spotify: 'https://open.spotify.com/user/',
@@ -432,7 +432,7 @@ export const playlistWithTracksMockData = {
         },
       },
       {
-        added_at: '2022-11-11T00:01:00Z',
+        added_at: new Date('2022-11-11T00:01:00Z'),
         added_by: {
           external_urls: {
             spotify: 'https://open.spotify.com/user/',

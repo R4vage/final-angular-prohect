@@ -3,32 +3,33 @@ import { ImageInfo } from './extras.models';
 
 export interface Track {
   album: {
-      album_type: string;
-      artists: Artist[];
-      available_markets: string[];
-      external_urls: {
+    album_type: string;
+    artists: Artist[];
+    available_markets: string[];
+    external_urls: {
       spotify: string;
-      };
-      href: string;
-      id: string;
-      images: ImageInfo[];
-      name: string;
-      release_date: string;
-      release_date_precision: string;
-      total_tracks: number;
-      type: string;
-      uri: string;
+    };
+    href: string;
+    id: string;
+    images: ImageInfo[];
+    name: string;
+    release_date: string;
+    release_date_precision: string;
+    total_tracks: number;
+    type: string;
+    uri: string;
   };
   artists: Artist[];
   available_markets: string[];
   disc_number: number;
   duration_ms: number;
+  episode?: boolean;
   explicit: boolean;
   external_ids: {
-      isrc: string;
+    isrc: string;
   };
   external_urls: {
-      spotify: string;
+    spotify: string;
   };
   href: string;
   id: string;
@@ -36,6 +37,7 @@ export interface Track {
   name: string;
   popularity: number;
   preview_url: string;
+  track?: boolean;
   track_number: number;
   type: string;
   uri: string;

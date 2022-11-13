@@ -31,7 +31,6 @@ export class PlaylistsEffects {
         throw err;
       }),
       map((playlist) => {
-        console.log(playlist);
         return upsertPlaylist({ playlist });
       })
     );

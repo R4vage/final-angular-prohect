@@ -25,8 +25,8 @@ export interface PlaylistItem {
   images: Image[];
   name: string;
   owner: Owner;
-  primary_color: string;
-  public: boolean;
+  primary_color: string | null;
+  public: boolean | null;
   snapshot_id: string;
   tracks: Tracks;
   type: string;
@@ -53,7 +53,7 @@ export interface Image {
 }
 
 export interface Owner {
-  display_name: string;
+  display_name?: string;
   external_urls: ExternalUrls;
   href: string;
   id: string;
@@ -65,7 +65,7 @@ export interface Tracks {
   href: string;
   items?: Item[];
   limit?: number;
-  next?: null;
+  next?: string | null;
   previous?: null;
   offset?: number;
   total: number;
