@@ -8,7 +8,7 @@ import { AlbumItem } from 'src/app/core/models/album.models';
 
 @Injectable()
 export class TopAlbumsEffects {
-  loadUsers$ = createEffect(() => {
+  loadAlbums$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(topAlbumsActions.loadTopUserAlbums),
       concatMap(() =>

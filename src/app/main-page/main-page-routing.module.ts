@@ -36,6 +36,10 @@ const routes: Routes = [
         path: 'search/:value',
         loadChildren: () => import('../search-page/search-page.module').then((m) => m.SearchPageModule),
       },
+      {
+        path: 'search',
+        redirectTo: '/home'
+      },
     ],
   },
 ];

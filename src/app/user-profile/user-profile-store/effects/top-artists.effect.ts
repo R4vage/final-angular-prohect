@@ -7,7 +7,7 @@ import { UserProfileRestService } from '../../services/user-profile-rest.service
 
 @Injectable()
 export class TopArtistEffects {
-  loadUsers$ = createEffect(() => {
+  loadArtists$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(topArtistActions.loadTopUserArtists),
       concatMap(() =>

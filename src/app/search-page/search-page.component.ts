@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AlbumItem, Albums, Artist } from '../core/models/album.models';
 import { PlaylistItem } from '../core/models/playlist.models';
 import { SearchResults } from '../core/models/rest.models';
 import { Track } from '../core/models/track.models';
+import { SearchState } from './search-store/search.reducer';
+import { searchHasBeenDone, selectSearchByValue } from './search-store/search.selectors';
 import { SearchRestService } from './services/search-rest.service';
 
 @Component({
@@ -18,21 +21,21 @@ export class SearchPageComponent implements OnInit {
   tracks:Track[] = [];
   albums: AlbumItem[] = [];
   playlists: PlaylistItem[] = []
-  constructor(private restService: SearchRestService, private route: ActivatedRoute) { }
+  constructor(private restService: SearchRestService, private route: ActivatedRoute, private store: Store<SearchState>) { }
 
   ngOnInit(): void {
     this.route.params.subscribe({
       next: params => {this.searchValue = params['value']} 
-    })
-    this.restService.searchItem(this.searchValue).subscribe(response => {
-      this.searchResults = response
-      this.artists = response.artists.items;
-      this.tracks = response.tracks.items;
-      this.albums = response.albums.items;
-      this.playlists = response.playlists.items;
-      console.log(this.playlists)
-    })
+    });
+    this.store.select(selectSearchByValue(this.searchValue)).subscribe(results => {
+      if(results) {
+        this.artists = results.results.artists.items;
+        this.albums = results.results.albums.items;
+        this.tracks = results.results.tracks.items;
+        this.playlists = results.results.playlists.items
+      }
+    });
+
+    this.store.select(searchHasBeenDone(this.searchValue)).subscribe(boolean => console.log(boolean))
   }
-
-
 }
