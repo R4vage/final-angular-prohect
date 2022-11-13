@@ -11,4 +11,8 @@ h2{
     gap: 4em;
     align-self: center;
     padding-bottom: 1em;
+    scroll-margin: 10px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    scroll-snap-type: x mandatory;
 }
