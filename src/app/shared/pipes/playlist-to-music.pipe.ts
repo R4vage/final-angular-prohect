@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { MusicCard } from 'src/app/core/models/music-card.models';
-import { PlaylistItem, Playlists } from 'src/app/core/models/playlist.models';
+import { PlaylistItem } from 'src/app/core/models/playlist.models';
 
 @Pipe({
   name: 'playlistToMusic',

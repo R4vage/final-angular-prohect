@@ -1,13 +1,11 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { tap } from 'rxjs';
 import { initialAuthState } from 'src/app/auth/auth-store/reducers';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 import { ErrorInterceptor } from './error.interceptor';
-import { TokenInterceptor } from './token.interceptor';
 
 describe('ErrorInterceptor', () => {
   let httpClient: HttpClient;

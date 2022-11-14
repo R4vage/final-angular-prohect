@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, switchMap, takeUntil, tap, throwError } from 'rxjs';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { AuthorizationSuccess, isAuthorizationSuccess } from '../../../core/models/authorization.models';
 import { loginSuccessful } from '../../auth-store/auth.actions';
 import { AuthState } from '../../auth-store/reducers';
-import { AuthorizationSuccess, isAuthorizationSuccess } from '../../../core/models/authorization.models';
 import { AuthService } from '../../services/auth.service';
 
 @Component({

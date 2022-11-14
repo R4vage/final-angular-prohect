@@ -1,5 +1,4 @@
-import { ActionReducer, ActionReducerMap, createFeatureSelector, createSelector, MetaReducer } from '@ngrx/store';
-import { authReducer } from 'src/app/auth/auth-store/reducers';
+import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 
 export interface RootState {}

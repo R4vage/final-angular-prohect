@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, switchMap, tap } from 'rxjs';
-import { MainCategoriesResponse, CategoryItem } from 'src/app/core/models/categories.models';
+import { map, switchMap } from 'rxjs';
+import { CategoryItem, MainCategoriesResponse } from 'src/app/core/models/categories.models';
 import { Playlists } from 'src/app/core/models/playlist.models';
 import { environment } from 'src/environments/environment';
 

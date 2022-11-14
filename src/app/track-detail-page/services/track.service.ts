@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, switchMap, tap, throwError } from 'rxjs';
+import { Observable, switchMap, throwError } from 'rxjs';
 import { Track } from 'src/app/core/models/track.models';
 
 @Injectable({

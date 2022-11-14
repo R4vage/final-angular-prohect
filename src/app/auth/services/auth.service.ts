@@ -1,10 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { catchError, from, map, tap, throwError } from 'rxjs';
+import { from, map, throwError } from 'rxjs';
 import { AuthorizationSuccess, RefreshResponse } from '../../core/models/authorization.models';
 import { EncriptionService } from './encription.service';
-import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',

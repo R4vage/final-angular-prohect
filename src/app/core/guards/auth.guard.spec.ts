@@ -1,11 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { HttpTestingController } from '@angular/common/http/testing';
-import { fakeAsync, flush, flushMicrotasks, TestBed } from '@angular/core/testing';
+import { fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MemoizedSelector } from '@ngrx/store';
-import { MockSelector, MockStore, provideMockStore } from '@ngrx/store/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { isLoggedIn } from 'src/app/auth/auth-store/auth.selectors';
-import { AuthState, initialAuthState } from 'src/app/auth/auth-store/reducers';
+import { initialAuthState } from 'src/app/auth/auth-store/reducers';
 
 import { Router, UrlTree } from '@angular/router';
 

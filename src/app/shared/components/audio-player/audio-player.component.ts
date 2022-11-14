@@ -1,7 +1,5 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { prependListener } from 'process';
-import { BehaviorSubject, combineLatest, fromEvent, ignoreElements, Observable, Subject, takeUntil, tap, throttleTime } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { fromEvent, Subject, takeUntil, throttleTime } from 'rxjs';
 
 @Component({
   selector: 'app-audio-player',

@@ -1,11 +1,11 @@
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { BehaviorSubject, catchError, concatMap, filter, finalize, mergeMap, Observable, retry, switchMap, take, tap } from 'rxjs';
-import { LocalStorageService } from 'src/app/auth/services/local-storage.service';
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { AuthState } from 'src/app/auth/auth-store/reducers';
 import { Store } from '@ngrx/store';
+import { BehaviorSubject, catchError, filter, finalize, Observable, switchMap, take, tap } from 'rxjs';
 import { logOut } from 'src/app/auth/auth-store/auth.actions';
+import { AuthState } from 'src/app/auth/auth-store/reducers';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { LocalStorageService } from 'src/app/auth/services/local-storage.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {

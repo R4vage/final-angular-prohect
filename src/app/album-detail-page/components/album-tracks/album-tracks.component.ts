@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TrackItem } from 'src/app/core/models/album.models';
-import { Track } from 'src/app/core/models/track.models';
 import { TrackService } from 'src/app/track-detail-page/services/track.service';
 
 @Component({

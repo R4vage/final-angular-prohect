@@ -1,15 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './components/login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { LoginGuard } from '../core/guards/login.guard';
 import { MaterialModule } from '../material/material.module';
 import { AuthRoutingModule } from './auth-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
-import * as fromAuthStore from './auth-store/reducers';
-import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth-store/auth.effects';
-import { LoginGuard } from '../core/guards/login.guard';
+import * as fromAuthStore from './auth-store/reducers';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [LoginComponent],

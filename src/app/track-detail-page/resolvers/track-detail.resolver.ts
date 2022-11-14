@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { catchError, filter, finalize, first, Observable, of, tap } from 'rxjs';
-import { addTrack, loadTrack, trackSearch } from '../track-detail-store/actions/tracks.actions';
+import { filter, finalize, first, Observable, tap } from 'rxjs';
+import { loadTrack } from '../track-detail-store/actions/tracks.actions';
 import { TrackState } from '../track-detail-store/reducers/tracks.reducer';
 import { isTrackInStore } from '../track-detail-store/selectors/track.selectors';
 

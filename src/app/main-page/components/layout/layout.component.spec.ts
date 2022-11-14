@@ -2,8 +2,8 @@ import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
-import { MatListHarness, MatListItemHarness } from '@angular/material/list/testing';
 import { MatIconHarness } from '@angular/material/icon/testing';
+import { MatListHarness, MatListItemHarness } from '@angular/material/list/testing';
 import { MatToolbarHarness } from '@angular/material/toolbar/testing';
 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,9 +12,9 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { MaterialModule } from 'src/app/material/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { LayoutComponent } from './layout.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { LayoutComponent } from './layout.component';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;

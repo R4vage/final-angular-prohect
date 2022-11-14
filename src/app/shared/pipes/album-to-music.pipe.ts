@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AlbumItem, Image } from 'src/app/core/models/album.models';
+import { AlbumItem } from 'src/app/core/models/album.models';
 import { MusicCard } from 'src/app/core/models/music-card.models';
 
 @Pipe({

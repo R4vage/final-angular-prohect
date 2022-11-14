@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { noop, Observable, of, throwError } from 'rxjs';
-import { Album, AlbumItem } from 'src/app/core/models/album.models';
+import { Album } from 'src/app/core/models/album.models';
 import { AlbumService } from 'src/app/main-page/services/album.service';
 import { MaterialModule } from 'src/app/material/material.module';
 import { AlbumTotalDurationPipe } from 'src/app/shared/pipes/album-total-duration.pipe';

@@ -1,7 +1,7 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import * as TrackActions from '../actions/tracks.actions';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createReducer, on } from '@ngrx/store';
 import { Track } from 'src/app/core/models/track.models';
+import * as TrackActions from '../actions/tracks.actions';
 
 export const tracksesFeatureKey = 'tracks';
 

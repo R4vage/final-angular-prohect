@@ -1,7 +1,7 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import * as AlbumsActions from '../actions/albums.actions';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createReducer, on } from '@ngrx/store';
 import { AlbumItem } from 'src/app/core/models/album.models';
+import * as AlbumsActions from '../actions/albums.actions';
 
 export const albumsesFeatureKey = 'albums';
 

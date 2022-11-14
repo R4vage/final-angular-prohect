@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, finalize, first, Observable, of, tap } from 'rxjs';
+import { filter, finalize, first, Observable, tap } from 'rxjs';
 import { loadPlaylist } from 'src/app/main-page/main-page-store/actions/playlists.actions';
 import { PlaylistState } from 'src/app/main-page/main-page-store/reducers/playlists.reducer';
 import { isPlaylistInStore } from 'src/app/main-page/main-page-store/selectors/playlist.selectors';

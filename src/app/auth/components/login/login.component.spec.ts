@@ -1,25 +1,24 @@
 import { Location } from '@angular/common';
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { noop, of } from 'rxjs';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { MaterialModule } from 'src/app/material/material.module';
-import { AuthState, initialAuthState } from '../../auth-store/reducers';
 import { AuthorizationSuccess } from '../../../core/models/authorization.models';
+import { AuthState, initialAuthState } from '../../auth-store/reducers';
 import { AuthService } from '../../services/auth.service';
 
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { MatCardHarness } from '@angular/material/card/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
+import { MatCardHarness } from '@angular/material/card/testing';
 
-import { LoginComponent } from './login.component';
 import { loginSuccessful } from '../../auth-store/auth.actions';
+import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

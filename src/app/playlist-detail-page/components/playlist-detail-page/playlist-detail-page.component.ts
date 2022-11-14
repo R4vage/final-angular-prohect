@@ -1,9 +1,8 @@
-import { Component, OnInit, Sanitizer } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { Store, select } from '@ngrx/store';
-import { Observable, Subject, takeUntil, tap, switchMap, map } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { map, Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { Playlist } from 'src/app/core/models/playlist.models';
 import { selectPlaylistById } from 'src/app/main-page/main-page-store/selectors/playlist.selectors';
 import { PlaylistService } from 'src/app/main-page/services/playlist.service';

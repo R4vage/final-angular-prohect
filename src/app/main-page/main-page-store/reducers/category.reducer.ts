@@ -1,7 +1,7 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import * as CategoryActions from '../actions/category.actions';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createReducer, on } from '@ngrx/store';
 import { CategoryItem } from 'src/app/core/models/categories.models';
+import * as CategoryActions from '../actions/category.actions';
 
 export const categoriesFeatureKey = 'categories';
 

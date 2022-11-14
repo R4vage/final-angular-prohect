@@ -4,7 +4,6 @@ import { Location } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockStore } from '@ngrx/store/testing';
 import { noop, Observable, of, throwError } from 'rxjs';
 import { MaterialModule } from 'src/app/material/material.module';
 import { TrackService } from '../services/track.service';
@@ -14,15 +13,15 @@ import { TrackDetailPageComponent } from './track-detail-page.component';
 import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonHarness } from '@angular/material/button/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
 import { Track } from 'src/app/core/models/track.models';
 import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/audio-player.component';
 import { ListArtistsPipe } from 'src/app/shared/pipes/list-artists.pipe';
-import { trackMockData } from 'src/Test-utilities/track-mock-data';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SecondTrackMusicPipe } from 'src/app/shared/pipes/second-track-music.pipe';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { trackMockData } from 'src/Test-utilities/track-mock-data';
 
 describe('TrackDetailPageComponent', () => {
   let component: TrackDetailPageComponent;

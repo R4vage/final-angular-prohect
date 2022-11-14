@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, map, retry } from 'rxjs';
+import { catchError, concatMap, map } from 'rxjs';
 import { CategoriesService } from '../../services/categories.service';
 import { allCategoriesLoaded, loadCategories, loadCategory, upsertCategory } from '../actions/category.actions';
 

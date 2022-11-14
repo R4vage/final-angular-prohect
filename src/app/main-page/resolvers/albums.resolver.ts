@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, finalize, first, Observable, of, retry, tap } from 'rxjs';
+import { filter, finalize, first, Observable, tap } from 'rxjs';
 import { loadAlbums } from '../main-page-store/actions/albums.actions';
 import { AlbumState } from '../main-page-store/reducers/albums.reducer';
 import { areAlbumsLoaded } from '../main-page-store/selectors/album.selectors';

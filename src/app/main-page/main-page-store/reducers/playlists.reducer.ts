@@ -1,8 +1,8 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createReducer, on } from '@ngrx/store';
 
-import * as PlaylistsActions from '../actions/playlists.actions';
 import { PlaylistItem } from 'src/app/core/models/playlist.models';
+import * as PlaylistsActions from '../actions/playlists.actions';
 
 export const playlistsesFeatureKey = 'playlists';
 

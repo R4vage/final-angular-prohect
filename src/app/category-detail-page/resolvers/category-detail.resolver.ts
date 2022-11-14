@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, finalize, first, Observable, of, tap } from 'rxjs';
+import { filter, finalize, first, Observable, tap } from 'rxjs';
 import { loadCategory } from 'src/app/main-page/main-page-store/actions/category.actions';
 import { CategoryState } from 'src/app/main-page/main-page-store/reducers/category.reducer';
 import { isCategoryInStore } from 'src/app/main-page/main-page-store/selectors/category.selectors';

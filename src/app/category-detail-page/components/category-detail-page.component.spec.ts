@@ -4,7 +4,6 @@ import { Location } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatCardHarness } from '@angular/material/card/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
@@ -12,7 +11,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
 import { noop, Observable, of } from 'rxjs';
 import { CategoryItem } from 'src/app/core/models/categories.models';
 import { CategoriesService } from 'src/app/main-page/services/categories.service';
@@ -21,7 +19,6 @@ import { CardListComponent } from 'src/app/shared/components/card-list/card-list
 import { MusicCardComponent } from 'src/app/shared/components/music-card/music-card.component';
 import { PlaylistToMusicPipe } from 'src/app/shared/pipes/playlist-to-music.pipe';
 import { TitleCardTruncatePipe } from 'src/app/shared/pipes/title-card-truncate.pipe';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { categoryWithPlaylists } from 'src/Test-utilities/categories-mock-data';
 
 import { CategoryDetailPageComponent } from './category-detail-page.component';

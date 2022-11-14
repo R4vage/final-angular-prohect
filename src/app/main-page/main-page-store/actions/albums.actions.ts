@@ -1,6 +1,6 @@
-import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { AlbumItem, Albums } from 'src/app/core/models/album.models';
+import { createAction, props } from '@ngrx/store';
+import { AlbumItem } from 'src/app/core/models/album.models';
 
 export const loadAlbums = createAction('[Albums/API] Load Albums');
 export const loadAlbum = createAction('[Resolver] Load Album', props<{ id: string }>());

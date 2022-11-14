@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, switchMap, throwError } from 'rxjs';
-import { Album, AlbumItem, Albums } from 'src/app/core/models/album.models';
+import { Album, Albums } from 'src/app/core/models/album.models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

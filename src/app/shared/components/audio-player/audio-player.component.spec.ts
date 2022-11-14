@@ -4,13 +4,12 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatButtonHarness } from '@angular/material/button/testing';
-import { noop, Subscription } from 'rxjs';
-import { MaterialModule } from 'src/app/material/material.module';
 import { MatSliderHarness } from '@angular/material/slider/testing';
+import { MaterialModule } from 'src/app/material/material.module';
 
-import { AudioPlayerComponent } from './audio-player.component';
 import { By } from '@angular/platform-browser';
 import { SecondTrackMusicPipe } from '../../pipes/second-track-music.pipe';
+import { AudioPlayerComponent } from './audio-player.component';
 
 describe('AudioPlayerComponent', () => {
   let component: AudioPlayerComponent;

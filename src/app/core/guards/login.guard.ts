@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, Router, UrlTree } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { isLoggedOut } from 'src/app/auth/auth-store/auth.selectors';
 import { AuthState } from 'src/app/auth/auth-store/reducers';
 

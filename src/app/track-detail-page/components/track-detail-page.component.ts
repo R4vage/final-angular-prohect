@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { map, Observable, Subscription, tap } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import { Track } from 'src/app/core/models/track.models';
 import { TrackService } from '../services/track.service';
 import { selectTrackById } from '../track-detail-store/selectors/track.selectors';
