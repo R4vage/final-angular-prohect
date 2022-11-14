@@ -8,9 +8,7 @@ import { sideNavData } from './nav-data';
   styleUrls: ['./side-nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SideNavComponent implements OnInit {
+export class SideNavComponent {
   sections: NavData[] = sideNavData;
   constructor() {}
-
-  ngOnInit(): void {}
 }

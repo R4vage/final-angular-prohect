@@ -7,10 +7,8 @@ import { AuthState } from 'src/app/auth/auth-store/reducers';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent {
   constructor(private store: Store<AuthState>) {}
-
-  ngOnInit(): void {}
 
   logOut() {
     this.store.dispatch(logOut());
