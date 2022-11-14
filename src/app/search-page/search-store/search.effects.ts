@@ -16,7 +16,7 @@ export class SearchesEffects {
               map((res) => {
                 return searchesActions.addSearchSuccess({search:{results: res, id:action.searchValue }});
               }),
-              catchError((error) => {console.log('error');return of(searchesActions.addSearchFailure({ error }))}) 
+              catchError((error) => of(searchesActions.addSearchFailure({ error }))) 
           );
       }),
     );
@@ -27,10 +27,3 @@ export class SearchesEffects {
     private restService: SearchRestService
   ) {}
 }
-/*       concatMap((action) =>
-        this.restService.searchItem(action.searchValue).pipe(
-            map((data) => {
-            return searchesActions.addSearchSuccess({ search: {results:data, id: action.searchValue} })}),
-          catchError((error) => of(searchesActions.addSearchFailure({ error }))) 
-        )
-      ) */

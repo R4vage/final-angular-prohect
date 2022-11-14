@@ -35,7 +35,5 @@ export class SearchPageComponent implements OnInit {
         this.playlists = results.results.playlists.items
       }
     });
-
-    this.store.select(searchHasBeenDone(this.searchValue)).subscribe(boolean => console.log(boolean))
   }
 }

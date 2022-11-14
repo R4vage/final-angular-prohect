@@ -13,6 +13,5 @@ export function searchHasBeenDone(id: string) {
 }
 
 export function selectSearchByValue(idSearch: string) {
-    console.log(idSearch)
   return createSelector(selectAllSearchEntities, (state) => state[idSearch]);
 }
