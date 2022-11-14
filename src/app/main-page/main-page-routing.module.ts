@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AlbumDetailResolver } from '../album-detail-page/resolvers/album-detail.resolver';
+import { CategoryDetailResolver } from '../category-detail-page/resolvers/category-detail.resolver';
 import { PlaylistDetailResolver } from '../playlist-detail-page/resolvers/playlist-detail.resolver';
 import { TrackDetailResolver } from '../track-detail-page/resolvers/track-detail.resolver';
 import { UserResolver } from '../user-profile/resolvers/user.resolver';
@@ -43,6 +44,13 @@ const routes: Routes = [
         loadChildren: () => import('../playlist-detail-page/playlist-detail-page.module').then((m) => m.PlaylistDetailPageModule),
         resolve: {
           playlist: PlaylistDetailResolver,
+        },
+      },
+      {
+        path: 'category/:id',
+        loadChildren: () => import('../category-detail-page/category-detail-page.module').then((m) => m.CategoryDetailPageModule),
+        resolve: {
+          category: CategoryDetailResolver,
         },
       },
 

@@ -1,0 +1,28 @@
+<div>
+  <section class="min-h-full">
+    <div class="category-information max-w-96 grid grid-cols-6 grid-rows-1 gap-5 p-5 pt-10 bg-gradient-to-t from-slate-800 to-slate-700">
+      <ng-container *ngIf="category$ | async as category">
+        <div class="col-span-2 row-span-2 self-center sm:self-start md:self-end">
+          <img [src]="getImage(category)" class="image-category" />
+        </div>
+        <div class="col-span-4 col-start-3 self-center sm:self-start md:self-end flex flex-col justify-around text-white">
+          <div class="title font-extrabold text-3xl sm:text-5xl pb-3 overflow-hidden">{{ category.name }}</div>
+        </div>
+      </ng-container>
+    </div>
+  </section>
+  <section class="m-0 p-[16px] h-full pt-10 bg-opacity-60 bg-gradient-to-t from-black to-slate-800">
+    <app-card-list class="categories-section flex flex-col gap-4 col-span-5">
+      <h2 class="title col-span-2 text-white text-lg font-semibold">Playlists</h2>
+
+      <div
+        *ngIf="category$ | async as category"
+        class="cards overflow-x-auto min-h-[300px] grid grid-flow-col auto-cols-[100%] sm:auto-cols-[46%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[17.5%] gap-8"
+      >
+        <ng-container *ngFor="let playlist of category?.playlists?.items">
+          <app-music-card *ngIf="playlist" [musicData]="playlist | playlistToMusic" [routerLink]="['/playlist', playlist.id]" class="card"></app-music-card>
+        </ng-container>
+      </div>
+    </app-card-list>
+  </section>
+</div>

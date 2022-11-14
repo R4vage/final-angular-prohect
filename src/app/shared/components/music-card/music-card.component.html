@@ -1,4 +1,4 @@
-<mat-card class="bg-gradient-to-tl from-emerald-900 to-slate-800 hover:from-pink-500 hover:to-yellow-500" *ngIf="musicData">
+<mat-card class="h-[95%] bg-gradient-to-tl from-emerald-900 to-slate-800 hover:from-pink-500 hover:to-yellow-500" *ngIf="musicData">
   <div class="flex flex-col relative text-left max-h-1/4 max-w-[360px]">
     <img [src]="musicData.imageUrl" class="image-card mb-7 max-h-[337px]" />
     <mat-card-header class="flex flex-row justify-start ml-[-16px] truncate">
@@ -11,7 +11,7 @@
         <span class="artist text-bold"> {{ musicData.artist }} </span>
       </ng-container>
       <ng-container *ngIf="musicData.description">
-        <div class="description pointer-events-none" [innerHTML]="musicData.description"></div>
+        <div class="description overflow-hidden pointer-events-none" [innerHTML]="musicData.description"></div>
       </ng-container>
       <div class="date-duration text-gray-400">{{ musicData.date | date }} {{ musicData.duration }}</div>
     </mat-card-content>

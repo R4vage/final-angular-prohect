@@ -1,5 +1,5 @@
-<div class="min-h-full grid grid-rows-[250px_1fr] md:grid-rows-[350px_1fr] lg:grid-rows-[500px_1fr] xl:grid-rows-[700px_1fr]">
-  <div class="track-information max-w-96 grid grid-cols-6 grid-rows-1 lg:grid-rows-2 gap-5 p-5 pt-10 bg-gradient-to-t from-slate-800 to-slate-700">
+<div class="min-h-full grid grid-rows-[250px_1fr] md:grid-rows-[350px_1fr] lg:grid-rows-2">
+  <div class="track-information max-w-10 grid grid-cols-6 grid-rows-1 lg:grid-rows-2 gap-5 p-5 pt-10 bg-gradient-to-t from-slate-800 to-slate-700">
     <ng-container *ngIf="track$ | async as track">
       <div class="col-span-2 row-span-2 self-center sm:self-start md:self-end">
         <img [src]="getImage(track)" class="image-track" />
@@ -22,7 +22,9 @@
   </div>
 
   <section class="m-0 p-[16px] h-full pt-10 bg-opacity-60 bg-gradient-to-t from-black to-slate-800">
-    <app-audio-player class="audio-player" *ngIf="track$ | async as track" [musicURL]="track.preview_url"></app-audio-player>
+    <ng-container *ngIf="track$ | async as track">
+      <app-audio-player class="audio-player" *ngIf="track.preview_url" [musicURL]="track.preview_url"></app-audio-player>
+    </ng-container>
 
     <div *ngIf="track$ | async" class="flex flex-row justify-center gap-5">
       <button

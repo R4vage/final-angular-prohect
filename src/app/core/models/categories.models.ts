@@ -1,3 +1,5 @@
+import { Playlists } from './playlist.models';
+
 export interface MainCategoriesResponse {
   categories: Categories;
 }
@@ -17,6 +19,7 @@ export interface CategoryItem {
   icons: Icon[];
   id: string;
   name: string;
+  playlists?: Playlists;
 }
 
 export interface Icon {
