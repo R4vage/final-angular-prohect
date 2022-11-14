@@ -20,7 +20,7 @@ export class PlaylistTracksComponent implements OnInit {
     }
   }
 
-  getIdsTracks(tracks: Track[] | TrackItem[]) {
+  getIdsTracks(tracks: Track[]) {
     return tracks.map((track) => track.id).join();
   }
 

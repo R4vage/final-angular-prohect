@@ -66,6 +66,7 @@ export interface TrackItem {
   disc_number: number;
   duration_ms: number;
   explicit: boolean;
+  external_ids?: ExternalIDS;
   external_urls: ExternalUrls;
   href: string;
   id: string;

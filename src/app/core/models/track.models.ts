@@ -25,12 +25,8 @@ export interface Track {
   duration_ms: number;
   episode?: boolean;
   explicit: boolean;
-  external_ids: {
-    isrc: string;
-  };
-  external_urls: {
-    spotify: string;
-  };
+  external_ids: ExternalIDS;
+  external_urls: ExternalUrls;
   href: string;
   id: string;
   is_local: boolean;
@@ -50,6 +46,7 @@ export interface Artist {
   name: string;
   type: string;
   uri: string;
+  images?: ImageInfo[];
 }
 
 export interface ExternalUrls {

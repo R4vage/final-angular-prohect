@@ -11,7 +11,6 @@ export const reducer = createReducer(
 
   on(UserActions.loadUser, (state) => state),
   on(UserActions.loadUsersSuccess, (state, action) => {
-    console.log({ ...action.data, userLoaded: true });
     return { ...action.data, userLoaded: true };
   }),
   on(UserActions.loadUsersFailure, (state, action) => {

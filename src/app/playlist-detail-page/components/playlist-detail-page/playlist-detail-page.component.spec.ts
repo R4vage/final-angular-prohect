@@ -19,7 +19,7 @@ import { SecondTrackMusicPipe } from 'src/app/shared/pipes/second-track-music.pi
 import { TracksFromPlaylistPipe } from 'src/app/shared/pipes/tracks-from-playlist.pipe';
 import { TrackService } from 'src/app/track-detail-page/services/track.service';
 import { playlistWithTracksMockData } from 'src/Test-utilities/playlist-mock-data';
-import { PlaylistTracksComponent } from '../playlist-tracks/playlist-trackscomponent';
+import { PlaylistTracksComponent } from '../playlist-tracks/playlist-tracks.component';
 
 import { PlaylistDetailPageComponent } from './playlist-detail-page.component';
 

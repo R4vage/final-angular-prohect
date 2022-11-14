@@ -10,7 +10,21 @@ import { MusicCard } from 'src/app/core/models/music-card.models';
 export class MusicCardComponent implements OnInit {
   @Input() musicData!: MusicCard;
 
+  renderDescription = false;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const hrefRegex = /href="([^"]*)"/g;
+
+    if (hrefRegex.test(this.musicData.description!)) {
+      this.musicData.description = this.musicData.description?.replace(
+        hrefRegex,
+
+        ''
+      );
+    }
+
+    this.renderDescription = true;
+  }
 }
