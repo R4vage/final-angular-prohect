@@ -1,4 +1,4 @@
-<div class="min-h-full grid sm:grid-rows-2">
+<div class="min-h-full grid grid-rows-[250px_1fr] md:grid-rows-[350px_1fr] lg:grid-rows-[500px_1fr] xl:grid-rows-[700px_1fr]">
   <div class="track-information max-w-96 grid grid-cols-6 grid-rows-1 lg:grid-rows-2 gap-5 p-5 pt-10 bg-gradient-to-t from-slate-800 to-slate-700">
     <ng-container *ngIf="track$ | async as track">
       <div class="col-span-2 row-span-2 self-center sm:self-start md:self-end">
@@ -7,6 +7,9 @@
       <div class="col-span-4 lg:row-start-2 col-start-3 self-center sm:self-start md:self-end flex flex-col justify-around text-white">
         <div class="font-extrabold">Song</div>
         <div class="title font-extrabold text-4xl pb-3">{{ track.name }}</div>
+        <div>
+          <span [routerLink]="['/album', track.album.id]" class="font-semibold hover:underline cursor-pointer">{{ track.album.name }}</span>
+        </div>
         <div class="artists">
           <span class="font-semibold">{{ track.artists | listArtists }}</span>
           <span class="mx-1 font-semibold align-middle">•</span>

@@ -1,4 +1,4 @@
-<div class="min-h-full flex flex-col">
+<div class="min-h-full grid grid-rows-[250px_1fr] md:grid-rows-[350px_1fr] lg:grid-rows-[500px_1fr] xl:grid-rows-[700px_1fr]">
   <div class="album-information max-w-96 grid grid-cols-6 grid-rows-1 lg:grid-rows-2 gap-5 p-5 pt-10 bg-gradient-to-t from-slate-800 to-slate-700">
     <ng-container *ngIf="album$ | async as album">
       <div class="col-span-2 row-span-2 self-center sm:self-start md:self-end">
@@ -37,30 +37,9 @@
         <span class="hidden sm:inline-block">Delete Album</span>
       </button>
     </div>
-    <div class="sticky z-20 top-0 px-[30px] py-4 grid grid-cols-tableTracks gap-2 text-gray-400">
-      <span class=""># </span>
-      <span>TITLE</span>
-      <mat-icon class="place-self-end self-center">browse_gallery</mat-icon>
-    </div>
 
     <ng-container *ngIf="album$ | async as album">
-      <ng-container *ngIf="album.tracks">
-        <div
-          *ngFor="let track of album.tracks.items; index as i"
-          [routerLink]="['/track', track.id]"
-          class="track a px-[30px] py-3 grid grid-cols-tableTracks gap-2 text-gray-200 hover:bg-opacity-30 hover:bg-slate-100"
-        >
-          <div class="index self-center">{{ i + 1 }}</div>
-          <div class="track-name flex flex-col">
-            <div>{{ track.name }}</div>
-            <div class="flex flex-row items-center">
-              <mat-icon *ngIf="track.explicit">explicit</mat-icon>
-              <div class="track-artist self-end">{{ track.artists | listArtists }}</div>
-            </div>
-          </div>
-          <div class="track-duration text-right self-center">{{ track.duration_ms / 1000 | secondTrackMusic }}</div>
-        </div>
-      </ng-container>
+      <app-album-tracks *ngIf="album.tracks" [tracks]="album.tracks.items"></app-album-tracks>
     </ng-container>
   </section>
 </div>

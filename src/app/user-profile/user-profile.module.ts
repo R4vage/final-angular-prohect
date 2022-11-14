@@ -24,8 +24,8 @@ const Stores = [
   StoreModule.forFeature(fromUser.userFeatureKey, fromUser.reducer),
   StoreModule.forFeature(fromTopAlbums.topUserAlbumsFeatureKey, fromTopAlbums.reducer),
   StoreModule.forFeature(fromTopArtists.topUserArtistsFeatureKey, fromTopArtists.reducer),
-  StoreModule.forFeature(fromTopTracks.topUserTracksFeatureKey, fromTopTracks.reducer)
-]
+  StoreModule.forFeature(fromTopTracks.topUserTracksFeatureKey, fromTopTracks.reducer),
+];
 
 @NgModule({
   declarations: [UserProfileComponent, ProfileComponent],
@@ -37,7 +37,7 @@ const Stores = [
     SharedModule,
     CardFlexModule,
 
-    MatIconModule
+    MatIconModule,
   ],
   providers: [UserProfileRestService],
 })

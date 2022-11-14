@@ -30,7 +30,6 @@ export class AlbumsEffects {
         throw err;
       }),
       map((album) => {
-        console.log(album);
         return upsertAlbum({ album });
       })
     );

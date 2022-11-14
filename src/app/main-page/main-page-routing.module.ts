@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AlbumDetailResolver } from '../album-detail-page/resolvers/album-detail.resolver';
+import { PlaylistDetailResolver } from '../playlist-detail-page/resolvers/playlist-detail.resolver';
 import { TrackDetailResolver } from '../track-detail-page/resolvers/track-detail.resolver';
+import { UserResolver } from '../user-profile/resolvers/user.resolver';
 import { LayoutComponent } from './components/layout/layout.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { AlbumsResolver } from './resolvers/albums.resolver';
@@ -37,11 +39,25 @@ const routes: Routes = [
         },
       },
       {
-        path:'profile',
-        loadChildren: () => import('../user-profile/user-profile.module').then((m) => m.UserProfileModule),
-      }
+        path: 'playlist/:id',
+        loadChildren: () => import('../playlist-detail-page/playlist-detail-page.module').then((m) => m.PlaylistDetailPageModule),
+        resolve: {
+          playlist: PlaylistDetailResolver,
+        },
+      },
 
+      {
+        path: 'profile',
+        loadChildren: () => import('../user-profile/user-profile.module').then((m) => m.UserProfileModule),
+      },
+      {
+        path: '**',
+        redirectTo: 'home',
+      },
     ],
+    resolve: {
+      user: UserResolver,
+    },
   },
 ];
 

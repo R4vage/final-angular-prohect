@@ -1,6 +1,7 @@
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Location } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
@@ -18,6 +19,7 @@ import { AlbumTotalDurationPipe } from 'src/app/shared/pipes/album-total-duratio
 import { ListArtistsPipe } from 'src/app/shared/pipes/list-artists.pipe';
 import { SecondTrackMusicPipe } from 'src/app/shared/pipes/second-track-music.pipe';
 import { albumWithTracksMockData } from 'src/Test-utilities/album-mock-data';
+import { AlbumTracksComponent } from '../album-tracks/album-tracks.component';
 
 import { AlbumDetailPageComponent } from './album-detail-page.component';
 
@@ -48,6 +50,7 @@ describe('AlbumDetailPageComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
+        HttpClientTestingModule,
         MaterialModule,
         NoopAnimationsModule,
         RouterTestingModule.withRoutes([
@@ -55,7 +58,7 @@ describe('AlbumDetailPageComponent', () => {
           { path: 'album', component: AlbumDetailPageComponent },
         ]),
       ],
-      declarations: [AlbumDetailPageComponent, ListArtistsPipe, SecondTrackMusicPipe, AlbumTotalDurationPipe],
+      declarations: [AlbumDetailPageComponent, ListArtistsPipe, SecondTrackMusicPipe, AlbumTotalDurationPipe, AlbumTracksComponent],
       providers: [
         { provide: MatSnackBar, useValue: snackbarSpy },
 
