@@ -27,6 +27,8 @@ export class TrackDetailResolver implements Resolve<boolean> {
       filter(() => {
         return true;
       }),
+      filter((isTrackInStore) => isTrackInStore),
+
       first(),
 
       finalize(() => {

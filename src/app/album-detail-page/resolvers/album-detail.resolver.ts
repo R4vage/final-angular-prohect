@@ -24,6 +24,7 @@ export class AlbumDetailResolver implements Resolve<boolean> {
           }
         },
       }),
+      filter((isAlbumInStore) => isAlbumInStore),
 
       first(),
 
