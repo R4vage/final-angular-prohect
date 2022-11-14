@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Categories } from 'src/app/core/models/categories.models';
-import { categoriesMockData } from 'src/Test-utilities/categories-mock-data';
+import { Playlists } from 'src/app/core/models/playlist.models';
+import { categoriesMockData, categoryWithPlaylists } from 'src/Test-utilities/categories-mock-data';
 
 import { CategoriesService } from '../categories.service';
 
@@ -11,6 +12,8 @@ describe('CategoriesService', () => {
 
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
+
+  const CATEGORY = categoryWithPlaylists;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -101,5 +104,60 @@ describe('CategoriesService', () => {
     req.flush({ categories });
 
     expect(categoryService.getAvailableCategories).toHaveBeenCalledTimes(1);
+  });
+
+  it("should get category's playlists", () => {
+    spyOn(categoryService, 'getCategoryPlaylists').and.callThrough();
+
+    categoryService.getCategoryPlaylists(CATEGORY.id).subscribe({
+      next: (category) => {
+        expect(category).toBeTruthy();
+        expect(category.playlists).toEqual(CATEGORY.playlists as Playlists);
+      },
+      error: () => {
+        fail('Expected to succeed');
+      },
+    });
+    const req = httpTestingController.expectOne(`${categoryService.URL}/browse/categories/${CATEGORY.id}`);
+
+    expect(req.request.method).toBe('GET');
+
+    req.flush({ ...CATEGORY, playlists: {} });
+
+    expect(categoryService.getCategoryPlaylists).toHaveBeenCalledTimes(1);
+
+    const secondReq = httpTestingController.expectOne(`${categoryService.URL}/browse/categories/${CATEGORY.id}/playlists?Content-Type=application/json&limit=20&offset=0`);
+
+    expect(req.request.method).toBe('GET');
+
+    secondReq.flush({ playlists: CATEGORY.playlists as Playlists });
+  });
+
+  it('should fail when server gives an error while trying to get a album by id', () => {
+    spyOn(categoryService, 'getCategoryPlaylists').and.callThrough();
+
+    categoryService.getCategoryPlaylists(CATEGORY.id).subscribe({
+      next: () => {
+        fail('Expected to fail');
+      },
+      error: (error) => {
+        expect(error).toBeInstanceOf(HttpErrorResponse);
+        const err: HttpErrorResponse = error;
+        expect(err.status).toBe(401);
+        expect(err.message).toBe(`Http failure response for ${categoryService.URL}/browse/categories/${CATEGORY.id}: ${err.status} Failed`);
+        expect(err.statusText).toBe('Failed');
+      },
+    });
+    const req = httpTestingController.expectOne(`${categoryService.URL}/browse/categories/${CATEGORY.id}`);
+
+    expect(req.request.method).toBe('GET');
+
+    req.flush('Test error', { status: 401, statusText: 'Failed' });
+
+    expect(categoryService.getCategoryPlaylists).toHaveBeenCalledTimes(1);
+  });
+
+  afterEach(() => {
+    httpTestingController.verify();
   });
 });

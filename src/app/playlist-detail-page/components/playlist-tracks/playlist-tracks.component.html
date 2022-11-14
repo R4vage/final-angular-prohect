@@ -7,7 +7,7 @@
 
 <div *ngFor="let track of tracks; index as i" class="track px-1 md:px-[30px] py-3 grid grid-cols-playlistTracks gap-2 text-gray-200 hover:bg-opacity-30 hover:bg-slate-100">
   <div class="index self-center">{{ i + 1 }}</div>
-  <div class="track-name flex flex-col">
+  <div class="track-name flex flex-col gap-2">
     <div [routerLink]="['/track', track.id]" class="hover:underline hover:font-medium cursor-pointer">{{ track.name }}</div>
     <div class="flex flex-row items-center">
       <mat-icon *ngIf="track.explicit">explicit</mat-icon>
@@ -15,7 +15,7 @@
     </div>
   </div>
   <div [routerLink]="['/album', track.album.id]" class="hover:underline hover:font-medium overflow-x-hidden cursor-pointer">{{ track.album.name }}</div>
-  <div class="flex flex-row justify-end gap-4">
+  <div class="flex flex-row justify-end items-center gap-4">
     <button (click)="saveAndDeleteTrack(track.id, i)" mat-icon-button>
       <mat-icon *ngIf="!isTracksSaved[i]">favorite_border</mat-icon>
       <mat-icon *ngIf="isTracksSaved[i]">favorite</mat-icon>
