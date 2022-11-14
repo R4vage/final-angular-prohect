@@ -1,0 +1,25 @@
+<div class="z-10 min-h-full w-full relative bg-gray-900 shadow-lg drop-shadow-md shadow-slate-900/40">
+  <div class="logo-container left-0 flex justify-center gap-8 items-center p-3 pt-5 w-full">
+    <button mat-icon-button class="logo bg-slate-50" routerLink="profile">A</button>
+    <div class="logo-text hidden lg:inline-block align-middle font-extrabold text-white text-xl">Website</div>
+  </div>
+
+  <mat-list class="flex flex-col justify-start align-middle items-center m-0 cursor-pointer">
+    <mat-list-item *ngFor="let section of sections" class="mb-3 w-10 py-auto h-10 flex flex-col justify-center items-start">
+      <button
+        [routerLink]="[section.routerLink]"
+        routerLinkActive="bg-slate-300 text-slate-900"
+        mat-button
+        class="w-full max-w-[130px] transition ease-in hover:bg-slate-300 hover:text-slate-900 duration-200"
+      >
+        <div class="flex flex-row justify-center md:justify-start items-center gap-2">
+          <mat-icon class="ml-0 xl:mr-5 flex flex-row justify-around items-center md:hidden xl:flex">
+            {{ section.icon }}
+          </mat-icon>
+
+          <span class="hidden md:inline-block">{{ section.label }}</span>
+        </div>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</div>
