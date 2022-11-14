@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs';
 import { loginSuccessful, logOut } from './auth.actions';
@@ -25,11 +26,12 @@ export class AuthEffects {
         ofType(logOut),
         tap(() => {
           localStorage.clear();
+          this.router.navigateByUrl('/login');
         })
       );
     },
     { dispatch: false }
   );
 
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, private router: Router) {}
 }

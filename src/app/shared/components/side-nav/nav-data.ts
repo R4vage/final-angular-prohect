@@ -6,19 +6,19 @@ export const sideNavData: NavData[] = [
     routerLink: 'home',
     label: 'Dashboard',
   },
-  {
-    icon: 'album',
-    routerLink: 'album',
-    label: 'Album',
-  },
-  {
-    icon: 'queue_music',
-    routerLink: 'playlist',
-    label: 'Playlist',
-  },
-  {
-    icon: 'smart_display',
-    routerLink: 'category',
-    label: 'Category',
-  },
+  // {
+  //   icon: 'album',
+  //   routerLink: 'album',
+  //   label: 'Album',
+  // },
+  // {
+  //   icon: 'queue_music',
+  //   routerLink: 'playlist',
+  //   label: 'Playlist',
+  // },
+  // {
+  //   icon: 'smart_display',
+  //   routerLink: 'category',
+  //   label: 'Category',
+  // },
 ];

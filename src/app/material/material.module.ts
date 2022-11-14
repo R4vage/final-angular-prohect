@@ -18,6 +18,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { MatMenuModule } from '@angular/material/menu';
+
 const MATERIAL_COMPONENTS = [
   MatButtonModule,
   MatCardModule,
@@ -34,6 +36,7 @@ const MATERIAL_COMPONENTS = [
   MatSliderModule,
   MatProgressBarModule,
   MatTooltipModule,
+  MatMenuModule,
 ];
 
 @NgModule({

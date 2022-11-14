@@ -8,7 +8,7 @@
         <div class="font-extrabold">{{ playlist.type | uppercase }}</div>
         <div class="title font-extrabold text-5xl md:text-7xl pb-3">{{ playlist.name }}</div>
         <div class="artists">
-          <span *ngIf="playlist.description" class="font-semibold">{{ playlist.description }}</span>
+          <span *ngIf="playlist.description" class="font-semibold pointer-events-none" [innerHTML]="playlist.description"></span>
           <span class="mx-1 font-semibold align-middle">•</span>
           <span *ngIf="playlist.followers" class="">{{ playlist.followers.total | number }} followers</span>
           <span class="mx-1 font-semibold align-middle">•</span>
