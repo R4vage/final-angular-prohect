@@ -3,9 +3,8 @@ import { Update } from '@ngrx/entity';
 import { Search } from './search.reducer';
 import { HttpErrorResponse } from '@angular/common/http';
 
-
 export const loadSearchs = createAction(
-  '[Search/API] Load Searchs', 
+  '[Search/API] Load Searchs',
   props<{ searchs: Search[] }>()
 );
 
@@ -23,7 +22,6 @@ export const addSearchFailure = createAction(
   '[Search/API] Add Search Failure',
   props<{ error: HttpErrorResponse }>()
 );
-
 
 export const upsertSearch = createAction(
   '[Search/API] Upsert Search',
@@ -60,6 +58,4 @@ export const deleteSearchs = createAction(
   props<{ ids: string[] }>()
 );
 
-export const clearSearchs = createAction(
-  '[Search/API] Clear Searchs'
-);
+export const clearSearchs = createAction('[Search/API] Clear Searchs');

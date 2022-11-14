@@ -1,6 +1,6 @@
 :host{
     display: inline-block;
-    width: 150px;
+    min-width: 130px;
 }
 
 mat-card{
@@ -54,6 +54,7 @@ mat-card{
 
 @media (min-width:769px) {
     :host{
+        min-width: unset;
         width: 230px;
     }
     mat-card{

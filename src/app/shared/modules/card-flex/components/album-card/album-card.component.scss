@@ -1,11 +1,10 @@
 @import "_variables.scss";
 
-
 :host{
     display: inline-block;
     width: 150px;
+    min-width: 130px;
 }
-
 
 mat-card{
     display: flex;
@@ -50,6 +49,7 @@ mat-card{
 @media (min-width:769px) {
     :host{
         width: 230px;
+        min-width: unset;
     }
     mat-card{
         min-height: 260px;
