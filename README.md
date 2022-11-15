@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-To see the website running in the web, navigate to `https://snazzy-froyo-52c88a.netlify.app`.
+To see the website running in the web, navigate to `https://spotifyappbryiam.netlify.app/`.
 
 ## Code scaffolding
 
