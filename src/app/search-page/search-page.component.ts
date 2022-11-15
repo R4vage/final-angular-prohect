@@ -35,7 +35,6 @@ export class SearchPageComponent implements OnInit {
             this.albums = results.results.albums.items;
             this.tracks = results.results.tracks.items;
             this.playlists = results.results.playlists.items
-            console.log(results)
           }
         });
       } 

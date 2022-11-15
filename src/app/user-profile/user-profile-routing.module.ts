@@ -4,14 +4,12 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { TopUserAlbumsResolver } from './resolvers/top-album.resolver';
 import { TopArtistsResolver } from './resolvers/top-artists.resolver';
 import { TopUserTracksResolver } from './resolvers/top-tracks.resolver';
-import { UserResolver } from './resolvers/user.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: UserProfileComponent,
     resolve: {
-      user: UserResolver,
       topAlbums: TopUserAlbumsResolver,
       topArtists: TopArtistsResolver,
       topTracks: TopUserTracksResolver,

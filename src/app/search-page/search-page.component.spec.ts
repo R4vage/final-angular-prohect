@@ -55,8 +55,6 @@ fdescribe('SearchPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    console.log(component.tracks);
-    console.log(component.searchValue);
     store.select(fromSearchActions.selectSearchByValue('valueMock')).subscribe(next => console.log(next))
   });
 });

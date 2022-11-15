@@ -21,7 +21,6 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MatIconModule } from '@angular/material/icon';
 
 const Stores = [
-  StoreModule.forFeature(fromUser.userFeatureKey, fromUser.reducer),
   StoreModule.forFeature(fromTopAlbums.topUserAlbumsFeatureKey, fromTopAlbums.reducer),
   StoreModule.forFeature(fromTopArtists.topUserArtistsFeatureKey, fromTopArtists.reducer),
   StoreModule.forFeature(fromTopTracks.topUserTracksFeatureKey, fromTopTracks.reducer),
@@ -32,7 +31,7 @@ const Stores = [
   imports: [
     CommonModule,
     ...Stores,
-    EffectsModule.forFeature([UserEffects, TopAlbumsEffects, TopArtistEffects, TopTracksEffect]),
+    EffectsModule.forFeature([ TopAlbumsEffects, TopArtistEffects, TopTracksEffect]),
     UserProfileRoutingModule,
     SharedModule,
     CardFlexModule,
