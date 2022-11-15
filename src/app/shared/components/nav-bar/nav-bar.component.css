@@ -3,13 +3,19 @@ mat-toolbar{
     display:flex;
     align-items:center; 
     justify-content:center;
+    gap: 1em;
 }
 
-.title{
-    display: none;
+@media (max-width: 520px) {
+    .title {
+        display: none;
+    }
 }
 
-
-@media (min-width:520px) {
+@media (min-width:520px) {  
+    mat-toolbar{
+        justify-content: space-between;
+        padding-inline: 1em;
+    }
     
 }

@@ -19,7 +19,7 @@ export const initialState: SearchState = adapter.getInitialState({});
 export const reducer = createReducer(
   initialState,
   on(SearchActions.addSearchSuccess, (state, action) =>
-    {console.log(state);return adapter.addOne(action.search, state)}
+    {return adapter.addOne(action.search, state)}
   ),
   on(SearchActions.addSearch, (state) => state),
   on(SearchActions.addSearchFailure, (state, action) => {
