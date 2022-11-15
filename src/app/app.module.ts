@@ -16,9 +16,10 @@ import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { CustomErrorHandler } from './core/services/custom-error-handler.service';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import { ArtistPageComponent } from './artist-page/artist-page.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ArtistPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
