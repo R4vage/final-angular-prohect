@@ -37,7 +37,13 @@ export interface Artist {
   name: string;
   type: string;
   uri: string;
-  images: ImageInfo[]
+  images?: ImageInfo[];
+  followers?:{
+    href: null | string;
+    total: number;
+  };
+  genres?: [];
+  popularity?: number;
 }
 
 export interface ExternalUrls {

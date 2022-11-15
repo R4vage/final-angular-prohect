@@ -13,6 +13,7 @@ export const albumMockData: AlbumItem[] = [
         name: 'Blessd',
         type: 'artist',
         uri: 'spotify:artist:1TA5sGRlKUJXBN4ZyJuDIX',
+        images: []
       },
     ],
     available_markets: [
@@ -240,6 +241,7 @@ export const albumMockData: AlbumItem[] = [
         name: 'Sech',
         type: 'artist',
         uri: 'spotify:artist:77ziqFxp5gaInVrF2lj4ht',
+        images:[]
       },
     ],
     available_markets: [
@@ -468,6 +470,7 @@ export const albumMockData: AlbumItem[] = [
         name: 'Gilberto Santa Rosa',
         type: 'artist',
         uri: 'spotify:artist:27vNK840zYq6IfDijHPsv1',
+        images:[]
       },
     ],
     available_markets: [
@@ -696,6 +699,8 @@ export const albumMockData: AlbumItem[] = [
         name: 'LIT killah',
         type: 'artist',
         uri: 'spotify:artist:1vqR17Iv8VFdzure1TAXEq',
+        images:[]
+
       },
     ],
     available_markets: [
@@ -923,6 +928,8 @@ export const albumMockData: AlbumItem[] = [
         name: 'Natalia Lafourcade',
         type: 'artist',
         uri: 'spotify:artist:1hcdI2N1023RvSwLzTtdsp',
+        images:[]
+
       },
     ],
     available_markets: [
