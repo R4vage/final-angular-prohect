@@ -1,0 +1,15 @@
+mat-toolbar{
+    height: 80px; 
+    display:flex;
+    align-items:center; 
+    justify-content:center;
+}
+
+.title{
+    display: none;
+}
+
+
+@media (min-width:520px) {
+    
+}

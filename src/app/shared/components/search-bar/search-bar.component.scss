@@ -1,0 +1,27 @@
+
+.input-container{
+    display: flex;
+    align-items: center;
+    padding-block: 0.3em;
+    padding-inline:0.5em;
+    margin: 0;
+    background-color: aliceblue;
+    border-radius: 7px;
+    color: black;
+
+
+    input{
+        all: unset;
+        margin: 0;
+        font-size: medium;
+        font-weight: 400;
+        border-right: 1px solid grey;
+        padding-right: 0.4em;
+        margin-right: 0.4em;
+    }
+    mat-icon{
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+    }
+}
