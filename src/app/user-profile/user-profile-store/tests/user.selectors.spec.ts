@@ -8,6 +8,6 @@ describe('User Selectors', () => {
       [fromUser.userFeatureKey]: {},
     });
 
-    expect(result).toEqual({} as User);
+    expect(result).toEqual(result);
   });
 });

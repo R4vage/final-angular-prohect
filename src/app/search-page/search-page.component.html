@@ -1,0 +1,14 @@
+<div class="flexs-container">
+    <app-card-flex *ngIf="tracks.length > 0" name="Tracks">
+        <app-track-card *ngFor="let track of tracks" [track]="track" class="card"></app-track-card>
+    </app-card-flex>
+    <app-card-flex *ngIf="artists.length > 0" name="Artists">
+        <app-artist-card *ngFor="let artist of artists" [artist]="artist" class="card"></app-artist-card>
+    </app-card-flex>
+    <app-card-flex *ngIf="albums.length > 0" name="Albums">
+        <app-album-card *ngFor="let album of albums" [album]="album" class="card"></app-album-card>
+    </app-card-flex>
+    <app-card-flex *ngIf="playlists.length > 0" name="Playlists">
+        <app-playlist-card *ngFor="let playlist of playlists" [playlist]="playlist" class="card"></app-playlist-card>
+    </app-card-flex>
+</div>

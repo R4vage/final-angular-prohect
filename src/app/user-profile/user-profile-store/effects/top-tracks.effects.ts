@@ -8,7 +8,7 @@ import { Track } from 'src/app/core/models/track.models';
 
 @Injectable()
 export class TopTracksEffect {
-  loadUsers$ = createEffect(() => {
+  loadTracks$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(topTrackActions.loadTopUserTracks),
       concatMap(() =>

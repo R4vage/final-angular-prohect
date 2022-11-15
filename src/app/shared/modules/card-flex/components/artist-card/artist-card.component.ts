@@ -6,14 +6,9 @@ import { Artist } from 'src/app/core/models/album.models';
   templateUrl: './artist-card.component.html',
   styleUrls: ['./artist-card.component.scss']
 })
-export class ArtistCardComponent implements OnInit {
+export class ArtistCardComponent {
   @Input() artist!: Artist;
   @Input() buttons: boolean = false;
   @Output() clickEmitter = new EventEmitter<boolean>();
   isLiked!:boolean;
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

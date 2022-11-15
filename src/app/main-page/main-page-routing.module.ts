@@ -59,6 +59,10 @@ const routes: Routes = [
         loadChildren: () => import('../user-profile/user-profile.module').then((m) => m.UserProfileModule),
       },
       {
+        path: 'search/:value',
+        loadChildren: () => import('../search-page/search-page.module').then((m) => m.SearchPageModule),
+      },
+      {
         path: '**',
         redirectTo: 'home',
       },
