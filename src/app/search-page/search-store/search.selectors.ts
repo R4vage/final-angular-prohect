@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import * as fromSearches from './search.reducer';
 
 export const selectSearchesState = createFeatureSelector<fromSearches.SearchState>('searches');
@@ -12,6 +12,6 @@ export function searchHasBeenDone(id: string) {
 });
 }
 
-export function selectSearchByValue(idSearch: string) {
+export function selectSearchByValue(idSearch: string){
   return createSelector(selectAllSearchEntities, (state) => state[idSearch]);
 }

@@ -9,7 +9,8 @@ const routes: Routes = [
     component: SearchPageComponent,
     resolve: {
         search: SearchResolver
-    }
+    },
+    runGuardsAndResolvers: 'always'
   },
 ];
 

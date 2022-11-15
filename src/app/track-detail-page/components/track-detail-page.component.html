@@ -22,9 +22,7 @@
   </div>
 
   <section class="m-0 p-[16px] h-full pt-10 bg-opacity-60 bg-gradient-to-t from-black to-slate-800">
-    <ng-container *ngIf="track$ | async as track">
-      <app-audio-player class="audio-player" *ngIf="track.preview_url" [musicURL]="track.preview_url"></app-audio-player>
-    </ng-container>
+    <app-audio-player class="audio-player" *ngIf="track$ | async as track" musicURL={{track.preview_url as string}}></app-audio-player>
 
     <div *ngIf="track$ | async" class="flex flex-row justify-center gap-5">
       <button

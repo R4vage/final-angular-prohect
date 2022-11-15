@@ -4,10 +4,10 @@ import { Track } from './track.models';
 
 export interface PaginatedResponse {
   limit: number;
-  next: null | number;
-  offset: number;
+  next: null | string;
+  offset: null | number;
   previous: null | number;
-  total: number;
+  total: number | null;
 }
 
 export interface UserAlbumsResponse extends PaginatedResponse {
@@ -39,7 +39,7 @@ export interface UserSavedArtistsResponse {
     artists:Artists
 }
 
-export interface UserTopArtistsResponse {
+export interface UserTopArtistsResponse extends PaginatedResponse{
     href: string;
     items: Artist[];
 }
@@ -49,7 +49,7 @@ interface Artists extends PaginatedResponse{
     items: Artist[]
 }
 
-export interface SearchResults extends PaginatedResponse {
+export interface SearchResults {
   albums: Albums;
   artists: UserTopArtistsResponse;
   tracks: UserTopTracksResponse;
