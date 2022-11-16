@@ -21,7 +21,8 @@ export class ArtistCardComponent implements OnInit {
       savedItem => this.isSaved = savedItem?.isSaved as boolean
     )
   }
-  changeSaveState () {
+  changeSaveState (event:MouseEvent) {
+    event.stopPropagation();
     this.store.dispatch(updateSavedItem({id:this.artist.id, kind:'artist', isSaved:!this.isSaved}))
   }
 

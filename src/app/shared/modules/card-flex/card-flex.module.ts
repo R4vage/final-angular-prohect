@@ -8,6 +8,7 @@ import { ArtistCardComponent } from './components/artist-card/artist-card.compon
 import { MatIconModule } from '@angular/material/icon';
 import { AlbumCardComponent } from './components/album-card/album-card.component';
 import { PlaylistCardComponent } from './components/playlist-card/playlist-card.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PlaylistCardComponent } from './components/playlist-card/playlist-card.
   imports: [
     CommonModule,
 
+    RouterModule,
     MatCardModule,
     MatTooltipModule,
     MatIconModule

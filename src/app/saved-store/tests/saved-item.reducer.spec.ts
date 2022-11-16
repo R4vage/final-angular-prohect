@@ -1,4 +1,4 @@
-import { reducer, initialState } from './saved-item.reducer';
+import { reducer, initialState } from '../saved-item.reducer';
 
 describe('SavedItem Reducer', () => {
   describe('unknown action', () => {

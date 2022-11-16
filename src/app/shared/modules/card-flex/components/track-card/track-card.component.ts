@@ -22,7 +22,8 @@ export class TrackCardComponent implements OnInit {
     )
   }
 
-  changeSaveState () {
+  changeSaveState (event:MouseEvent) {
+    event.stopPropagation();
     this.store.dispatch(updateSavedItem({id:this.track.id, kind:'track', isSaved:!this.isSaved}))
   }
 

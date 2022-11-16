@@ -4,7 +4,7 @@ import { Track } from '../core/models/track.models';
 
 export function prepareIdArray(
   itemArray: Artist[] | AlbumItem[] | Track[] | Playlist[]
-) {
+): string[] {
   let arrayIds: string[] = [];
   itemArray.map((item) => {
     arrayIds.push(item.id);

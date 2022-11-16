@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AlbumItem } from 'src/app/core/models/album.models';
 import { updateSavedItem } from 'src/app/saved-store/saved-item.actions';
@@ -14,7 +15,7 @@ export class AlbumCardComponent implements OnInit {
   @Input() album!: AlbumItem;
   isSaved!:boolean;
 
-  constructor(private store:Store<SavedItem>) { }
+  constructor(private store:Store<SavedItem>, private router: Router) { }
 
   ngOnInit(): void {
     this.store.select(selectSavedItemById(this.album.id)).subscribe(
@@ -22,7 +23,8 @@ export class AlbumCardComponent implements OnInit {
     )
   }
 
-  changeSaveState () {
+  changeSaveState (event:MouseEvent) {
+    event.stopPropagation();
     this.store.dispatch(updateSavedItem({id:this.album.id, kind:'album', isSaved:!this.isSaved}))
   }
 
