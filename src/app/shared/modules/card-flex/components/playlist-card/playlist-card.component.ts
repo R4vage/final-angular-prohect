@@ -8,6 +8,7 @@ import { PlaylistItem } from 'src/app/core/models/playlist.models';
 })
 export class PlaylistCardComponent implements OnInit {
   @Input() playlist!: PlaylistItem;
+  @Input() buttons = false;
   
   constructor() { }
 

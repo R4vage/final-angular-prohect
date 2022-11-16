@@ -23,6 +23,37 @@ export class SavedItemRestService {
     return this.http.get<boolean[]>(`${this.URL}/me/following/contains?ids=${this.concatenateStrings(artistIds)}&type=artist`)
   }
 
+  saveTrack (trackId:string):Observable<void> {
+    return this.http.put<void>(`${this.URL}/me/tracks?ids=${trackId}`,'')
+  }
+
+  removeTrack (trackId:string):Observable<void> {
+    return this.http.delete<void>(`${this.URL}/me/tracks?ids=${trackId}`)
+  }
+
+  saveAlbum (albumId:string):Observable<void> {
+    return this.http.put<void>(`${this.URL}/me/albums?ids=${albumId}`,'')
+  }
+
+  removeAlbum (albumId:string):Observable<void> {
+    return this.http.delete<void>(`${this.URL}/me/albums?ids=${albumId}`)
+  }
+
+  followPlaylist (playlistId:string):Observable<void> {
+    return this.http.put<void>(`${this.URL}/me/playlists/${playlistId}/followers`,{"public":true})
+  }
+
+  removePlaylist (playlistId:string):Observable<void> {
+    return this.http.delete<void>(`${this.URL}/me/playlists/${playlistId}/followers`)
+  }
+
+  followArtist (artistId:string):Observable<void> {
+    return this.http.put<void>(`${this.URL}/me/following?type=artist&ids=${artistId}`,'')
+  }
+
+  unfollowArtist (artistId:string):Observable<void> {
+    return this.http.delete<void>(`${this.URL}/me/following?type=artist&ids=${artistId}`)
+  }
 
   concatenateStrings (ids: string[]): string {
     return ids.join(',')

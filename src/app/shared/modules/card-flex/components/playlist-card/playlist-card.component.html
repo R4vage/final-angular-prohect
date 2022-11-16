@@ -3,6 +3,6 @@
     <mat-card-content ><img [src]="playlist.images.length > 0 ? playlist.images[0].url : 'assets/image-not-found.png'" [style.border-color]="playlist.primary_color ? playlist.primary_color: 'white'"></mat-card-content>
     <mat-card-footer>
         <mat-card-subtitle>{{playlist.tracks.total}} tracks</mat-card-subtitle>
-        <mat-icon>star_border</mat-icon>
+        <mat-icon *ngIf="buttons">star_border</mat-icon>
     </mat-card-footer>
 </mat-card>
