@@ -1,11 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-
-import { ArtistAlbums } from '../../artist-albums.model';
+import { ArtAlbums } from '../reducers/artist-albums.reducer';
 
 export const loadArtistAlbumss = createAction(
   '[ArtistAlbums/API] Load ArtistAlbumss',
-  props<{ artistAlbumss: ArtistAlbums[] }>()
+  props<{ artistAlbumss: ArtAlbums[] }>()
 );
 
 export const addArtistAlbums = createAction(
@@ -15,32 +14,32 @@ export const addArtistAlbums = createAction(
 
 export const addArtistAlbumsSuccess = createAction(
   '[ArtistAlbums/API] Add ArtistAlbums',
-  props<{ artistAlbums: ArtistAlbums }>()
+  props<{ artistAlbums: ArtAlbums }>()
 );
 
 export const upsertArtistAlbums = createAction(
   '[ArtistAlbums/API] Upsert ArtistAlbums',
-  props<{ artistAlbums: ArtistAlbums }>()
+  props<{ artistAlbums: ArtAlbums }>()
 );
 
 export const addArtistAlbumss = createAction(
   '[ArtistAlbums/API] Add ArtistAlbumss',
-  props<{ artistAlbumss: ArtistAlbums[] }>()
+  props<{ artistAlbumss: ArtAlbums[] }>()
 );
 
 export const upsertArtistAlbumss = createAction(
   '[ArtistAlbums/API] Upsert ArtistAlbumss',
-  props<{ artistAlbumss: ArtistAlbums[] }>()
+  props<{ artistAlbumss: ArtAlbums[] }>()
 );
 
 export const updateArtistAlbums = createAction(
   '[ArtistAlbums/API] Update ArtistAlbums',
-  props<{ artistAlbums: Update<ArtistAlbums> }>()
+  props<{ artistAlbums: Update<ArtAlbums> }>()
 );
 
 export const updateArtistAlbumss = createAction(
   '[ArtistAlbums/API] Update ArtistAlbumss',
-  props<{ artistAlbumss: Update<ArtistAlbums>[] }>()
+  props<{ artistAlbumss: Update<ArtAlbums>[] }>()
 );
 
 export const deleteArtistAlbums = createAction(

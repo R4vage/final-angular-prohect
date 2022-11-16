@@ -9,3 +9,9 @@ export const selectAreArtistAlbumsLoaded = createSelector(
     return state.artistAlbumsLoaded;
   }
 );
+
+export function artistAlbumsHasBeenDone(id: string) {
+  return createSelector(selectArtistAlbumsState, (artistAlbums) => {
+    return (artistAlbums.ids as string[]).includes(id);
+  });
+}

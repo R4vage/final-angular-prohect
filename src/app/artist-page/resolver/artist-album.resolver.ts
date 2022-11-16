@@ -8,12 +8,15 @@ import { select, Store } from '@ngrx/store';
 import { filter, finalize, first, Observable, tap } from 'rxjs';
 import { addArtistAlbums } from '../artist-store/actions/artist-albums.actions';
 import { ArtistAlbumsState } from '../artist-store/reducers/artist-albums.reducer';
-import { selectAreArtistAlbumsLoaded } from '../artist-store/selectors/artist-albums.selectors';
+import {
+  artistAlbumsHasBeenDone,
+  selectAreArtistAlbumsLoaded,
+} from '../artist-store/selectors/artist-albums.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SearchResolver implements Resolve<boolean> {
+export class ArtistAlbumsResolver implements Resolve<boolean> {
   loading = false;
   constructor(private store: Store<ArtistAlbumsState>) {}
   resolve(
@@ -21,12 +24,11 @@ export class SearchResolver implements Resolve<boolean> {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     return this.store.pipe(
-      select(selectAreArtistAlbumsLoaded),
+      select(artistAlbumsHasBeenDone(route.params['id'])),
       tap({
-        next: (artistAlbumsLoaded) => {
-          if (!this.loading && !artistAlbumsLoaded) {
+        next: (hasAlbumsSearchBeenDone) => {
+          if (!this.loading && !hasAlbumsSearchBeenDone) {
             this.loading = true;
-            console.log(route.params['id']);
             return this.store.dispatch(
               addArtistAlbums({ artistId: route.params['id'] })
             );
