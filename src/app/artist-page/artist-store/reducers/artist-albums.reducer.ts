@@ -19,7 +19,7 @@ export const initialState: ArtistAlbumsState = adapter.getInitialState({
 
 export const reducer = createReducer(
   initialState,
-  on(ArtistAlbumsActions.addArtistAlbums, (state, action) =>
+  on(ArtistAlbumsActions.addArtistAlbumsSuccess, (state, action) =>
     adapter.addOne(action.artistAlbums, state)
   ),
   on(ArtistAlbumsActions.upsertArtistAlbums, (state, action) =>
