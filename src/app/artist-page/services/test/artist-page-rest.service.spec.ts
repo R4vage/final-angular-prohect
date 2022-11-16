@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-
-import { ArtistPageRestService } from './artist-page-rest.service';
+import { ArtistPageRestService } from '../artist-page-rest.service';
 
 describe('ArtistPageRestService', () => {
   let service: ArtistPageRestService;

@@ -3,17 +3,18 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { ArtistAlbums } from '../../artist-albums.model';
 import * as ArtistAlbumsActions from '../actions/artist-albums.actions';
 
-export const artistAlbumsesFeatureKey = 'artistAlbumses';
+export const artistAlbumsesFeatureKey = 'artistAlbums';
 
-export interface State extends EntityState<ArtistAlbums> {
-  // additional entities state properties
+export interface ArtistAlbumsState extends EntityState<ArtistAlbums> {
+  artistAlbumsLoaded: boolean;
 }
 
 export const adapter: EntityAdapter<ArtistAlbums> =
   createEntityAdapter<ArtistAlbums>();
 
-export const initialState: State = adapter.getInitialState({
+export const initialState: ArtistAlbumsState = adapter.getInitialState({
   // additional entity state properties
+  artistAlbumsLoaded: false,
 });
 
 export const reducer = createReducer(
@@ -42,6 +43,7 @@ export const reducer = createReducer(
   on(ArtistAlbumsActions.deleteArtistAlbumss, (state, action) =>
     adapter.removeMany(action.ids, state)
   ),
+  //on(ArtistAlbumsActions.load),
   on(ArtistAlbumsActions.loadArtistAlbumss, (state, action) =>
     adapter.setAll(action.artistAlbumss, state)
   ),
