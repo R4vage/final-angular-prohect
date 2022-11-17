@@ -18,9 +18,12 @@ export class TopAlbumsEffects {
         this.restService.getUsersTopAlbums().pipe(
           map((data) => {
             let albumArray: AlbumItem[] = [];
+            let albumIds: string[] = [];
             data.items.map((item) => {
               albumArray.push(item.album);
+              albumIds.push(item.album.id)
             });
+            
             return topAlbumsActions.loadTopUserAlbumsSuccess({
               topUserAlbums: albumArray,
               totalItems: data.total

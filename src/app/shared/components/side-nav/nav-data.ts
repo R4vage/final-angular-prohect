@@ -6,11 +6,11 @@ export const sideNavData: NavData[] = [
     routerLink: 'home',
     label: 'Dashboard',
   },
-  // {
-  //   icon: 'album',
-  //   routerLink: 'album',
-  //   label: 'Album',
-  // },
+  {
+     icon: 'album',
+    routerLink: 'my-music',
+    label: 'My Music',
+  }
   // {
   //   icon: 'queue_music',
   //   routerLink: 'playlist',

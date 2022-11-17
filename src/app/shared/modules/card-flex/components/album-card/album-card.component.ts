@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AlbumItem } from 'src/app/core/models/album.models';
@@ -13,6 +13,7 @@ import { selectSavedItemById } from 'src/app/saved-store/saved-item.selectors';
 })
 export class AlbumCardComponent implements OnInit {
   @Input() album!: AlbumItem;
+  @Output() followClicked = new EventEmitter<boolean>;
   isSaved!:boolean;
 
   constructor(private store:Store<SavedItem>, private router: Router) { }
@@ -25,6 +26,7 @@ export class AlbumCardComponent implements OnInit {
 
   changeSaveState (event:MouseEvent) {
     event.stopPropagation();
+    this.followClicked.emit(!this.isSaved);
     this.store.dispatch(updateSavedItem({id:this.album.id, kind:'album', isSaved:!this.isSaved}))
   }
 

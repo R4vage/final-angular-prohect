@@ -5,16 +5,12 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { UserProfileRoutingModule } from './user-profile-routing.module';
 
 import { StoreModule } from '@ngrx/store';
-import * as fromUser from './user-profile-store/reducers/user.reducer';
-import * as fromTopAlbums from '../my-music-page/store/reducers/top-albums.reducer';
 import * as fromTopArtists from './user-profile-store/reducers/top-artists.reducer';
 import * as fromTopTracks from './user-profile-store/reducers/top-track.reducer';
 
 import { EffectsModule } from '@ngrx/effects';
-import { TopAlbumsEffects } from '../my-music-page/store/effects/top-albums.effect';
 import { TopArtistEffects } from './user-profile-store/effects/top-artists.effect';
 import { TopTracksEffect } from './user-profile-store/effects/top-tracks.effects';
-import { UserEffects } from './user-profile-store/effects/user.effects';
 import { SharedModule } from '../shared/shared.module';
 import { CardFlexModule } from '../shared/modules/card-flex/card-flex.module';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -37,7 +33,7 @@ const Stores = [
     CommonModule,
     ...Stores,
     EffectsModule.forFeature([
-      TopAlbumsEffects,
+      TopTracksEffect,
       TopArtistEffects,
      
     ]),

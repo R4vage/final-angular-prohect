@@ -13,6 +13,8 @@ import { selectSavedItemById } from 'src/app/saved-store/saved-item.selectors';
 export class TrackCardComponent implements OnInit {
   @Input() track!: Track
   @Input() buttons: boolean = false;
+  @Output() followClicked!: EventEmitter<boolean>;
+
   isSaved!:boolean;
   constructor(private store:Store<SavedItem>) { }
 

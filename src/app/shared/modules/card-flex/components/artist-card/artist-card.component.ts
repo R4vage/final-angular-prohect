@@ -12,6 +12,7 @@ import { selectSavedItemById } from 'src/app/saved-store/saved-item.selectors';
 })
 export class ArtistCardComponent implements OnInit {
   @Input() artist!: Artist;
+  @Output() followClicked = new EventEmitter<boolean>;
   isSaved!:boolean;
 
   constructor(private store:Store<SavedItem>) { }
@@ -23,6 +24,7 @@ export class ArtistCardComponent implements OnInit {
   }
   changeSaveState (event:MouseEvent) {
     event.stopPropagation();
+    this.followClicked.emit(!this.isSaved);
     this.store.dispatch(updateSavedItem({id:this.artist.id, kind:'artist', isSaved:!this.isSaved}))
   }
 
