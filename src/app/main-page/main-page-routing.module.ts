@@ -27,28 +27,40 @@ const routes: Routes = [
       },
       {
         path: 'track/:id',
-        loadChildren: () => import('../track-detail-page/track-detail-page.module').then((m) => m.TrackDetailPageModule),
+        loadChildren: () =>
+          import('../track-detail-page/track-detail-page.module').then(
+            (m) => m.TrackDetailPageModule
+          ),
         resolve: {
           track: TrackDetailResolver,
         },
       },
       {
         path: 'album/:id',
-        loadChildren: () => import('../album-detail-page/album-detail-page.module').then((m) => m.AlbumDetailPageModule),
+        loadChildren: () =>
+          import('../album-detail-page/album-detail-page.module').then(
+            (m) => m.AlbumDetailPageModule
+          ),
         resolve: {
           album: AlbumDetailResolver,
         },
       },
       {
         path: 'playlist/:id',
-        loadChildren: () => import('../playlist-detail-page/playlist-detail-page.module').then((m) => m.PlaylistDetailPageModule),
+        loadChildren: () =>
+          import('../playlist-detail-page/playlist-detail-page.module').then(
+            (m) => m.PlaylistDetailPageModule
+          ),
         resolve: {
           playlist: PlaylistDetailResolver,
         },
       },
       {
         path: 'category/:id',
-        loadChildren: () => import('../category-detail-page/category-detail-page.module').then((m) => m.CategoryDetailPageModule),
+        loadChildren: () =>
+          import('../category-detail-page/category-detail-page.module').then(
+            (m) => m.CategoryDetailPageModule
+          ),
         resolve: {
           category: CategoryDetailResolver,
         },
@@ -56,11 +68,24 @@ const routes: Routes = [
 
       {
         path: 'profile',
-        loadChildren: () => import('../user-profile/user-profile.module').then((m) => m.UserProfileModule),
+        loadChildren: () =>
+          import('../user-profile/user-profile.module').then(
+            (m) => m.UserProfileModule
+          ),
       },
       {
         path: 'search/:value',
-        loadChildren: () => import('../search-page/search-page.module').then((m) => m.SearchPageModule),
+        loadChildren: () =>
+          import('../search-page/search-page.module').then(
+            (m) => m.SearchPageModule
+          ),
+      },
+      {
+        path: 'artist/:id',
+        loadChildren: () =>
+          import('../artist-page/artist-page.module').then(
+            (m) => m.ArtistPageModule
+          ),
       },
       {
         path: '**',
