@@ -19,7 +19,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { ArtistPageComponent } from './artist-page/artist-page.component';
 
 @NgModule({
-  declarations: [AppComponent, ArtistPageComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,7 +29,10 @@ import { ArtistPageComponent } from './artist-page/artist-page.component';
     StoreModule.forRoot(reducers, { metaReducers }),
     environment.production ? [] : StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([AppEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [
     {
