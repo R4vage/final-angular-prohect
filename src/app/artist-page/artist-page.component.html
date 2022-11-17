@@ -1,6 +1,6 @@
 <div class="artist_page_container">
   <div class="artist-information max-w-96 grid grid-cols-6 grid-rows-2 lg:grid-rows-2 gap-5 p-5 pt-10 bg-gradient-to-t from-slate-800 to-slate-700">
-      <ng-container *ngIf="artistDetails">
+      <ng-container *ngIf="artistDetails$ | async as artistDetails">
         <div class="col-span-2 row-span-2 self-center sm:self-start md:self-end">
           <img [src]="getImage(artistDetails)" alt="image-artist" />
         </div>
@@ -16,13 +16,15 @@
         <div class="col-span-2 row-span-3 col-start-3 flex flex-row gap-5">
           <button
             color="accent"
+            [disabled]="artistFollowing"
+            (click)="changeSaveState($event)"
             mat-raised-button
             class="save-button text-xl font-semibold flex flex-row justify-center items-center"
           >
             <mat-icon class="inline-block sm:hidden sm:mr-2">favorite</mat-icon>
             <span class="hidden sm:inline-block">Follow Artist</span>
           </button>
-          <button color="warn" mat-raised-button class="delete-button text-xl font-medium">
+          <button color="warn" mat-raised-button [disabled]="!artistFollowing" (click)="changeSaveState($event)" class="delete-button text-xl font-medium">
             <mat-icon class="inline-block sm:hidden sm:mr-2">delete</mat-icon>
             <span class="hidden sm:inline-block">Unfollow Artist</span>
           </button>
@@ -31,17 +33,17 @@
   </div>
 
   <section class="flexs-container">
-    <div *ngIf="artistAlbums">
+    <div *ngIf="artistAlbums$ | async as artistAlbums">
       <app-card-flex *ngIf="artistAlbums.items.length > 0" name="Albums">
           <app-album-card *ngFor="let album of artistAlbums.items" [album]="album" [routerLink]="['/album', album.id]" class="card"></app-album-card>
       </app-card-flex>
     </div>
-    <div *ngIf="artistTopTracks">
+    <div *ngIf="artistTopTracks$ | async as artistTopTracks">
       <app-card-flex *ngIf="artistTopTracks.length > 0" name="Tracks">
         <app-track-card *ngFor="let track of artistTopTracks" [track]="track" class="card"></app-track-card>
       </app-card-flex>
     </div>
-    <div *ngIf="artistRelatedArtists">
+    <div *ngIf="artistRelatedArtists$ | async as artistRelatedArtists">
       <app-card-flex *ngIf="artistRelatedArtists.length > 0" name="Artists">
         <app-artist-card *ngFor="let artist of artistRelatedArtists" [artist]="artist" [routerLink]="['/artist', artist.id]" class="card"></app-artist-card>
       </app-card-flex>
