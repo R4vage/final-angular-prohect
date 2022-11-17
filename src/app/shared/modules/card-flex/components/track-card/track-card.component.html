@@ -1,8 +1,9 @@
-<mat-card class="custom-transition" [class.mat-elevation-z8]="true" >
+<mat-card class="custom-transition" [class.mat-elevation-z8]="true" [routerLink]="['/track', track.id]">
     <h2 [matTooltip]="track.name" matTooltipHideDelay="0" matTooltipHideDelay="above">{{track.name}}</h2>
     <mat-card-content><img [src]="track.album.images.length > 0 ? track.album.images[0].url : 'assets/image-not-found.png'"></mat-card-content>
     <mat-card-footer>
         <mat-card-subtitle>{{track.duration_ms | date:'mm:ss' }}</mat-card-subtitle>
-        <mat-icon>star_border</mat-icon>
+        <mat-icon [class.savedStar]="isSaved" (click)="changeSaveState($event)">{{isSaved? 'star':'star_border'}}</mat-icon>
+        
     </mat-card-footer>
 </mat-card>

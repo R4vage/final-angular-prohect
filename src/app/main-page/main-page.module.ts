@@ -14,16 +14,20 @@ import * as fromUser from '../user-profile/user-profile-store/reducers/user.redu
 import * as fromAlbums from './main-page-store/reducers/albums.reducer';
 import * as fromPlaylists from './main-page-store/reducers/playlists.reducer';
 import * as fromCategory from './main-page-store/reducers/category.reducer';
+import * as fromSaved from '../saved-store/saved-item.reducer'
 
 import { PlaylistsEffects } from './main-page-store/effects/playlists.effects';
 import { CategoryEffects } from './main-page-store/effects/category.effects';
 import { UserEffects } from '../user-profile/user-profile-store/effects/user.effects';
+import { SavedItemsEffects } from '../saved-store/saved-item.effects';
 
 const REDUCERS = [
   StoreModule.forFeature(fromUser.userFeatureKey, fromUser.reducer),
   StoreModule.forFeature(fromAlbums.albumsesFeatureKey, fromAlbums.reducer),
   StoreModule.forFeature(fromPlaylists.playlistsesFeatureKey, fromPlaylists.reducer),
   StoreModule.forFeature(fromCategory.categoriesFeatureKey, fromCategory.reducer),
+  StoreModule.forFeature(fromSaved.savedItemsFeatureKey, fromSaved.reducer),
+
 ];
 
 @NgModule({
@@ -34,7 +38,7 @@ const REDUCERS = [
     MaterialModule,
     SharedModule,
     ...REDUCERS,
-    EffectsModule.forFeature([UserEffects, AlbumsEffects, PlaylistsEffects, CategoryEffects]),
+    EffectsModule.forFeature([UserEffects, AlbumsEffects, PlaylistsEffects, CategoryEffects, SavedItemsEffects]),
   ],
 })
 export class MainPageModule {}
