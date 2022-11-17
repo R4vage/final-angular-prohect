@@ -6,14 +6,14 @@ import { AlbumItem } from 'src/app/core/models/album.models';
 export const topUserAlbumsFeatureKey = 'topUserAlbums';
 
 export interface TopUserAlbumsState extends EntityState<AlbumItem> {
-  topAlbumsLoaded: boolean
+  topAlbumsLoaded: boolean;
 }
 
 export const adapter: EntityAdapter<AlbumItem> =
   createEntityAdapter<AlbumItem>();
 
 export const initialState: TopUserAlbumsState = adapter.getInitialState({
-  topAlbumsLoaded: false
+  topAlbumsLoaded: false,
 });
 
 export const reducer = createReducer(
@@ -42,12 +42,12 @@ export const reducer = createReducer(
   on(TopUserAlbumActions.deleteTopUserAlbums, (state, action) =>
     adapter.removeMany(action.ids, state)
   ),
-  on(TopUserAlbumActions.loadTopUserAlbums, (state) => state),
+  on(TopUserAlbumActions.loadTopUserAlbums, (state) => {return state}),
   on(TopUserAlbumActions.loadTopUserAlbumsSuccess, (state, action) =>
-  adapter.setAll(action.topUserAlbums , {...state, topAlbumsLoaded: true})
+    adapter.setAll(action.topUserAlbums, { ...state, topAlbumsLoaded: true })
   ),
   on(TopUserAlbumActions.loadTopUserAlbumsFailure, (state, action) => {
-    throw new Error(action.error)
+    throw new Error(action.error);
   }),
   on(TopUserAlbumActions.clearTopUserAlbums, (state) =>
     adapter.removeAll(state)

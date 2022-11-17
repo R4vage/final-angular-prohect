@@ -6,12 +6,12 @@ import { UserProfileRoutingModule } from './user-profile-routing.module';
 
 import { StoreModule } from '@ngrx/store';
 import * as fromUser from './user-profile-store/reducers/user.reducer';
-import * as fromTopAlbums from './user-profile-store/reducers/top-albums.reducer';
+import * as fromTopAlbums from '../my-music-page/store/reducers/top-albums.reducer';
 import * as fromTopArtists from './user-profile-store/reducers/top-artists.reducer';
 import * as fromTopTracks from './user-profile-store/reducers/top-track.reducer';
 
 import { EffectsModule } from '@ngrx/effects';
-import { TopAlbumsEffects } from './user-profile-store/effects/top-albums.effect';
+import { TopAlbumsEffects } from '../my-music-page/store/effects/top-albums.effect';
 import { TopArtistEffects } from './user-profile-store/effects/top-artists.effect';
 import { TopTracksEffect } from './user-profile-store/effects/top-tracks.effects';
 import { UserEffects } from './user-profile-store/effects/user.effects';
@@ -21,9 +21,14 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MatIconModule } from '@angular/material/icon';
 
 const Stores = [
-  StoreModule.forFeature(fromTopAlbums.topUserAlbumsFeatureKey, fromTopAlbums.reducer),
-  StoreModule.forFeature(fromTopArtists.topUserArtistsFeatureKey, fromTopArtists.reducer),
-  StoreModule.forFeature(fromTopTracks.topUserTracksFeatureKey, fromTopTracks.reducer),
+  StoreModule.forFeature(
+    fromTopArtists.topUserArtistsFeatureKey,
+    fromTopArtists.reducer
+  ),
+  StoreModule.forFeature(
+    fromTopTracks.topUserTracksFeatureKey,
+    fromTopTracks.reducer
+  ),
 ];
 
 @NgModule({
@@ -31,7 +36,11 @@ const Stores = [
   imports: [
     CommonModule,
     ...Stores,
-    EffectsModule.forFeature([ TopAlbumsEffects, TopArtistEffects, TopTracksEffect]),
+    EffectsModule.forFeature([
+      TopAlbumsEffects,
+      TopArtistEffects,
+     
+    ]),
     UserProfileRoutingModule,
     SharedModule,
     CardFlexModule,

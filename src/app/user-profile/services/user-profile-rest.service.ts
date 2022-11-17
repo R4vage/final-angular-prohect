@@ -21,9 +21,6 @@ export class UserProfileRestService {
     return this.http.get<User>(`${this.URL}/me`, this.options)
   }
 
-  getUsersTopAlbums(): Observable<UserAlbumsResponse>{
-    return this.http.get<UserAlbumsResponse>(`${this.URL}/me/albums`, this.options)
-  }
 
   getUsersTopArtists():Observable<UserTopArtistsResponse> {
     return this.http.get<UserTopArtistsResponse>(`${this.URL}/me/top/artists?time_range=medium_term&limit=10`)

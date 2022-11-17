@@ -5,10 +5,10 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, finalize, first, Observable, of, retry, tap } from 'rxjs';
+import { filter, finalize, first, Observable, tap } from 'rxjs';
 import { loadTopUserArtists } from '../user-profile-store/actions/top-artists.actions';
 import { TopUserArtistState } from '../user-profile-store/reducers/top-artists.reducer';
-import { selectAreTopArtistsLoaded, selectTopArtistsState } from '../user-profile-store/selectors/top-artists.selectors';
+import { selectAreTopArtistsLoaded} from '../user-profile-store/selectors/top-artists.selectors';
 
 @Injectable({
   providedIn: 'root',

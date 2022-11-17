@@ -63,6 +63,10 @@ const routes: Routes = [
         loadChildren: () => import('../search-page/search-page.module').then((m) => m.SearchPageModule),
       },
       {
+        path:'my-music',
+        loadChildren:() => import ('../my-music-page/my-music-page.module').then((m) => m.MyMusicPageModule)
+      },
+      {
         path: '**',
         redirectTo: 'home',
       },
