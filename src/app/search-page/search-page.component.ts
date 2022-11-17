@@ -35,17 +35,6 @@ export class SearchPageComponent implements OnInit {
     this.route.params.subscribe({
       next: (params) => {
         this.searchValue = params['value'];
-<<<<<<< HEAD
-        this.resultsSubscription = this.store.select(selectSearchByValue(this.searchValue)).subscribe(results => {
-          if(results) {
-            this.artists = results.results.artists.items;
-            this.albums = results.results.albums.items;
-            this.tracks = results.results.tracks.items;
-            this.playlists = results.results.playlists.items
-          }
-        });
-      } 
-=======
         this.resultsSubscription = this.store
           .select(selectSearchByValue(this.searchValue))
           .subscribe((results) => {
@@ -57,7 +46,6 @@ export class SearchPageComponent implements OnInit {
             }
           });
       },
->>>>>>> 9735e41 (Add model for artist related artists)
     });
   }
 }
