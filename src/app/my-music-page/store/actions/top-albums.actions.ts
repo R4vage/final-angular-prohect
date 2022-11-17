@@ -11,7 +11,7 @@ export const loadTopUserAlbums = createAction(
 
 export const loadTopUserAlbumsSuccess = createAction(
   '[TopUserAlbum/API] Load TopUserAlbums Success', 
-  props<{ topUserAlbums: AlbumItem[] }>()
+  props<{ topUserAlbums: AlbumItem[], totalItems:number }>()
 );
 
 export const loadTopUserAlbumsFailure = createAction(

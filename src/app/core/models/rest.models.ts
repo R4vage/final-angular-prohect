@@ -7,7 +7,7 @@ export interface PaginatedResponse {
   next: null | string;
   offset: null | number;
   previous: null | number;
-  total: number | null;
+  total: number;
 }
 
 export interface UserAlbumsResponse extends PaginatedResponse {

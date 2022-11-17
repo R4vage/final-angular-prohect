@@ -21,9 +21,9 @@ export class TopAlbumsEffects {
             data.items.map((item) => {
               albumArray.push(item.album);
             });
-            console.log('inside effect')
             return topAlbumsActions.loadTopUserAlbumsSuccess({
               topUserAlbums: albumArray,
+              totalItems: data.total
             });
           }),
           catchError((error) =>

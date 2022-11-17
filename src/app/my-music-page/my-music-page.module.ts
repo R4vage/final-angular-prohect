@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromTopAlbums from './store/reducers/top-albums.reducer'
 import { EffectsModule } from '@ngrx/effects';
 import { TopAlbumsEffects } from './store/effects/top-albums.effect';
+import { CardFlexModule } from '../shared/modules/card-flex/card-flex.module';
 
 
 
@@ -20,7 +21,8 @@ import { TopAlbumsEffects } from './store/effects/top-albums.effect';
       fromTopAlbums.topUserAlbumsFeatureKey,
       fromTopAlbums.reducer
     ),
-    EffectsModule.forFeature([TopAlbumsEffects])
+    EffectsModule.forFeature([TopAlbumsEffects]),
+    CardFlexModule
   ]
 })
 export class MyMusicPageModule { }

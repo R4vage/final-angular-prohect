@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AlbumItem } from '../core/models/album.models';
+import { selectAllTopAlbums } from './store/selectors/top-albums.selectors';
 
 @Component({
   selector: 'app-my-music-page',
@@ -9,9 +11,10 @@ import { AlbumItem } from '../core/models/album.models';
 })
 export class MyMusicPageComponent implements OnInit {
   userAlbums$!: Observable<AlbumItem[]>
-  constructor() { }
+  constructor(private store:Store<AlbumItem>) { }
 
   ngOnInit(): void {
+    this.userAlbums$ = this.store.select(selectAllTopAlbums)
   }
 
 }

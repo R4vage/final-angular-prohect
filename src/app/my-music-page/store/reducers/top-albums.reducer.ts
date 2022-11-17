@@ -7,6 +7,7 @@ export const topUserAlbumsFeatureKey = 'topUserAlbums';
 
 export interface TopUserAlbumsState extends EntityState<AlbumItem> {
   topAlbumsLoaded: boolean;
+  totalItems:number;
 }
 
 export const adapter: EntityAdapter<AlbumItem> =
@@ -14,6 +15,7 @@ export const adapter: EntityAdapter<AlbumItem> =
 
 export const initialState: TopUserAlbumsState = adapter.getInitialState({
   topAlbumsLoaded: false,
+  totalItems: 0
 });
 
 export const reducer = createReducer(
@@ -44,7 +46,7 @@ export const reducer = createReducer(
   ),
   on(TopUserAlbumActions.loadTopUserAlbums, (state) => {return state}),
   on(TopUserAlbumActions.loadTopUserAlbumsSuccess, (state, action) =>
-    adapter.setAll(action.topUserAlbums, { ...state, topAlbumsLoaded: true })
+    adapter.setAll(action.topUserAlbums, { ...state, topAlbumsLoaded: true, totalItems:action.totalItems })
   ),
   on(TopUserAlbumActions.loadTopUserAlbumsFailure, (state, action) => {
     throw new Error(action.error);
