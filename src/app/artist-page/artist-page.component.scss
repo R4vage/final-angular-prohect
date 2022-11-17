@@ -6,3 +6,9 @@
   padding-block: 2em;
   padding-inline: 3em;
 }
+
+.details {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}

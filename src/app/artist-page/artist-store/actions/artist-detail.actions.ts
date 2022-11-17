@@ -9,6 +9,11 @@ export const loadArtistDetails = createAction(
 
 export const addArtistDetail = createAction(
   '[ArtistDetail/API] Add ArtistDetail',
+  props<{ artistId: string }>()
+);
+
+export const addArtistDetailSuccess = createAction(
+  '[ArtistDetail/API] Add ArtistDetail Success',
   props<{ artistDetail: ArtDetail }>()
 );
 

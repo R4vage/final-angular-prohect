@@ -10,22 +10,23 @@ export interface ArtDetail {
 
 export const artistDetailsFeatureKey = 'artistDetails';
 
-export interface State extends EntityState<ArtDetail> {
+export interface ArtistDetailsState extends EntityState<ArtDetail> {
   // additional entities state properties
 }
 
 export const adapter: EntityAdapter<ArtDetail> =
   createEntityAdapter<ArtDetail>();
 
-export const initialState: State = adapter.getInitialState({
+export const initialState: ArtistDetailsState = adapter.getInitialState({
   // additional entity state properties
 });
 
 export const reducer = createReducer(
   initialState,
-  on(ArtistDetailActions.addArtistDetail, (state, action) =>
+  on(ArtistDetailActions.addArtistDetailSuccess, (state, action) =>
     adapter.addOne(action.artistDetail, state)
   ),
+  on(ArtistDetailActions.addArtistDetail, (state) => state),
   on(ArtistDetailActions.upsertArtistDetail, (state, action) =>
     adapter.upsertOne(action.artistDetail, state)
   ),

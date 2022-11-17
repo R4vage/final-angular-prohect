@@ -11,16 +11,13 @@ export interface ArtAlbums {
 
 export const artistAlbumsesFeatureKey = 'artistAlbums';
 
-export interface ArtistAlbumsState extends EntityState<ArtAlbums> {
-  artistAlbumsLoaded: boolean;
-}
+export interface ArtistAlbumsState extends EntityState<ArtAlbums> {}
 
 export const adapter: EntityAdapter<ArtAlbums> =
   createEntityAdapter<ArtAlbums>();
 
 export const initialState: ArtistAlbumsState = adapter.getInitialState({
   // additional entity state properties
-  artistAlbumsLoaded: false,
 });
 
 export const reducer = createReducer(

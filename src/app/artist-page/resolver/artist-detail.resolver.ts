@@ -6,25 +6,26 @@ import {
 } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { filter, finalize, first, Observable, tap } from 'rxjs';
-import { addArtistAlbums } from '../artist-store/actions/artist-albums.actions';
-import { ArtistAlbumsState } from '../artist-store/reducers/artist-albums.reducer';
-import { artistAlbumsHasBeenDone } from '../artist-store/selectors/artist-albums.selectors';
+import { addArtistDetail } from '../artist-store/actions/artist-detail.actions';
+import { ArtistDetailsState } from '../artist-store/reducers/artist-detail.reducer';
+import { artistDetailsHasBeenDone } from '../artist-store/selectors/artist-detail.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ArtistAlbumsResolver implements Resolve<boolean> {
+export class ArtistDetailsResolver implements Resolve<boolean> {
   loading = false;
-  constructor(private store: Store<ArtistAlbumsState>) {}
+  constructor(private store: Store<ArtistDetailsState>) {}
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
     return this.store.pipe(
-      select(artistAlbumsHasBeenDone(route.params['id'])),
+      select(artistDetailsHasBeenDone(route.params['id'])),
       tap({
-        next: (hasAlbumsSearchBeenDone) => {
-          if (!this.loading && !hasAlbumsSearchBeenDone) {
+        next: (hasDetailsSearchBeenDone) => {
+          if (!this.loading && !hasDetailsSearchBeenDone) {
             this.loading = true;
+
             return this.store.dispatch(
-              addArtistAlbums({ artistId: route.params['id'] })
+              addArtistDetail({ artistId: route.params['id'] })
             );
           }
         },
