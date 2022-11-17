@@ -1,7 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { map, switchMap, throwError } from 'rxjs';
-import { Album, Albums } from 'src/app/core/models/album.models';
+import { Album, AlbumItem, Albums } from 'src/app/core/models/album.models';
+import { addTopUserAlbum, deleteTopUserAlbum } from 'src/app/my-music-page/store/actions/top-albums.actions';
+import { updateSavedItem } from 'src/app/saved-store/saved-item.actions';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,30 +17,14 @@ export class AlbumService {
     return this.http.get<Album>(`${this.URL}/albums/${albumId}`);
   }
 
-  saveAlbum(albumId: string) {
-    const queryParams = new HttpParams().append('ids', albumId);
-
-    return this.checkSavedAlbum(albumId).pipe(
-      switchMap((isAlbumSaved) => {
-        if (!isAlbumSaved[0]) {
-          return this.http.put(`${this.URL}/me/albums`, { ids: [albumId] }, { params: queryParams });
-        }
-        return throwError(() => Error('The album is already saved'));
-      })
-    );
+  saveAlbum(albumId: string, album:AlbumItem) {
+    this.store.dispatch(addTopUserAlbum({topUserAlbum:album}))
+    this.store.dispatch(updateSavedItem({id:albumId, kind:'album', isSaved:true}))
   }
 
   deleteAlbum(albumId: string) {
-    const queryParams = new HttpParams().append('ids', albumId);
-
-    return this.checkSavedAlbum(albumId).pipe(
-      switchMap((isAlbumSaved) => {
-        if (isAlbumSaved[0]) {
-          return this.http.delete(`${this.URL}/me/albums`, { params: queryParams });
-        }
-        return throwError(() => Error("The album wasn't in the User's Saved Albums"));
-      })
-    );
+    this.store.dispatch(deleteTopUserAlbum({id:albumId}))
+    this.store.dispatch(updateSavedItem({id:albumId, kind:'album', isSaved:false}))
   }
 
   checkSavedAlbum(albumId: string) {
@@ -75,5 +62,5 @@ export class AlbumService {
     });
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store:Store) {}
 }

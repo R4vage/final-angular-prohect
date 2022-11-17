@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MyMusicPageComponent } from './my-music-page.component';
-import { TopUserAlbumsResolver } from './store/resolvers/top-album.resolver';
-
+import { TopUserAlbumsResolver } from './resolvers/top-album.resolver';
 
 const routes: Routes = [
   {

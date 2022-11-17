@@ -7,9 +7,9 @@ import {
 } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { filter, finalize, first, Observable, of, retry, tap } from 'rxjs';
-import { loadTopUserAlbums } from '../actions/top-albums.actions';
-import { TopUserAlbumsState} from '../reducers/top-albums.reducer';
-import { selectAreTopAlbumsLoaded } from '../selectors/top-albums.selectors';
+import { loadTopUserAlbums } from '../store/actions/top-albums.actions';
+import { TopUserAlbumsState } from '../store/reducers/top-albums.reducer';
+import { selectAreTopAlbumsLoaded } from '../store/selectors/top-albums.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,6 @@ export class TopUserAlbumsResolver implements Resolve<boolean> {
       tap({
         next: (albumsLoaded) => {
           if (!this.loading && !albumsLoaded) {
-
             this.loading = true;
             this.store.dispatch(loadTopUserAlbums());
           }

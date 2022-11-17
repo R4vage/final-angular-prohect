@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AlbumItem } from 'src/app/core/models/album.models';
+import { addTopUserAlbum, deleteTopUserAlbum } from 'src/app/my-music-page/store/actions/top-albums.actions';
 import { updateSavedItem } from 'src/app/saved-store/saved-item.actions';
 import { SavedItem } from 'src/app/saved-store/saved-item.reducer';
 import { selectSavedItemById } from 'src/app/saved-store/saved-item.selectors';
@@ -27,6 +28,11 @@ export class AlbumCardComponent implements OnInit {
   changeSaveState (event:MouseEvent) {
     event.stopPropagation();
     this.followClicked.emit(!this.isSaved);
+    if(this.isSaved) {
+      this.store.dispatch(deleteTopUserAlbum({id: this.album.id}))
+    } else {
+      this.store.dispatch(addTopUserAlbum({topUserAlbum:this.album}))
+    }
     this.store.dispatch(updateSavedItem({id:this.album.id, kind:'album', isSaved:!this.isSaved}))
   }
 

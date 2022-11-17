@@ -1,4 +1,4 @@
 <h2>Your Music</h2>
 <app-card-flex name="Your Saved Albums" *ngIf="(userAlbums$ | async)?.length">
-    <app-album-card *ngFor="let album of userAlbums$ | async" [album]="album" class="card"></app-album-card>
+    <app-album-card *ngFor="let album of (userAlbums$ | async)?.slice(0,9)" [album]="album" class="card"></app-album-card>
 </app-card-flex>
