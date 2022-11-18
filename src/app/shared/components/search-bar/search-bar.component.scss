@@ -1,3 +1,8 @@
+:host{
+    display: block;
+    width: 100%;
+}
+
 
 .input-container{
     display: flex;
@@ -8,8 +13,8 @@
     background-color: aliceblue;
     border-radius: 7px;
     color: black;
-
-
+    width: 8em;
+    margin-left:1em;
     input{
         all: unset;
         margin: 0;
@@ -18,10 +23,24 @@
         border-right: 1px solid grey;
         padding-right: 0.4em;
         margin-right: 0.4em;
+        max-width: 75%;
     }
     mat-icon{
         margin: 0;
         padding: 0;
         cursor: pointer;
+    }
+}
+
+@media (min-width:420px) {
+    .input-container{
+        width: 100%;
+        margin-left: auto;
+        max-width: 25rem;
+
+        input{
+            max-width: unset;
+            width: 100%;
+        }
     }
 }
