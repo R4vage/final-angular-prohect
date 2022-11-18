@@ -33,6 +33,7 @@ export class PlaylistDetailPageComponent implements OnInit {
       },
     }) 
     this.store.select(selectSavedItemById(this.idPlaylist)).subscribe(savedItem => {
+      console.log(this.isSaved)
       this.isSaved = savedItem?.isSaved
     })
   }

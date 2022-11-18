@@ -34,7 +34,7 @@ export class PlaylistsEffects {
         throw err;
       }),
       map((playlist) => {
-        let trackIds = prepareIdArrayFromItems(playlist.tracks.items);
+        let trackIds = prepareIdArrayFromItems(playlist.tracks.items.slice(0,20));
         this.store.dispatch(checkSavedItems({ ids: trackIds, kind: 'track' }))
         this.store.dispatch(
           checkSavedItems({ ids: [playlist.id], kind: 'playlist' })
