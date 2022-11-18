@@ -39,7 +39,6 @@ export class AlbumCardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.star.nativeElement)
     this.subscription$.push(
       fromEvent(this.star.nativeElement, 'click')
       .pipe( debounceTime(1000))

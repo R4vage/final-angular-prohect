@@ -32,7 +32,6 @@ export class TrackDetailPageComponent implements OnInit, OnDestroy {
     });
     this.store.select(selectSavedItemById(this.idTrack)).subscribe(savedItem => {
       this.isSaved = savedItem?.isSaved;
-      console.log(this.isSaved)
     })
   }
 

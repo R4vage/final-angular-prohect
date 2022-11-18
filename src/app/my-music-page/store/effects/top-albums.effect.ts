@@ -51,7 +51,6 @@ export class TopAlbumsEffects {
     return this.actions$.pipe(
       ofType(topAlbumsActions.deleteTopUserAlbum),
       concatMap(() => {
-        console.log('insidehere');
         return this.savedStore.select(selectTotalSavedAlbumsCount).pipe(
           filter((itemsCount) => {
             return itemsCount.totalItems > 20 && itemsCount.currentItems < 10;

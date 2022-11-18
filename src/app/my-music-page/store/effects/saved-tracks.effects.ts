@@ -59,14 +59,11 @@ export class SavedTracksEffects {
     return this.actions$.pipe(
       ofType(savedTrackActions.deleteSavedTrack),
       concatMap(() => {
-        console.log('insidehere');
         return this.savedStore.select(selectTotalSavedTracksCount).pipe(
           filter((itemsCount) => {
-            console.log(itemsCount);
             return itemsCount.totalItems > 20 && itemsCount.currentItems < 10;
           }),
           map((itemsCount) => {
-            console.log(itemsCount);
             return savedTrackActions.loadSavedTracks();
           }),
           catchError((error) =>

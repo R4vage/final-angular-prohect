@@ -25,7 +25,6 @@ export class SavedItemsEffects {
           map((idsNotFound) => {
             if (idsNotFound.length > 0) {
               if(action.kind === 'playlist') {
-                console.log(action.ids)
               }
               return savedItemsActions.addSavedItems({
                 ids: idsNotFound,

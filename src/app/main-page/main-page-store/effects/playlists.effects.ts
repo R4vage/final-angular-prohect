@@ -34,7 +34,6 @@ export class PlaylistsEffects {
         throw err;
       }),
       map((playlist) => {
-        console.log(playlist.id)
         let trackIds = prepareIdArrayFromItems(playlist.tracks.items);
         this.store.dispatch(checkSavedItems({ ids: trackIds, kind: 'track' }))
         this.store.dispatch(

@@ -30,7 +30,6 @@ export class TrackCardComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.star.nativeElement)
     this.subscription$.push(
       fromEvent(this.star.nativeElement, 'click')
       .pipe( debounceTime(1000))

@@ -15,11 +15,9 @@ export class SavedItemRestService implements OnInit{
   constructor(private http: HttpClient, private store: Store<User>) {}
 
   ngOnInit(): void {
-    this.store.subscribe(next => console.log(next))
     this.store.select(selectIdUser).subscribe(
       id => this.userId = id
     )
-    console.log(this.userId)
   }
 
   checkUserSavedTracks(trackIds: string[]): Observable<boolean[]> {
