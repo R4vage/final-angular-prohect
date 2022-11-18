@@ -15,3 +15,13 @@ export const selectAreTopAlbumsLoaded = createSelector(
     return state.topAlbumsLoaded;
   }
 );
+
+export const selectTotalSavedAlbumsCount = createSelector(
+  selectTopAlbumState,
+  (state) => {
+    return {
+      totalItems: state.totalItems,
+      currentItems: state.ids.length,
+    };
+  }
+);

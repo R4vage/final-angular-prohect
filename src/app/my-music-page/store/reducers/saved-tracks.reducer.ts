@@ -35,7 +35,7 @@ export const reducer = createReducer(
 
 
   on(SavedTrackActions.addSavedTrack, (state, action) =>
-    adapter.addOne(action.track, state)
+    adapter.addOne(action.track, {...state, totalItems: state.totalItems+1})
   ),
 
   on(SavedTrackActions.upsertSavedTrack, (state, action) =>
@@ -51,7 +51,7 @@ export const reducer = createReducer(
     adapter.updateMany(action.tracks, state)
   ),
   on(SavedTrackActions.deleteSavedTrack, (state, action) =>
-    adapter.removeOne(action.id, state)
+    adapter.removeOne(action.id, {...state, totalItems: state.totalItems-1})
   ),
   on(SavedTrackActions.deleteSavedTracks, (state, action) =>
     adapter.removeMany(action.ids, state)

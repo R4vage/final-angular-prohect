@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, tap } from 'rxjs/operators';
+import { catchError, map, concatMap, tap, filter } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as topAlbumsActions from '../actions/top-albums.actions';
 import { MyMusicPageRestService } from '../../services/my-music-page-rest.service';
@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import {
   addSavedItemsSuccess,
 } from 'src/app/saved-store/saved-item.actions';
+import { selectTotalSavedAlbumsCount } from '../selectors/top-albums.selectors';
 
 @Injectable()
 export class TopAlbumsEffects {
@@ -46,9 +47,31 @@ export class TopAlbumsEffects {
     );
   });
 
+  deleteAlbum$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(topAlbumsActions.deleteTopUserAlbum),
+      concatMap(() => {
+        console.log('insidehere');
+        return this.savedStore.select(selectTotalSavedAlbumsCount).pipe(
+          filter((itemsCount) => {
+            return itemsCount.totalItems > 20 && itemsCount.currentItems < 10;
+          }),
+          map(() => {
+            return topAlbumsActions.loadTopUserAlbums();
+          }),
+          catchError((error) =>
+            of(
+              topAlbumsActions.loadTopUserAlbumsFailure({ error: error.message })
+            )
+          )
+        );
+      })
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private restService: MyMusicPageRestService,
-    private savedStore: Store<SavedItem>
+    private savedStore: Store
   ) {}
 }

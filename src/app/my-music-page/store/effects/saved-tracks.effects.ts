@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, tap } from 'rxjs/operators';
+import {
+  catchError,
+  map,
+  concatMap,
+  tap,
+  withLatestFrom,
+  mergeMap,
+  filter,
+} from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as savedTrackActions from '../actions/saved-tracks.actions';
 import { MyMusicPageRestService } from '../../services/my-music-page-rest.service';
-import { Track } from 'src/app/core/models/track.models'; 
+import { Track } from 'src/app/core/models/track.models';
 import { SavedItem } from 'src/app/saved-store/saved-item.reducer';
-import { Store } from '@ngrx/store';
-import {
-  addSavedItemsSuccess,
-} from 'src/app/saved-store/saved-item.actions';
+import { select, Store } from '@ngrx/store';
+import { addSavedItemsSuccess } from 'src/app/saved-store/saved-item.actions';
+import { selectTotalSavedTracksCount } from '../selectors/saved-tracks.selectors';
 
 @Injectable()
 export class SavedTracksEffects {
@@ -22,7 +29,7 @@ export class SavedTracksEffects {
             let trackArray: Track[] = [];
             let newSavedItems: SavedItem[] = [];
             data.items.map((item) => {
-                trackArray.push(item.track);
+              trackArray.push(item.track);
               newSavedItems.push({
                 id: item.track.id,
                 kind: 'track',
@@ -39,7 +46,33 @@ export class SavedTracksEffects {
             });
           }),
           catchError((error) =>
-            of(savedTrackActions.loadSavedTracksFailure({ error:error.message }))
+            of(
+              savedTrackActions.loadSavedTracksFailure({ error: error.message })
+            )
+          )
+        );
+      })
+    );
+  });
+
+  deleteTrack$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(savedTrackActions.deleteSavedTrack),
+      concatMap(() => {
+        console.log('insidehere');
+        return this.savedStore.select(selectTotalSavedTracksCount).pipe(
+          filter((itemsCount) => {
+            console.log(itemsCount);
+            return itemsCount.totalItems > 20 && itemsCount.currentItems < 10;
+          }),
+          map((itemsCount) => {
+            console.log(itemsCount);
+            return savedTrackActions.loadSavedTracks();
+          }),
+          catchError((error) =>
+            of(
+              savedTrackActions.loadSavedTracksFailure({ error: error.message })
+            )
           )
         );
       })
@@ -49,6 +82,6 @@ export class SavedTracksEffects {
   constructor(
     private actions$: Actions,
     private restService: MyMusicPageRestService,
-    private savedStore: Store<SavedItem>
+    private savedStore: Store
   ) {}
 }

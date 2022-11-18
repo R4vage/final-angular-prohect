@@ -21,7 +21,8 @@ export const initialState: TopUserAlbumsState = adapter.getInitialState({
 export const reducer = createReducer(
   initialState,
   on(TopUserAlbumActions.addTopUserAlbum, (state, action) =>
-    adapter.addOne(action.topUserAlbum, state)
+    adapter.addOne(action.topUserAlbum, {...state, totalItems: state.totalItems+1})
+    
   ),
   on(TopUserAlbumActions.upsertTopUserAlbum, (state, action) =>
     adapter.upsertOne(action.topUserAlbum, state)
@@ -39,7 +40,7 @@ export const reducer = createReducer(
     adapter.updateMany(action.topUserAlbums, state)
   ),
   on(TopUserAlbumActions.deleteTopUserAlbum, (state, action) =>
-    adapter.removeOne(action.id, state)
+    adapter.removeOne(action.id, {...state, totalItems: state.totalItems-1})
   ),
   on(TopUserAlbumActions.deleteTopUserAlbums, (state, action) =>
     adapter.removeMany(action.ids, state)
