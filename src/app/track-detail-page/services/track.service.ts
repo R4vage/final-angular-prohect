@@ -1,7 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable, switchMap, throwError } from 'rxjs';
 import { Track } from 'src/app/core/models/track.models';
+import { addSavedTrack, deleteSavedTrack } from 'src/app/my-music-page/store/actions/saved-tracks.actions';
+import { updateSavedItem } from 'src/app/saved-store/saved-item.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +37,16 @@ export class TrackService {
     );
   }
 
+  saveTrackStore (track:Track) {
+    this.store.dispatch(addSavedTrack({track:track}))
+    this.store.dispatch(updateSavedItem({id:track.id, kind:'track', isSaved:true}))
+  }
+
+  deleteTrackStore (trackId:string) {
+    this.store.dispatch(deleteSavedTrack({id:trackId}));
+    this.store.dispatch(updateSavedItem({id:trackId, kind:'track', isSaved:false}))
+  }
+
   deleteTrack(trackId: string) {
     const queryParams = new HttpParams().append('ids', trackId);
 
@@ -47,5 +60,5 @@ export class TrackService {
     );
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store) {}
 }

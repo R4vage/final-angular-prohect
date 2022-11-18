@@ -19,7 +19,6 @@ import { AlbumTotalDurationPipe } from 'src/app/shared/pipes/album-total-duratio
 import { ListArtistsPipe } from 'src/app/shared/pipes/list-artists.pipe';
 import { SecondTrackMusicPipe } from 'src/app/shared/pipes/second-track-music.pipe';
 import { albumWithTracksMockData } from 'src/Test-utilities/album-mock-data';
-import { AlbumTracksComponent } from '../album-tracks/album-tracks.component';
 
 import { AlbumDetailPageComponent } from './album-detail-page.component';
 
@@ -58,7 +57,7 @@ describe('AlbumDetailPageComponent', () => {
           { path: 'album', component: AlbumDetailPageComponent },
         ]),
       ],
-      declarations: [AlbumDetailPageComponent, ListArtistsPipe, SecondTrackMusicPipe, AlbumTotalDurationPipe, AlbumTracksComponent],
+      declarations: [AlbumDetailPageComponent, ListArtistsPipe, SecondTrackMusicPipe, AlbumTotalDurationPipe],
       providers: [
         { provide: MatSnackBar, useValue: snackbarSpy },
 
@@ -95,7 +94,6 @@ describe('AlbumDetailPageComponent', () => {
     albumService = TestBed.inject(AlbumService);
     snackbar = TestBed.inject(MatSnackBar);
 
-    spyOn(component, 'checkSavedAlbum').and.callThrough();
 
     router.initialNavigation();
     await router.navigate(['/album', ID_ALBUM]);
@@ -109,7 +107,6 @@ describe('AlbumDetailPageComponent', () => {
     expect(component).toBeTruthy();
     expect(location.path()).toBe(`/album/${ID_ALBUM}`);
     expect(component.idAlbum).toBe(ID_ALBUM);
-    expect(component.checkSavedAlbum).toHaveBeenCalledOnceWith(component.idAlbum);
   });
 
   it('should create album information section', () => {
@@ -160,19 +157,12 @@ describe('AlbumDetailPageComponent', () => {
     expect(image).toBe(ALBUM.images[0].url);
   });
 
-  it('should check if album was already saved', () => {
-    component.checkSavedAlbum(ALBUM.id);
 
-    expect(component.isAlbumSaved).toBeTrue();
-    expect(component.isAlbumNotSaved).toBeFalse();
-  });
 
   it('should deactivate the buttons when an error appears while checking saved albums', async () => {
     (albumService.checkSavedAlbum as jasmine.Spy).and.returnValue(throwError(() => new Error('error')));
-    component.checkSavedAlbum(ALBUM.id);
 
     expect(component.isAlbumSaved).toBeTrue();
-    expect(component.isAlbumNotSaved).toBeTrue();
 
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
 
@@ -203,7 +193,6 @@ describe('AlbumDetailPageComponent', () => {
   });
 
   it('should delete album when delete button is clicked', async () => {
-    component.isAlbumNotSaved = false;
 
     spyOn(component, 'deleteAlbum').and.callThrough();
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
@@ -216,7 +205,6 @@ describe('AlbumDetailPageComponent', () => {
     fixture.detectChanges();
 
     expect(component.deleteAlbum).toHaveBeenCalled();
-    expect(component.isAlbumNotSaved).toBeTrue();
 
     expect(snackbar.open).toHaveBeenCalled();
 

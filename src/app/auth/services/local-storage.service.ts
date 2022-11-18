@@ -25,7 +25,6 @@ export class LocalStorageService {
     const loginUpdated: AuthorizationSuccess = {
       ...data,
     };
-
     this.setLoginData(JSON.stringify(loginUpdated));
   }
 

@@ -6,6 +6,7 @@ import { loadAlbum } from 'src/app/main-page/main-page-store/actions/albums.acti
 import { AlbumState } from 'src/app/main-page/main-page-store/reducers/albums.reducer';
 import { isAlbumInStore } from 'src/app/main-page/main-page-store/selectors/album.selectors';
 import { checkSavedItems } from 'src/app/saved-store/saved-item.actions';
+import { prepareIdArray } from 'src/app/saved-store/saved-item.helpers';
 
 @Injectable({
   providedIn: 'root',
@@ -21,9 +22,7 @@ export class AlbumDetailResolver implements Resolve<boolean> {
         next: (isAlbumInStore) => {
           if (!this.loading && !isAlbumInStore) {
             this.loading = true;
-            this.store.dispatch(
-              checkSavedItems({ ids: [route.params['id']], kind: 'album' })
-            );
+
             this.store.dispatch(loadAlbum({ id: route.params['id'] }));
           }
         },

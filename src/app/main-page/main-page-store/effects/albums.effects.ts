@@ -38,6 +38,11 @@ export class AlbumsEffects {
         throw err;
       }),
       map((album) => {
+        let trackIds = prepareIdArray(album.tracks.items);
+        this.store.dispatch(checkSavedItems({ ids: trackIds, kind: 'track' }))
+        this.store.dispatch(
+          checkSavedItems({ ids: [album.id], kind: 'album' })
+        );
         return upsertAlbum({ album });
       })
     );

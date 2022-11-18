@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MyMusicPageComponent } from './my-music-page.component';
+import { SavedTracksResolver } from './resolvers/saved-tracks.resolver';
 import { TopUserAlbumsResolver } from './resolvers/top-album.resolver';
 
 const routes: Routes = [
@@ -9,6 +10,7 @@ const routes: Routes = [
     component: MyMusicPageComponent,
     resolve: {
       topAlbums: TopUserAlbumsResolver,
+      savedTracks: SavedTracksResolver
     },
   },
 ];

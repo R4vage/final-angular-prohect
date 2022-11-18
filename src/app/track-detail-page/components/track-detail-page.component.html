@@ -24,18 +24,18 @@
   <section class="m-0 p-[16px] h-full pt-10 bg-opacity-60 bg-gradient-to-t from-black to-slate-800">
     <app-audio-player class="audio-player" *ngIf="track$ | async as track" [musicURL]="track.preview_url"></app-audio-player>
 
-    <div *ngIf="track$ | async" class="flex flex-row justify-center gap-5">
+    <div *ngIf="track$ | async as track" class="flex flex-row justify-center gap-5">
       <button
         color="accent"
-        [disabled]="isTrackSaved"
-        (click)="saveTrack(idTrack)"
+        [disabled]="isSaved"
+        (click)="saveTrack(track)"
         mat-raised-button
         class="save-button text-xl font-semibold flex flex-row justify-center items-center"
       >
         <mat-icon class="inline-block sm:hidden sm:mr-2">favorite</mat-icon>
         <span class="hidden sm:inline-block">Save Track</span>
       </button>
-      <button color="warn" [disabled]="isTrackNotSaved" (click)="deleteTrack(idTrack)" mat-raised-button class="delete-button text-xl font-medium">
+      <button color="warn" [disabled]="!isSaved" (click)="deleteTrack(idTrack)" mat-raised-button class="delete-button text-xl font-medium">
         <mat-icon class="inline-block sm:hidden sm:mr-2">delete</mat-icon>
         <span class="hidden sm:inline-block">Delete Track</span>
       </button>

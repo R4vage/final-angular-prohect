@@ -13,7 +13,7 @@ import { DefaultProjectorFn, MemoizedSelector } from '@ngrx/store';
 import { Search, SearchState } from './search-store/search.reducer';
 import { SearchResults } from '../core/models/rest.models';
 
-fdescribe('SearchPageComponent', () => {
+describe('SearchPageComponent', () => {
   let component: SearchPageComponent;
   let fixture: ComponentFixture<SearchPageComponent>;
   let loader: HarnessLoader;

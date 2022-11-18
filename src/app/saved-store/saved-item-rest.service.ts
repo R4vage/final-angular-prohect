@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { User } from '../core/models/user-profile.models';
 import { selectIdUser } from '../user-profile/user-profile-store/selectors/user.selectors';
 import { Kind } from './saved-item.reducer';
@@ -15,9 +15,11 @@ export class SavedItemRestService implements OnInit{
   constructor(private http: HttpClient, private store: Store<User>) {}
 
   ngOnInit(): void {
+    this.store.subscribe(next => console.log(next))
     this.store.select(selectIdUser).subscribe(
       id => this.userId = id
-    );
+    )
+    console.log(this.userId)
   }
 
   checkUserSavedTracks(trackIds: string[]): Observable<boolean[]> {
@@ -41,7 +43,7 @@ export class SavedItemRestService implements OnInit{
   }
 
   checkUsersPlaylist (playlistid: string): Observable<boolean[]> {
-    	return this.http.get<boolean[]>(`${this.URL}/playlists/${playlistid}/followers/contains?ids=${this.userId}`);
+    return this.http.get<boolean[]>(`${this.URL}/playlists/${playlistid}/followers/contains?ids=${this.userId}`);
   }
 
   saveTrack(trackId: string): Observable<void> {
@@ -62,14 +64,12 @@ export class SavedItemRestService implements OnInit{
 
   followPlaylist(playlistId: string): Observable<void> {
     return this.http.put<void>(
-      `${this.URL}/me/playlists/${playlistId}/followers`,
-      { public: true }
-    );
+      `${this.URL}/playlists/${playlistId}/followers`,'');
   }
 
   removePlaylist(playlistId: string): Observable<void> {
     return this.http.delete<void>(
-      `${this.URL}/me/playlists/${playlistId}/followers`
+      `${this.URL}/playlists/${playlistId}/followers`
     );
   }
 
@@ -124,7 +124,7 @@ export class SavedItemRestService implements OnInit{
         if (isSaved) {
           return this.followPlaylist(id);
         } else {
-          return this.unfollowArtist(id);
+          return this.removePlaylist(id);
         }
       case 'track':
         if (isSaved) {

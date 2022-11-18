@@ -24,6 +24,9 @@ export class SavedItemsEffects {
         return this.savedStore.select(checkSavedIds(action.ids)).pipe(
           map((idsNotFound) => {
             if (idsNotFound.length > 0) {
+              if(action.kind === 'playlist') {
+                console.log(action.ids)
+              }
               return savedItemsActions.addSavedItems({
                 ids: idsNotFound,
                 kind: action.kind,
@@ -45,6 +48,7 @@ export class SavedItemsEffects {
           .getProperCheckEndpoint(action.ids, action.kind)
           .pipe(
             map((idsStates) => {
+              
               return this.prepareAction(idsStates, action.ids, action.kind);
             })
           );

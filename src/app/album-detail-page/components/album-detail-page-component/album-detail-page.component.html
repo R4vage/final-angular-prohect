@@ -39,7 +39,7 @@
     </div>
 
     <ng-container *ngIf="album$ | async as album">
-      <app-album-tracks *ngIf="album.tracks" [tracks]="album.tracks.items"></app-album-tracks>
+      <app-tracks-list [tracks]="album.tracks.items"></app-tracks-list>
     </ng-container>
   </section>
 </div>

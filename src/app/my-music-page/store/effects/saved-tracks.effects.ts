@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import * as topAlbumsActions from '../actions/top-albums.actions';
+import * as savedTrackActions from '../actions/saved-tracks.actions';
 import { MyMusicPageRestService } from '../../services/my-music-page-rest.service';
-import { AlbumItem } from 'src/app/core/models/album.models';
+import { Track } from 'src/app/core/models/track.models'; 
 import { SavedItem } from 'src/app/saved-store/saved-item.reducer';
 import { Store } from '@ngrx/store';
 import {
@@ -12,20 +12,20 @@ import {
 } from 'src/app/saved-store/saved-item.actions';
 
 @Injectable()
-export class TopAlbumsEffects {
-  loadAlbums$ = createEffect(() => {
+export class SavedTracksEffects {
+  loadTracks$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(topAlbumsActions.loadTopUserAlbums),
+      ofType(savedTrackActions.loadSavedTracks),
       concatMap(() => {
-        return this.restService.getUsersTopAlbums().pipe(
+        return this.restService.getUsersSavedTracks().pipe(
           map((data) => {
-            let albumArray: AlbumItem[] = [];
+            let trackArray: Track[] = [];
             let newSavedItems: SavedItem[] = [];
             data.items.map((item) => {
-              albumArray.push(item.album);
+                trackArray.push(item.track);
               newSavedItems.push({
-                id: item.album.id,
-                kind: 'album',
+                id: item.track.id,
+                kind: 'track',
                 isSaved: true,
               });
             });
@@ -33,13 +33,13 @@ export class TopAlbumsEffects {
               addSavedItemsSuccess({ savedItems: newSavedItems })
             );
 
-            return topAlbumsActions.loadTopUserAlbumsSuccess({
-              topUserAlbums: albumArray,
+            return savedTrackActions.loadSavedTracksSuccess({
+              tracks: trackArray,
               totalItems: data.total,
             });
           }),
           catchError((error) =>
-            of(topAlbumsActions.loadTopUserAlbumsFailure({ error }))
+            of(savedTrackActions.loadSavedTracksFailure({ error:error.message }))
           )
         );
       })

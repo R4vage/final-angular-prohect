@@ -6,6 +6,7 @@ import { map, Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { Playlist } from 'src/app/core/models/playlist.models';
 import { selectPlaylistById } from 'src/app/main-page/main-page-store/selectors/playlist.selectors';
 import { PlaylistService } from 'src/app/main-page/services/playlist.service';
+import { selectSavedItemById } from 'src/app/saved-store/saved-item.selectors';
 import { selectIdUser } from 'src/app/user-profile/user-profile-store/selectors/user.selectors';
 
 @Component({
@@ -17,85 +18,48 @@ export class PlaylistDetailPageComponent implements OnInit {
   onDestroy = new Subject<boolean>();
 
   idPlaylist!: string;
-  idUser!: string;
 
-  playlist!: Playlist | undefined;
-
-  isPlaylistFollowed = true;
-  isPlaylistNotFollowed = true;
+  isSaved:boolean | undefined = false;
 
   isTrackFollowed = true;
 
   constructor(private store: Store, private route: ActivatedRoute, private playlistService: PlaylistService, private snackbar: MatSnackBar) {}
 
   ngOnInit(): void {
-    this.route.params
-      .pipe(
-        takeUntil(this.onDestroy),
-        tap({
-          next: (params) => {
-            this.idPlaylist = params['id'];
-            this.playlist$ = this.store.pipe(select(selectPlaylistById(this.idPlaylist))) as Observable<Playlist>;
-          },
-        }),
-        switchMap((params) => {
-          return this.store.pipe(takeUntil(this.onDestroy), select(selectIdUser));
-        })
-      )
-      .subscribe({
-        next: (userId) => {
-          this.idUser = userId;
-          this.checkFollowedPlaylist(this.idUser, this.idPlaylist);
-        },
-      });
+    this.route.params.subscribe({
+      next: (params) => {
+        this.idPlaylist = params['id'];
+        this.playlist$ = this.store.pipe(select(selectPlaylistById(this.idPlaylist))) as Observable<Playlist>;
+      },
+    }) 
+    this.store.select(selectSavedItemById(this.idPlaylist)).subscribe(savedItem => {
+      this.isSaved = savedItem?.isSaved
+    })
   }
 
   getImage(playlist: Playlist) {
     return playlist.images[0].url;
   }
 
-  checkFollowedPlaylist(userId: string, playlistId: string) {
-    this.playlistService
-      .checkFollowedPlaylist(userId, playlistId)
-      .pipe(map((isPlaylistFollowedArray) => isPlaylistFollowedArray[0]))
-      .subscribe({
-        next: (isPlaylistFollowed) => {
-          this.isPlaylistFollowed = isPlaylistFollowed;
-          this.isPlaylistNotFollowed = !isPlaylistFollowed;
-        },
-        error: () => {
-          this.isPlaylistFollowed = true;
-          this.isPlaylistNotFollowed = true;
-        },
-      });
-  }
+ 
 
-  followPlaylist(userId: string, playlistId: string) {
-    this.playlistService.followPlaylist(userId, playlistId).subscribe({
-      next: () => {
-        this.snackbar.open('The playlist has been followed!', 'Close', {
-          duration: 2000,
-          panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
-        });
-      },
+  followPlaylist(userId: string) {
+    this.playlistService.followPlaylistStore(userId)
+    this.snackbar.open('The playlist has been followed!', 'Close', {
+      duration: 2000,
+      panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
+ 
     });
 
-    this.isPlaylistFollowed = true;
-    this.isPlaylistNotFollowed = false;
   }
 
-  unfollowPlaylist(userId: string, playlistId: string) {
-    this.playlistService.unfollowPlaylist(userId, playlistId).subscribe({
-      next: () => {
+  unfollowPlaylist(userId: string) {
+    this.playlistService.unfollowPlaylistStore(userId)
         this.snackbar.open('The playlist has been unfollowed!', 'Close', {
           duration: 2000,
           panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
-        });
-      },
-    });
 
-    this.isPlaylistFollowed = false;
-    this.isPlaylistNotFollowed = true;
+    });
   }
 
   ngOnDestroy(): void {

@@ -1,7 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { map, switchMap, throwError } from 'rxjs';
 import { MainPlaylistResponse, Playlist } from 'src/app/core/models/playlist.models';
+import { updateSavedItem } from 'src/app/saved-store/saved-item.actions';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -15,35 +17,14 @@ export class PlaylistService {
     return this.http.get<Playlist>(`${this.URL}/playlists/${playlistId}`, { params: queryParams });
   }
 
-  followPlaylist(userId: string, playlistId: string, isInUserPublicPlaylist = true) {
-    return this.checkFollowedPlaylist(userId, playlistId).pipe(
-      switchMap((isPlaylistFollowed) => {
-        if (!isPlaylistFollowed[0]) {
-          return this.http.put(`${this.URL}/playlists/${playlistId}/followers`, { public: isInUserPublicPlaylist });
-        }
-        return throwError(() => Error('The playlist is already followed'));
-      })
-    );
+  followPlaylistStore(playlistId: string) {
+    this.store.dispatch(updateSavedItem({id: playlistId, kind: 'playlist', isSaved:true}));
   }
 
-  unfollowPlaylist(userId: string, playlistId: string) {
-    return this.checkFollowedPlaylist(userId, playlistId).pipe(
-      switchMap((isPlaylistFollowed) => {
-        if (isPlaylistFollowed[0]) {
-          return this.http.delete(`${this.URL}/playlists/${playlistId}/followers`);
-        }
-        return throwError(() => Error("The playlist wasn't in the User's followed Playlists"));
-      })
-    );
+  unfollowPlaylistStore(playlistId: string) {
+    this.store.dispatch(updateSavedItem({id: playlistId, kind: 'playlist', isSaved:false}));
   }
 
-  checkFollowedPlaylist(userId: string, playlistId: string) {
-    const queryParams = new HttpParams().append('ids', userId);
-
-    return this.http.get<boolean[]>(`${this.URL}/playlists/${playlistId}/followers/contains`, {
-      params: queryParams,
-    });
-  }
 
   getFeaturedPlaylists(limit = 20, offset = 0) {
     return this.http
@@ -76,5 +57,5 @@ export class PlaylistService {
     });
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store) {}
 }
