@@ -12,6 +12,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { debounceTime, fromEvent, Subscription, take, timer } from 'rxjs';
 import { AlbumItem } from 'src/app/core/models/album.models';
+import { AlbumService } from 'src/app/main-page/services/album.service';
 import {
   addTopUserAlbum,
   deleteTopUserAlbum,
@@ -31,15 +32,13 @@ export class AlbumCardComponent implements OnInit, OnDestroy {
   subscription$: Subscription[] = [];
   loading = false;
 
-  constructor(private store: Store<SavedItem>, private actions$:Actions) {}
+  constructor(private store: Store<SavedItem>, private actions$:Actions, private albumService: AlbumService) {}
 
   ngOnInit(): void {
     this.subscription$.push(this.store
       .select(selectSavedItemById(this.album.id))
       .subscribe((savedItem) => (this.isSaved = savedItem?.isSaved as boolean)))
   }
-
-
 
   ngOnDestroy(): void {
     this.subscription$.map((subscription)=> subscription.unsubscribe())
@@ -49,7 +48,7 @@ export class AlbumCardComponent implements OnInit, OnDestroy {
     event.stopPropagation();
     event.preventDefault();
     if (!this.loading) {
-      this.changeAlbumSaveState();
+      this.albumService.changeAlbumState(this.album, this.isSaved);
       this.loading = true;
       this.actions$.pipe(
         ofType(updateSavedItemSuccess, updateSavedItemFailure),
@@ -61,18 +60,4 @@ export class AlbumCardComponent implements OnInit, OnDestroy {
     }
   }
 
-  changeAlbumSaveState() {
-    if (this.isSaved) {
-      this.store.dispatch(deleteTopUserAlbum({ id: this.album.id }));
-    } else {
-      this.store.dispatch(addTopUserAlbum({ topUserAlbum: this.album }));
-    }
-    this.store.dispatch(
-      updateSavedItem({
-        id: this.album.id,
-        kind: 'album',
-        isSaved: !this.isSaved,
-      })
-    );
-  }
 }

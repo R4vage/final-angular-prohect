@@ -9,12 +9,13 @@
     width: 100%;
     gap: 0.5em;
     color:white;
+    overflow: hidden;
     
     h3{
-        align-self: left;
         font-weight: 800;
         font-family: 'Karla', sans-serif;
-        text-align: left;
+        margin-right: 0;
+        width: 4em;
     }
     h1{
         font-weight: 900;
@@ -27,7 +28,7 @@
         overflow: hidden;
         white-space: nowrap;
         width: max-content;
-        max-width: 100%;
+        max-width: 60vw;
         margin: 0;
         padding-block:1.2rem;
         padding-inline: 0.2rem;
@@ -72,16 +73,18 @@
     }
 }
 
-@media (min-width:520px) {
+@media (min-width:769px) {
     :host{
-        padding-inline:1em;
+        padding-inline: 6em;
+        width: 100%;
         display: grid;
         grid-template-areas:"image empty"
                             "image profile"
                             "image title"
                             "image subtitle";
-        grid-template-columns: min-content max-content;
+        grid-template-columns: min-content 100%;
         grid-column-gap: 3em;
+        max-width: 100%;
     .profile{
         grid-area: profile;
     }
@@ -93,17 +96,17 @@
     }
     h1{
         grid-area: title;
+        max-width: 40vw;
+        font-size: 4rem;
     }
 
     }
 }
 
-@media (min-width:769px) {
-    :host{
-        padding-inline: 6em;
-
-        h1{
-            font-size: 4rem;
-        }
+@media (min-width:1220) {
+  :host{
+    h1{
+        max-width: 80vw!important;
     }
+  }
 }

@@ -30,27 +30,27 @@ import { TrackService } from 'src/app/track-detail-page/services/track.service';
 export class TrackCardComponent implements OnInit {
   @Input() track!: Track;
   @Input() buttons: boolean = false;
-  subscription$: Subscription[] = [];
+  subscription$!: Subscription;
   loading = false;
 
   isSaved!: boolean;
   constructor(private store: Store<SavedItem>, private actions$: Actions, private trackService:TrackService) {}
 
   ngOnInit(): void {
-    this.store
+    this.subscription$ = this.store
       .select(selectSavedItemById(this.track.id))
       .subscribe((savedItem) => (this.isSaved = savedItem?.isSaved as boolean));
   }
 
 
   ngOnDestroy(): void {
-    this.subscription$.map((subscription) => subscription.unsubscribe());
+    this.subscription$.unsubscribe();
   }
 
   clickStar(event: MouseEvent) {
     event.stopPropagation();
     if (!this.loading) {
-      this.changeSaveState();
+      this.trackService.changeSavedTrack(this.track, this.isSaved)
       this.loading = true;
       this.actions$
         .pipe(
@@ -64,18 +64,4 @@ export class TrackCardComponent implements OnInit {
     }
   }
 
-  changeSaveState() {
-    if (this.isSaved) {
-      this.store.dispatch(deleteSavedTrack({ id: this.track.id }));
-    } else {
-      this.store.dispatch(addSavedTrack({ track: this.track }));
-    }
-    this.store.dispatch(
-      updateSavedItem({
-        id: this.track.id,
-        kind: 'track',
-        isSaved: !this.isSaved,
-      })
-    );
-  }
 }

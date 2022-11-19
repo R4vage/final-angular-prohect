@@ -45,7 +45,7 @@ export class TrackDetailPageComponent implements OnInit, OnDestroy {
   clickFollowButton (track:Track) {
     if (!this.loading && this.isSaved !== undefined) {
       this.loading = true;
-      this.trackService.changeSavedTrack(track, !this.isSaved);
+      this.trackService.changeSavedTrack(track, this.isSaved);
       this.actions$.pipe(
         ofType(updateSavedItemSuccess, updateSavedItemFailure),
         take(1)
