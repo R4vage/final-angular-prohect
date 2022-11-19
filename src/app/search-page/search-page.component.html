@@ -1,4 +1,4 @@
-<div class="flexs-container" *ngIf="searchResults$ | async as results">
+<div class="flexs-container" *ngIf="searchResults$ | async as results"> 
   <app-card-flex *ngIf="results.tracks.items.length > 0" name="Tracks">
     <app-track-card
       *ngFor="let track of results.tracks.items"

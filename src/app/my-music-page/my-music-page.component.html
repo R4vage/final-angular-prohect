@@ -5,3 +5,4 @@
 <app-card-flex name="Your Saved Tracks" *ngIf="(savedTracks$ | async)?.length">
     <app-track-card *ngFor="let track of (savedTracks$ | async)?.slice(0,9)" [track]="track" class="card"></app-track-card>
 </app-card-flex>
+<h3 *ngIf="!(savedTracks$ | async)?.length && !(userAlbums$ | async)?.length">You have no music saved! Here you will see the tracks and albums you save...</h3>
