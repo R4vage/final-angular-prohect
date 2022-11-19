@@ -29,7 +29,7 @@ export interface AlbumItem {
   label?: string;
   name: string;
   popularity?: number;
-  release_date: Date | string;
+  release_date: string;
   release_date_precision: string;
   total_tracks: number;
   tracks?: Tracks;

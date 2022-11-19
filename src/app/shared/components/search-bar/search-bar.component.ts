@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   debounceTime,
@@ -23,19 +24,19 @@ import {
   styleUrls: ['./search-bar.component.scss'],
 })
 export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('search', { static: true }) input!: ElementRef;
   subscription$!: Subscription;
+  inputControl = new FormControl('')
   constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.subscription$ = fromEvent(this.input.nativeElement, 'keyup')
-      .pipe(filter(Boolean), debounceTime(1000), distinctUntilChanged())
-      .subscribe(() => {
-        let value = this.input.nativeElement.value.trim().toLowerCase();
-        if (value !== '') {
-          this.sendToSearchPage(value);
+    this.subscription$ = this.inputControl.valueChanges
+      .pipe(debounceTime(700), distinctUntilChanged())
+      .subscribe((inputValue) => {
+        if (inputValue){
+        let value = inputValue.trim().toLowerCase();
+        this.sendToSearchPage(value);
         }
       });
   }

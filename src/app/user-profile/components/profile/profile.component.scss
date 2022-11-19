@@ -8,6 +8,7 @@
     background: $grey-to-blue-gradient;
     width: 100%;
     gap: 0.5em;
+    color:white;
     
     h3{
         align-self: left;
@@ -21,6 +22,15 @@
         letter-spacing: -5px;
         align-self: center;
         font-family: 'Karla', sans-serif;
+        height: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: max-content;
+        max-width: 100%;
+        margin: 0;
+        padding-block:1.2rem;
+        padding-inline: 0.2rem;
     }
 }
 
@@ -38,7 +48,7 @@
         background-color: rgb(43, 43, 43);
         color: white;
         border-radius: 100px;
-        box-shadow: 2px 2px 5px 5px rgba(6, 6, 6, 0.609);
+        box-shadow: 0px 0px 5px 5px rgba(73, 72, 72, 0.609);
         max-width: unset;
         object-fit: cover;
     }
@@ -90,10 +100,10 @@
 
 @media (min-width:769px) {
     :host{
-        padding-left: 8em;
+        padding-inline: 6em;
 
         h1{
-            font-size: 6rem;
+            font-size: 4rem;
         }
     }
 }

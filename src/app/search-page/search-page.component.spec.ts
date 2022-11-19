@@ -55,6 +55,6 @@ describe('SearchPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    store.select(fromSearchActions.selectSearchByValue('valueMock')).subscribe(next => console.log(next))
+    store.select(fromSearchActions.selectSearchByValue('valueMock')).subscribe(next => {})
   });
 });

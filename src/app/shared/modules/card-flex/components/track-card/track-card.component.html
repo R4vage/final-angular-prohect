@@ -3,6 +3,6 @@
     <mat-card-content><img [src]="track.album.images.length > 0 ? track.album.images[0].url : 'assets/image-not-found.png'"></mat-card-content>
     <mat-card-footer>
         <mat-card-subtitle>{{track.duration_ms | date:'mm:ss' }}</mat-card-subtitle>
-        <button #star id="star"><mat-icon [class.savedStar]="isSaved">{{isSaved? 'star':'star_border'}}</mat-icon></button>
+        <button #star id="star" (click)="clickStar($event)"><mat-icon [class.savedStar]="isSaved" >{{isSaved? 'star':'star_border'}}</mat-icon></button>
     </mat-card-footer>
 </mat-card>

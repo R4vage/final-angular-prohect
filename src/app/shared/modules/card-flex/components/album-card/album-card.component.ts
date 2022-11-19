@@ -8,14 +8,15 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { debounceTime, fromEvent, Subscription } from 'rxjs';
+import { debounceTime, fromEvent, Subscription, take, timer } from 'rxjs';
 import { AlbumItem } from 'src/app/core/models/album.models';
 import {
   addTopUserAlbum,
   deleteTopUserAlbum,
 } from 'src/app/my-music-page/store/actions/top-albums.actions';
-import { updateSavedItem } from 'src/app/saved-store/saved-item.actions';
+import { updateSavedItem, updateSavedItemFailure, updateSavedItemSuccess } from 'src/app/saved-store/saved-item.actions';
 import { SavedItem } from 'src/app/saved-store/saved-item.reducer';
 import { selectSavedItemById } from 'src/app/saved-store/saved-item.selectors';
 
@@ -24,13 +25,13 @@ import { selectSavedItemById } from 'src/app/saved-store/saved-item.selectors';
   templateUrl: './album-card.component.html',
   styleUrls: ['./album-card.component.scss'],
 })
-export class AlbumCardComponent implements OnInit, OnDestroy, AfterViewInit {
+export class AlbumCardComponent implements OnInit, OnDestroy {
   @Input() album!: AlbumItem;
   isSaved!: boolean;
-  @ViewChild('star', { static: true }) star!: ElementRef;
-  subscription$: Subscription[] = []
+  subscription$: Subscription[] = [];
+  loading = false;
 
-  constructor(private store: Store<SavedItem>, private router: Router) {}
+  constructor(private store: Store<SavedItem>, private actions$:Actions) {}
 
   ngOnInit(): void {
     this.subscription$.push(this.store
@@ -38,21 +39,29 @@ export class AlbumCardComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe((savedItem) => (this.isSaved = savedItem?.isSaved as boolean)))
   }
 
-  ngAfterViewInit(): void {
-    this.subscription$.push(
-      fromEvent(this.star.nativeElement, 'click')
-      .pipe( debounceTime(1000))
-      .subscribe((event) => {
-        this.changeSaveState()
-      })
-    )
-  }
+
 
   ngOnDestroy(): void {
     this.subscription$.map((subscription)=> subscription.unsubscribe())
   }
 
-  changeSaveState() {
+  clickStar(event: MouseEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+    if (!this.loading) {
+      this.changeAlbumSaveState();
+      this.loading = true;
+      this.actions$.pipe(
+        ofType(updateSavedItemSuccess, updateSavedItemFailure),
+        take(1)
+      )
+      .subscribe(() => {
+        this.loading = false;
+      });
+    }
+  }
+
+  changeAlbumSaveState() {
     if (this.isSaved) {
       this.store.dispatch(deleteTopUserAlbum({ id: this.album.id }));
     } else {

@@ -1,9 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { map, switchMap, throwError } from 'rxjs';
 import { Album, AlbumItem, Albums } from 'src/app/core/models/album.models';
-import { addTopUserAlbum, deleteTopUserAlbum } from 'src/app/my-music-page/store/actions/top-albums.actions';
+import {
+  addTopUserAlbum,
+  deleteTopUserAlbum,
+} from 'src/app/my-music-page/store/actions/top-albums.actions';
 import { updateSavedItem } from 'src/app/saved-store/saved-item.actions';
 import { environment } from 'src/environments/environment';
 
@@ -17,15 +21,26 @@ export class AlbumService {
     return this.http.get<Album>(`${this.URL}/albums/${albumId}`);
   }
 
-  saveAlbum(albumId: string, album:AlbumItem) {
-    this.store.dispatch(addTopUserAlbum({topUserAlbum:album}))
-    this.store.dispatch(updateSavedItem({id:albumId, kind:'album', isSaved:true}))
+  changeAlbumState(album: AlbumItem, saveState: boolean) {
+    this.store.dispatch(
+      updateSavedItem({ id: album.id, kind: 'album', isSaved: !saveState })
+    );
+    if (saveState) {
+      this.store.dispatch(deleteTopUserAlbum({ id: album.id }));
+      this.snackbar.open('The album has been deleted!', 'Close', {
+        duration: 2000,
+        panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
+      });
+    } else {
+      this.store.dispatch(addTopUserAlbum({ topUserAlbum: album }));
+      this.snackbar.open('The album has been saved!', 'Close', {
+        duration: 2000,
+        panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
+      });
+    }
   }
 
-  deleteAlbum(albumId: string) {
-    this.store.dispatch(deleteTopUserAlbum({id:albumId}))
-    this.store.dispatch(updateSavedItem({id:albumId, kind:'album', isSaved:false}))
-  }
+
 
   checkSavedAlbum(albumId: string) {
     const queryParams = new HttpParams().append('ids', albumId);
@@ -52,7 +67,9 @@ export class AlbumService {
       });
     }
     if (!environment.production) {
-      console.warn('The limit is between 0 and 50, check if it is in this range');
+      console.warn(
+        'The limit is between 0 and 50, check if it is in this range'
+      );
       console.warn('now it is going to use default values instead');
     }
 
@@ -62,5 +79,9 @@ export class AlbumService {
     });
   }
 
-  constructor(private http: HttpClient, private store:Store) {}
+  constructor(
+    private http: HttpClient,
+    private store: Store,
+    private snackbar: MatSnackBar
+  ) {}
 }

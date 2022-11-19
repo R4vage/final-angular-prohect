@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { map, Observable, Subscription } from 'rxjs';
+import { map, Observable, Subscription, take } from 'rxjs';
 import { Track } from 'src/app/core/models/track.models';
+import { updateSavedItemFailure, updateSavedItemSuccess } from 'src/app/saved-store/saved-item.actions';
 import { selectSavedItemById } from 'src/app/saved-store/saved-item.selectors';
 import { TrackService } from '../services/track.service';
 import { selectTrackById } from '../track-detail-store/selectors/track.selectors';
@@ -20,8 +22,9 @@ export class TrackDetailPageComponent implements OnInit, OnDestroy {
   isSaved!:boolean | undefined;
   isThereAnError = false;
   value = 0;
+  loading = false;
 
-  constructor(private store: Store, private route: ActivatedRoute, private trackService: TrackService, private snackbar: MatSnackBar) {}
+  constructor(private store: Store, private route: ActivatedRoute, private trackService: TrackService, private actions$:Actions) {}
 
   ngOnInit(): void {
     this.subcription = this.route.params.subscribe({
@@ -39,22 +42,29 @@ export class TrackDetailPageComponent implements OnInit, OnDestroy {
     return track.album.images.find((image) => image.height >= 300)?.url;
   }
 
+  clickFollowButton (track:Track) {
+    if (!this.loading && this.isSaved !== undefined) {
+      this.loading = true;
+      this.trackService.changeSavedTrack(track, !this.isSaved);
+      this.actions$.pipe(
+        ofType(updateSavedItemSuccess, updateSavedItemFailure),
+        take(1)
+      )
+      .subscribe(() => {
+        this.loading = false;
+      });
+    }
+  }
 
 
   saveTrack(track: Track) {
     this.trackService.saveTrackStore(track)
-    this.snackbar.open('The track has been saved!', 'Close', {
-        duration: 2000,
-        panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
-    });
+
   }
 
   deleteTrack(id: string) {
     this.trackService.deleteTrackStore(id)
-    this.snackbar.open('The track has been deleted!', 'Close', {
-      duration: 2000,
-      panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
-    });
+
   }
 
   ngOnDestroy(): void {

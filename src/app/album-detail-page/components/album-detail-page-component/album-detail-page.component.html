@@ -23,23 +23,19 @@
   <section class="m-0 p-[16px] h-full pt-10 bg-opacity-60 bg-gradient-to-t from-black to-slate-800">
     <div *ngIf="album$ | async as album" class="flex flex-row justify-center gap-5">
       <button
-        color="accent"
-        [disabled]="isAlbumSaved"
-        (click)="saveAlbum(idAlbum, album)"
+        [color]="isAlbumSaved?'warn':'accent'"
+        (click)="clickFollowButton(album)"
+        [disabled]="loading"
         mat-raised-button
-        class="save-button text-xl font-semibold flex flex-row justify-center items-center"
+        class="follow-button text-xl font-semibold flex flex-row justify-center items-center"
       >
-        <mat-icon class="inline-block sm:hidden sm:mr-2">favorite</mat-icon>
-        <span class="hidden sm:inline-block">Save Album</span>
-      </button>
-      <button color="warn" [disabled]="!isAlbumSaved" (click)="deleteAlbum(idAlbum)" mat-raised-button class="delete-button text-xl font-medium">
-        <mat-icon class="inline-block sm:hidden sm:mr-2">delete</mat-icon>
-        <span class="hidden sm:inline-block">Delete Album</span>
+        <mat-icon class="inline-block sm:hidden sm:mr-2">{{isAlbumSaved?'delete':'favorite'}}</mat-icon>
+        <span class="hidden sm:inline-block">{{isAlbumSaved?'Delete Playlist':'Save Playlist'}}</span>
       </button>
     </div>
 
     <ng-container *ngIf="album$ | async as album">
-      <app-tracks-list [tracks]="album.tracks.items"></app-tracks-list>
+      <app-tracks-list [tracks]="album.tracks.items" [album]="album"></app-tracks-list>
     </ng-container>
   </section>
 </div>

@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { map, switchMap, throwError } from 'rxjs';
 import { MainPlaylistResponse, Playlist } from 'src/app/core/models/playlist.models';
@@ -17,8 +18,19 @@ export class PlaylistService {
     return this.http.get<Playlist>(`${this.URL}/playlists/${playlistId}`, { params: queryParams });
   }
 
-  followPlaylistStore(playlistId: string) {
-    this.store.dispatch(updateSavedItem({id: playlistId, kind: 'playlist', isSaved:true}));
+  changePlayStoreState(playlistId: string, saveState:boolean) {
+    this.store.dispatch(updateSavedItem({id: playlistId, kind: 'playlist', isSaved:!saveState}));
+    if(saveState) {
+      this.snackbar.open('The playlist has been unfollowed!', 'Close', {
+        duration: 2000,
+        panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
+      });
+    } else {
+      this.snackbar.open('The playlist has been followed!', 'Close', {
+        duration: 2000,
+        panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
+      });
+    }
   }
 
   unfollowPlaylistStore(playlistId: string) {
@@ -57,5 +69,5 @@ export class PlaylistService {
     });
   }
 
-  constructor(private http: HttpClient, private store: Store) {}
+  constructor(private http: HttpClient, private store: Store, private snackbar: MatSnackBar) {}
 }

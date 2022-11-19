@@ -15,7 +15,7 @@ export class SavedItemRestService implements OnInit{
   constructor(private http: HttpClient, private store: Store<User>) {}
 
   ngOnInit(): void {
-    this.store.select(selectIdUser).subscribe(
+    this.store.select(selectIdUser).pipe().subscribe(
       id => this.userId = id
     )
   }
@@ -42,6 +42,7 @@ export class SavedItemRestService implements OnInit{
 
   checkUsersPlaylist (playlistid: string): Observable<boolean[]> {
     return this.http.get<boolean[]>(`${this.URL}/playlists/${playlistid}/followers/contains?ids=${this.userId}`);
+
   }
 
   saveTrack(trackId: string): Observable<void> {

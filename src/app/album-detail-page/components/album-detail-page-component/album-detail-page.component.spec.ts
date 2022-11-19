@@ -174,7 +174,6 @@ describe('AlbumDetailPageComponent', () => {
   it('should save album when save button is clicked', async () => {
     component.isAlbumSaved = false;
 
-    spyOn(component, 'saveAlbum').and.callThrough();
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
 
     const saveButton = buttons[0];
@@ -184,7 +183,6 @@ describe('AlbumDetailPageComponent', () => {
     await saveButton.click();
     fixture.detectChanges();
 
-    expect(component.saveAlbum).toHaveBeenCalled();
     expect(component.isAlbumSaved).toBeTrue();
 
     expect(snackbar.open).toHaveBeenCalled();
@@ -194,7 +192,6 @@ describe('AlbumDetailPageComponent', () => {
 
   it('should delete album when delete button is clicked', async () => {
 
-    spyOn(component, 'deleteAlbum').and.callThrough();
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
 
     const deleteButton = buttons[1];
@@ -204,7 +201,6 @@ describe('AlbumDetailPageComponent', () => {
     await deleteButton.click();
     fixture.detectChanges();
 
-    expect(component.deleteAlbum).toHaveBeenCalled();
 
     expect(snackbar.open).toHaveBeenCalled();
 

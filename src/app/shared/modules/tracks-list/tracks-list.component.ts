@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TrackItem } from 'src/app/core/models/album.models';
+import { AlbumItem, TrackItem } from 'src/app/core/models/album.models';
 import { Track } from 'src/app/core/models/track.models';
 import { TrackService } from 'src/app/track-detail-page/services/track.service';
 
@@ -10,6 +10,6 @@ import { TrackService } from 'src/app/track-detail-page/services/track.service';
 })
 export class TracksListComponent{
   @Input() tracks!: Track[] | undefined;
-
+  @Input() album!: AlbumItem;
   constructor(private trackService: TrackService) {}
 }

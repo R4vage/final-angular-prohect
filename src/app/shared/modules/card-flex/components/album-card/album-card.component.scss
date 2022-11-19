@@ -29,10 +29,11 @@ mat-card{
         max-width: 100%;
     }
 
-    mat-icon{
+    button{
         position: absolute;
         right: 5px;
         bottom: 5px;
+        z-index: 2;
     }
 
     mat-icon:hover{

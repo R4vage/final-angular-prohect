@@ -5,5 +5,5 @@
   </div>
   
   <div *ngFor="let track of tracks; index as i" >
-    <app-album-track  [track]="track" [index]="i"></app-album-track>
+    <app-album-track  [track]="track" [index]="i" [album]="album"></app-album-track>
   </div>

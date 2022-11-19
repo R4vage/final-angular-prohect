@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, concatMap, map } from 'rxjs';
 import { checkSavedItems } from 'src/app/saved-store/saved-item.actions';
-import { prepareIdArray, prepareIdArrayFromItems } from 'src/app/saved-store/saved-item.helpers';
+import { prepareIdArrayFromItems } from 'src/app/saved-store/saved-item.helpers';
 import { PlaylistService } from '../../services/playlist.service';
 import { allPlaylistsLoaded, loadPlaylist, loadPlaylists, upsertPlaylist } from '../actions/playlists.actions';
 

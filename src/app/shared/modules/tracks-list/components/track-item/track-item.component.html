@@ -8,9 +8,8 @@
         </div>
     </div>
     <div class="flex flex-row justify-end gap-4">
-        <button mat-icon-button>
-        <mat-icon *ngIf="!isSaved" (click)="saveTrack()">favorite_border</mat-icon>
-        <mat-icon *ngIf="isSaved" (click)="deleteTrack()">favorite</mat-icon>
+        <button mat-icon-button (click)="clickHeart()">
+            <mat-icon>{{isSaved?'favorite':'favorite_border'}}</mat-icon>
         </button>
         <div class="track-duration text-right self-center hidden md:inline">{{ track.duration_ms / 1000 | secondTrackMusic }}</div>
     </div>

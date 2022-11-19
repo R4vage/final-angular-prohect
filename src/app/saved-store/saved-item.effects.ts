@@ -24,8 +24,6 @@ export class SavedItemsEffects {
         return this.savedStore.select(checkSavedIds(action.ids)).pipe(
           map((idsNotFound) => {
             if (idsNotFound.length > 0) {
-              if(action.kind === 'playlist') {
-              }
               return savedItemsActions.addSavedItems({
                 ids: idsNotFound,
                 kind: action.kind,

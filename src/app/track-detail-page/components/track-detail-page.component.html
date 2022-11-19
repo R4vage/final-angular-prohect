@@ -26,18 +26,14 @@
 
     <div *ngIf="track$ | async as track" class="flex flex-row justify-center gap-5">
       <button
-        color="accent"
-        [disabled]="isSaved"
-        (click)="saveTrack(track)"
+        [color]="isSaved?'warn':'accent'"
+        (click)="clickFollowButton(track)"
+        [disabled]="loading"
         mat-raised-button
-        class="save-button text-xl font-semibold flex flex-row justify-center items-center"
+        class="follow-button text-xl font-semibold flex flex-row justify-center items-center"
       >
-        <mat-icon class="inline-block sm:hidden sm:mr-2">favorite</mat-icon>
-        <span class="hidden sm:inline-block">Save Track</span>
-      </button>
-      <button color="warn" [disabled]="!isSaved" (click)="deleteTrack(idTrack)" mat-raised-button class="delete-button text-xl font-medium">
-        <mat-icon class="inline-block sm:hidden sm:mr-2">delete</mat-icon>
-        <span class="hidden sm:inline-block">Delete Track</span>
+        <mat-icon class="inline-block sm:hidden sm:mr-2">{{isSaved?'delete':'favorite'}}</mat-icon>
+        <span class="hidden sm:inline-block">{{isSaved?'Delete Playlist':'Save Playlist'}}</span>
       </button>
     </div>
   </section>
