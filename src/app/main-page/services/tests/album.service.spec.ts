@@ -198,7 +198,7 @@ describe('AlbumService', () => {
     expect(albumService.checkSavedAlbum).toHaveBeenCalledTimes(1);
   });
 
-  it('should save a album when album is not saved', () => {
+/*   it('should save a album when album is not saved', () => {
     spyOn(albumService, 'checkSavedAlbum').and.returnValue(of([false]));
 
     albumService.saveAlbum(ALBUM.id).subscribe({
@@ -214,9 +214,9 @@ describe('AlbumService', () => {
     req.flush({});
 
     expect(albumService.saveAlbum).toHaveBeenCalledTimes(1);
-  });
+  }); */
 
-  it("should return an error when trying to save album but it's already saved", () => {
+/*   xit("should return an error when trying to save album but it's already saved", () => {
     spyOn(albumService, 'checkSavedAlbum').and.returnValue(of([true]));
 
     albumService.saveAlbum(ALBUM.id).subscribe({
@@ -269,7 +269,7 @@ describe('AlbumService', () => {
 
     expect(albumService.deleteAlbum).toHaveBeenCalledTimes(1);
   });
-
+ */
   afterEach(() => {
     httpTestingController.verify();
   });

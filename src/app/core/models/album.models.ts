@@ -1,4 +1,5 @@
 import { ImageInfo } from './extras.models';
+import { Track } from './track.models';
 
 export interface Main {
   albums: Albums;
@@ -28,7 +29,7 @@ export interface AlbumItem {
   label?: string;
   name: string;
   popularity?: number;
-  release_date: Date | string;
+  release_date: string;
   release_date_precision: string;
   total_tracks: number;
   tracks?: Tracks;
@@ -52,7 +53,7 @@ export interface Copyright {
 
 export interface Tracks {
   href: string;
-  items: TrackItem[];
+  items: Track[];
   limit: number;
   next: null;
   offset: number;
@@ -76,6 +77,8 @@ export interface TrackItem {
   track_number: number;
   type: string;
   uri: string;
+  album:AlbumItem;
+  popularity?: number;
 }
 
 export interface Artist {

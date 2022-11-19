@@ -16,19 +16,26 @@ export class SearchesEffects {
     return this.actions$.pipe(
       ofType(searchesActions.addSearch),
       concatMap((action) => {
-          return this.restService.searchItem(action.searchValue).pipe(
-              map((res) => {
-                for(const [property, value] of Object.entries(res)){
-                  let trackIds = prepareIdArray(value.items);
-                  this.savedStore.dispatch(
-                    checkSavedItems({ ids: trackIds, kind: property.slice(0, -1) as Kind })
-                  );
-                };
-                return searchesActions.addSearchSuccess({search:{results: res, id:action.searchValue }});
-              }),
-              catchError((error) => of(searchesActions.addSearchFailure({ error }))) 
-          );
-      }),
+        return this.restService.searchItem(action.searchValue).pipe(
+          map((res) => {
+            for (const [property, value] of Object.entries(res)) {
+              if (property !== 'playlists') {
+                let trackIds = prepareIdArray(value.items);
+                this.savedStore.dispatch(
+                  checkSavedItems({
+                    ids: trackIds,
+                    kind: property.slice(0, -1) as Kind,
+                  })
+                );
+              }
+            }
+            return searchesActions.addSearchSuccess({
+              search: { results: res, id: action.searchValue },
+            });
+          }),
+          catchError((error) => of(searchesActions.addSearchFailure({ error })))
+        );
+      })
     );
   });
 
@@ -36,6 +43,5 @@ export class SearchesEffects {
     private actions$: Actions,
     private restService: SearchRestService,
     private savedStore: Store<SavedItem>
-
   ) {}
 }

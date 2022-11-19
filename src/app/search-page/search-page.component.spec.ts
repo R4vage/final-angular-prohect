@@ -13,7 +13,7 @@ import { DefaultProjectorFn, MemoizedSelector } from '@ngrx/store';
 import { Search, SearchState } from './search-store/search.reducer';
 import { SearchResults } from '../core/models/rest.models';
 
-fdescribe('SearchPageComponent', () => {
+describe('SearchPageComponent', () => {
   let component: SearchPageComponent;
   let fixture: ComponentFixture<SearchPageComponent>;
   let loader: HarnessLoader;
@@ -55,6 +55,6 @@ fdescribe('SearchPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    store.select(fromSearchActions.selectSearchByValue('valueMock')).subscribe(next => console.log(next))
+    store.select(fromSearchActions.selectSearchByValue('valueMock')).subscribe(next => {})
   });
 });

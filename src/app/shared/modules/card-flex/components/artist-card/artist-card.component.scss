@@ -32,11 +32,12 @@ mat-card{
         width: max-content;
         max-width: 100%;
     }
-
-    mat-icon{
+    button{
         position: absolute;
         right: 15px;
+        z-index: 2;
     }
+
 
     mat-icon:hover{
         transform: scale(1.5);

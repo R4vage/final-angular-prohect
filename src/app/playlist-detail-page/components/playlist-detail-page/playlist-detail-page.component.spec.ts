@@ -100,8 +100,6 @@ describe('PlaylistDetailPageComponent', () => {
     playlistService = TestBed.inject(PlaylistService);
     snackbar = TestBed.inject(MatSnackBar);
 
-    spyOn(component, 'checkFollowedPlaylist').and.callThrough();
-
     router.initialNavigation();
     await router.navigate(['/playlist', ID_PLAYLIST]);
 
@@ -114,7 +112,6 @@ describe('PlaylistDetailPageComponent', () => {
     expect(component).toBeTruthy();
     expect(location.path()).toBe(`/playlist/${ID_PLAYLIST}`);
     expect(component.idPlaylist).toBe(ID_PLAYLIST);
-    expect(component.checkFollowedPlaylist).toHaveBeenCalled();
   });
 
   it('should create playlist information section', () => {
@@ -166,18 +163,11 @@ describe('PlaylistDetailPageComponent', () => {
   });
 
   it('should check if playlist was already followd', () => {
-    component.checkFollowedPlaylist(ID_USER, PLAYLIST.id);
 
-    expect(component.isPlaylistFollowed).toBeTrue();
-    expect(component.isPlaylistNotFollowed).toBeFalse();
   });
 
   it('should deactivate the buttons when an error appears while checking followd playlists', async () => {
-    (playlistService.checkFollowedPlaylist as jasmine.Spy).and.returnValue(throwError(() => new Error('error')));
-    component.checkFollowedPlaylist(ID_USER, PLAYLIST.id);
 
-    expect(component.isPlaylistFollowed).toBeTrue();
-    expect(component.isPlaylistNotFollowed).toBeTrue();
 
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
 
@@ -187,7 +177,6 @@ describe('PlaylistDetailPageComponent', () => {
   });
 
   it('should follow playlist when follow button is clicked', async () => {
-    component.isPlaylistFollowed = false;
 
     spyOn(component, 'followPlaylist').and.callThrough();
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
@@ -200,7 +189,6 @@ describe('PlaylistDetailPageComponent', () => {
     fixture.detectChanges();
 
     expect(component.followPlaylist).toHaveBeenCalled();
-    expect(component.isPlaylistFollowed).toBeTrue();
 
     expect(snackbar.open).toHaveBeenCalled();
 
@@ -208,7 +196,6 @@ describe('PlaylistDetailPageComponent', () => {
   });
 
   it('should unfollow playlist when unfollow button is clicked', async () => {
-    component.isPlaylistNotFollowed = false;
 
     spyOn(component, 'unfollowPlaylist').and.callThrough();
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
@@ -221,7 +208,6 @@ describe('PlaylistDetailPageComponent', () => {
     fixture.detectChanges();
 
     expect(component.unfollowPlaylist).toHaveBeenCalled();
-    expect(component.isPlaylistNotFollowed).toBeTrue();
 
     expect(snackbar.open).toHaveBeenCalled();
 

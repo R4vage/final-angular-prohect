@@ -6244,7 +6244,7 @@ export const resultsMockData: SearchResults = {
                 "is_local": false,
                 "name": "Berbagai Wajah",
                 "popularity": 14,
-                "preview_url": null,
+                "preview_url": 'null',
                 "track_number": 3,
                 "type": "track",
                 "uri": "spotify:track:7FJ1HVxr9PMBCLFT3N4cic"
@@ -6689,7 +6689,7 @@ export const resultsMockData: SearchResults = {
                 "is_local": false,
                 "name": "Dunia Milik Kita",
                 "popularity": 13,
-                "preview_url": null,
+                "preview_url": 'null',
                 "track_number": 4,
                 "type": "track",
                 "uri": "spotify:track:0irccFsVHlp5VSqpxRIl9a"
@@ -7144,7 +7144,7 @@ export const resultsMockData: SearchResults = {
                 "is_local": false,
                 "name": "Akhirnya",
                 "popularity": 13,
-                "preview_url": null,
+                "preview_url": 'null',
                 "track_number": 4,
                 "type": "track",
                 "uri": "spotify:track:09Pr0OFGGSeAioakQab0LR"
@@ -7190,7 +7190,8 @@ export const resultsMockData: SearchResults = {
                 "snapshot_id": "Mjc4MDcyMjcsMDAwMDAwMDAyNDY3MzQ5YWExN2RmOWZmMTdjYWQ3ZjE3YzczZjk4ZQ==",
                 "tracks": {
                     "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DZ06evO2NnFTh/tracks",
-                    "total": 50
+                    "total": 50,
+                    'items':[]
                 },
                 "type": "playlist",
                 "uri": "spotify:playlist:37i9dQZF1DZ06evO2NnFTh"

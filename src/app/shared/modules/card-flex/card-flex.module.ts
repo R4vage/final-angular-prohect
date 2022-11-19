@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AlbumCardComponent } from './components/album-card/album-card.component';
 import { PlaylistCardComponent } from './components/playlist-card/playlist-card.component';
 import { RouterModule } from '@angular/router';
+import { TrackService } from 'src/app/track-detail-page/services/track.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,9 @@ import { RouterModule } from '@angular/router';
     ArtistCardComponent,
     AlbumCardComponent,
     PlaylistCardComponent
+  ],
+  providers: [
+    TrackService
   ]
 })
 export class CardFlexModule { }

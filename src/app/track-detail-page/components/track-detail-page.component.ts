@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { map, Observable, Subscription } from 'rxjs';
+import { map, Observable, Subscription, take } from 'rxjs';
 import { Track } from 'src/app/core/models/track.models';
+import { updateSavedItemFailure, updateSavedItemSuccess } from 'src/app/saved-store/saved-item.actions';
+import { selectSavedItemById } from 'src/app/saved-store/saved-item.selectors';
 import { TrackService } from '../services/track.service';
 import { selectTrackById } from '../track-detail-store/selectors/track.selectors';
 
@@ -16,13 +19,12 @@ export class TrackDetailPageComponent implements OnInit, OnDestroy {
   track$!: Observable<Track | undefined>;
   subcription!: Subscription;
   idTrack!: string;
-  isTrackSaved = true;
-  isTrackNotSaved = true;
-
+  isSaved!:boolean | undefined;
   isThereAnError = false;
   value = 0;
+  loading = false;
 
-  constructor(private store: Store, private route: ActivatedRoute, private trackService: TrackService, private snackbar: MatSnackBar) {}
+  constructor(private store: Store, private route: ActivatedRoute, private trackService: TrackService, private actions$:Actions) {}
 
   ngOnInit(): void {
     this.subcription = this.route.params.subscribe({
@@ -31,55 +33,38 @@ export class TrackDetailPageComponent implements OnInit, OnDestroy {
         this.track$ = this.store.pipe(select(selectTrackById(this.idTrack)));
       },
     });
-    this.checkSavedTrack(this.idTrack);
+    this.store.select(selectSavedItemById(this.idTrack)).subscribe(savedItem => {
+      this.isSaved = savedItem?.isSaved;
+    })
   }
 
   getImage(track: Track) {
     return track.album.images.find((image) => image.height >= 300)?.url;
   }
 
-  checkSavedTrack(id: string) {
-    this.trackService
-      .checkSavedTrack(id)
-      .pipe(map((isTrackSavedArray) => isTrackSavedArray[0]))
-      .subscribe({
-        next: (isTrackSaved) => {
-          this.isTrackSaved = isTrackSaved;
-          this.isTrackNotSaved = !isTrackSaved;
-        },
-        error: () => {
-          this.isTrackSaved = true;
-          this.isTrackNotSaved = true;
-        },
+  clickFollowButton (track:Track) {
+    if (!this.loading && this.isSaved !== undefined) {
+      this.loading = true;
+      this.trackService.changeSavedTrack(track, !this.isSaved);
+      this.actions$.pipe(
+        ofType(updateSavedItemSuccess, updateSavedItemFailure),
+        take(1)
+      )
+      .subscribe(() => {
+        this.loading = false;
       });
+    }
   }
 
-  saveTrack(id: string) {
-    this.trackService.saveTrack(id).subscribe({
-      next: () => {
-        this.snackbar.open('The track has been saved!', 'Close', {
-          duration: 2000,
-          panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
-        });
-      },
-    });
 
-    this.isTrackSaved = true;
-    this.isTrackNotSaved = false;
+  saveTrack(track: Track) {
+    this.trackService.saveTrackStore(track)
+
   }
 
   deleteTrack(id: string) {
-    this.trackService.deleteTrack(id).subscribe({
-      next: () => {
-        this.snackbar.open('The track has been deleted!', 'Close', {
-          duration: 2000,
-          panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
-        });
-      },
-    });
+    this.trackService.deleteTrackStore(id)
 
-    this.isTrackSaved = false;
-    this.isTrackNotSaved = true;
   }
 
   ngOnDestroy(): void {

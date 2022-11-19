@@ -37,7 +37,7 @@
   <section class="flexs-container">
     <div *ngIf="artistAlbums$ | async as artistAlbums">
       <app-card-flex *ngIf="artistAlbums.items.length > 0" name="Albums">
-          <app-album-card *ngFor="let album of artistAlbums.items" [album]="album" [routerLink]="['/album', album.id]" class="card"></app-album-card>
+          <app-album-card *ngFor="let album of artistAlbums.items" [album]="album" class="card"></app-album-card>
       </app-card-flex>
     </div>
     <div *ngIf="artistTopTracks$ | async as artistTopTracks">
@@ -47,7 +47,7 @@
     </div>
     <div *ngIf="artistRelatedArtists$ | async as artistRelatedArtists">
       <app-card-flex *ngIf="artistRelatedArtists.length > 0" name="Artists">
-        <app-artist-card *ngFor="let artist of artistRelatedArtists" [artist]="artist" [routerLink]="['/artist', artist.id]" class="card"></app-artist-card>
+        <app-artist-card *ngFor="let artist of artistRelatedArtists" [artist]="artist" class="card"></app-artist-card>
       </app-card-flex>
     </div>
   </section>

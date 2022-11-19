@@ -1,29 +1,75 @@
-import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { debounceTime, fromEvent, Subscription, take, timer } from 'rxjs';
 import { Artist } from 'src/app/core/models/album.models';
-import { updateSavedItem } from 'src/app/saved-store/saved-item.actions';
+import {
+  updateSavedItem,
+  updateSavedItemFailure,
+  updateSavedItemSuccess,
+} from 'src/app/saved-store/saved-item.actions';
 import { SavedItem } from 'src/app/saved-store/saved-item.reducer';
 import { selectSavedItemById } from 'src/app/saved-store/saved-item.selectors';
 
 @Component({
   selector: 'app-artist-card',
   templateUrl: './artist-card.component.html',
-  styleUrls: ['./artist-card.component.scss']
+  styleUrls: ['./artist-card.component.scss'],
 })
-export class ArtistCardComponent implements OnInit {
+export class ArtistCardComponent implements OnInit, OnDestroy {
   @Input() artist!: Artist;
-  isSaved!:boolean;
+  subscription$: Subscription[] = [];
+  isSaved!: boolean;
+  loading = false;
 
-  constructor(private store:Store<SavedItem>) { }
+  constructor(private store: Store<SavedItem>, private actions$: Actions) {}
 
   ngOnInit(): void {
-    this.store.select(selectSavedItemById(this.artist.id)).subscribe(
-      savedItem => this.isSaved = savedItem?.isSaved as boolean
-    )
-  }
-  changeSaveState (event:MouseEvent) {
-    event.stopPropagation();
-    this.store.dispatch(updateSavedItem({id:this.artist.id, kind:'artist', isSaved:!this.isSaved}))
+    this.subscription$.push(
+      this.store
+        .select(selectSavedItemById(this.artist.id))
+        .subscribe(
+          (savedItem) => (this.isSaved = savedItem?.isSaved as boolean)
+        )
+    );
   }
 
+  ngOnDestroy(): void {
+    this.subscription$.map((subscription) => subscription.unsubscribe());
+  }
+
+  clickStar(event: MouseEvent) {
+    event.stopImmediatePropagation();
+    if (!this.loading) {
+      this.changeArtistSaveState();
+      this.loading = true;
+      this.actions$.pipe(
+        ofType(updateSavedItemSuccess, updateSavedItemFailure),
+        take(1)
+      )
+      .subscribe(() => {
+        this.loading = false;
+      });
+    }
+  }
+
+  changeArtistSaveState() {
+    this.store.dispatch(
+      updateSavedItem({
+        id: this.artist.id,
+        kind: 'artist',
+        isSaved: !this.isSaved,
+      })
+    );
+  }
 }

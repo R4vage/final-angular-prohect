@@ -94,7 +94,7 @@ describe('TrackDetailPageComponent', () => {
     trackService = TestBed.inject(TrackService);
     snackbar = TestBed.inject(MatSnackBar);
 
-    spyOn(component, 'checkSavedTrack').and.callThrough();
+    
 
     router.initialNavigation();
     await router.navigate(['/track', ID_TRACK]);
@@ -108,7 +108,6 @@ describe('TrackDetailPageComponent', () => {
     expect(component).toBeTruthy();
     expect(location.path()).toBe(`/track/${ID_TRACK}`);
     expect(component.idTrack).toBe(ID_TRACK);
-    expect(component.checkSavedTrack).toHaveBeenCalledOnceWith(component.idTrack);
   });
 
   it('should create track information section', () => {
@@ -147,19 +146,11 @@ describe('TrackDetailPageComponent', () => {
     expect(image).toBe(TRACK.album.images[0].url);
   });
 
-  it('should check if track was already saved', () => {
-    component.checkSavedTrack(TRACK.id);
 
-    expect(component.isTrackSaved).toBeTrue();
-    expect(component.isTrackNotSaved).toBeFalse();
-  });
 
   it('should deactivate the buttons when an error appears while checking saved tracks', async () => {
     (trackService.checkSavedTrack as jasmine.Spy).and.returnValue(throwError(() => new Error('error')));
-    component.checkSavedTrack(TRACK.id);
 
-    expect(component.isTrackSaved).toBeTrue();
-    expect(component.isTrackNotSaved).toBeTrue();
 
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
 
@@ -169,7 +160,6 @@ describe('TrackDetailPageComponent', () => {
   });
 
   it('should save track when save button is clicked', async () => {
-    component.isTrackSaved = false;
 
     spyOn(component, 'saveTrack').and.callThrough();
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
@@ -182,7 +172,6 @@ describe('TrackDetailPageComponent', () => {
     fixture.detectChanges();
 
     expect(component.saveTrack).toHaveBeenCalled();
-    expect(component.isTrackSaved).toBeTrue();
 
     expect(snackbar.open).toHaveBeenCalled();
 
@@ -190,7 +179,6 @@ describe('TrackDetailPageComponent', () => {
   });
 
   it('should delete track when delete button is clicked', async () => {
-    component.isTrackNotSaved = false;
 
     spyOn(component, 'deleteTrack').and.callThrough();
     const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
@@ -203,7 +191,6 @@ describe('TrackDetailPageComponent', () => {
     fixture.detectChanges();
 
     expect(component.deleteTrack).toHaveBeenCalled();
-    expect(component.isTrackNotSaved).toBeTrue();
 
     expect(snackbar.open).toHaveBeenCalled();
 

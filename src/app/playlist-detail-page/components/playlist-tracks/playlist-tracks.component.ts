@@ -13,43 +13,15 @@ export class PlaylistTracksComponent implements OnInit {
   isTracksSaved = Array(this.tracks?.length).fill(false);
 
   ngOnInit(): void {
-    if (this.tracks) {
-      this.checkSavedTracksPlaylist(this.getIdsTracks(this.tracks));
-    }
+
   }
 
   getIdsTracks(tracks: Track[]) {
     return tracks.map((track) => track.id).join();
   }
 
-  checkSavedTracksPlaylist(tracksIds: string) {
-    this.trackService.checkSavedTrack(tracksIds).subscribe({
-      next: (isTrackSavedArray) => {
-        this.isTracksSaved = isTrackSavedArray;
-      },
-      error: () => {
-        this.isTracksSaved = Array(this.tracks?.length).fill(false);
-      },
-    });
-  }
 
-  saveTrack(trackId: string, indexTrack: number) {
-    this.trackService.saveTrack(trackId).subscribe();
 
-    this.isTracksSaved[indexTrack] = true;
-  }
 
-  deleteTrack(trackId: string, indexTrack: number) {
-    this.trackService.deleteTrack(trackId).subscribe();
 
-    this.isTracksSaved[indexTrack] = false;
-  }
-
-  saveAndDeleteTrack(trackId: string, indexTrack: number) {
-    if (this.isTracksSaved[indexTrack]) {
-      this.deleteTrack(trackId, indexTrack);
-    } else {
-      this.saveTrack(trackId, indexTrack);
-    }
-  }
 }

@@ -109,6 +109,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DXbzFWXFlsp56/tracks',
           total: 30,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DXbzFWXFlsp56',
@@ -145,6 +147,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWTU63finroJM/tracks',
           total: 246,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DWTU63finroJM',
@@ -181,6 +185,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWY0DyDKedRYY/tracks',
           total: 56,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DWY0DyDKedRYY',
@@ -218,6 +224,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWYc8Z858eGwP/tracks',
           total: 50,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DWYc8Z858eGwP',
@@ -254,6 +262,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWV7gN1qBoBYg/tracks',
           total: 50,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DWV7gN1qBoBYg',
@@ -290,6 +300,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DX9IALXsyt8zk/tracks',
           total: 50,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DX9IALXsyt8zk',
@@ -326,6 +338,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWVp4cWdnm5ws/tracks',
           total: 49,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DWVp4cWdnm5ws',
@@ -362,6 +376,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWTVE8ZCcLQ5Q/tracks',
           total: 60,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DWTVE8ZCcLQ5Q',
@@ -398,6 +414,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DX0dUsjwqfaGM/tracks',
           total: 41,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DX0dUsjwqfaGM',
@@ -434,6 +452,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DX2P3E6UOxZyt/tracks',
           total: 60,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DX2P3E6UOxZyt',
@@ -471,6 +491,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DX4OR8pnFkwhR/tracks',
           total: 50,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DX4OR8pnFkwhR',
@@ -507,6 +529,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DX6nghHfwjiMg/tracks',
           total: 70,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DX6nghHfwjiMg',
@@ -543,6 +567,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWWNlI0CRgWup/tracks',
           total: 30,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DWWNlI0CRgWup',
@@ -579,6 +605,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DX1aXwAOtpwvU/tracks',
           total: 45,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DX1aXwAOtpwvU',
@@ -615,6 +643,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWYxUz0Ouugmb/tracks',
           total: 43,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DWYxUz0Ouugmb',
@@ -651,6 +681,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DX5WmphwNfZfk/tracks',
           total: 50,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DX5WmphwNfZfk',
@@ -687,6 +719,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DX3Vl51vsat7a/tracks',
           total: 70,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DX3Vl51vsat7a',
@@ -723,6 +757,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DX1OL0nzXOfhW/tracks',
           total: 54,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DX1OL0nzXOfhW',
@@ -760,6 +796,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DX4Q8j1DJOWem/tracks',
           total: 45,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DX4Q8j1DJOWem',
@@ -796,6 +834,8 @@ export const categoryWithPlaylists: CategoryItem = {
         tracks: {
           href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWVjDgOMO8jZl/tracks',
           total: 47,
+      items: []
+
         },
         type: 'playlist',
         uri: 'spotify:playlist:37i9dQZF1DWVjDgOMO8jZl',

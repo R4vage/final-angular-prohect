@@ -33,6 +33,8 @@ export const playlistsMockData: PlaylistItem[] = [
     tracks: {
       href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DX4Ma23gvJILl/tracks',
       total: 50,
+      items: []
+
     },
     type: 'playlist',
     uri: 'spotify:playlist:37i9dQZF1DX4Ma23gvJILl',
@@ -69,6 +71,8 @@ export const playlistsMockData: PlaylistItem[] = [
     tracks: {
       href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWSWHOzidsSnO/tracks',
       total: 60,
+      items: []
+
     },
     type: 'playlist',
     uri: 'spotify:playlist:37i9dQZF1DWSWHOzidsSnO',
@@ -105,6 +109,8 @@ export const playlistsMockData: PlaylistItem[] = [
     tracks: {
       href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWTPDzakLfYZr/tracks',
       total: 70,
+      items: []
+
     },
     type: 'playlist',
     uri: 'spotify:playlist:37i9dQZF1DWTPDzakLfYZr',
@@ -141,6 +147,7 @@ export const playlistsMockData: PlaylistItem[] = [
     tracks: {
       href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DX5UTavgI6ivn/tracks',
       total: 80,
+      items: []
     },
     type: 'playlist',
     uri: 'spotify:playlist:37i9dQZF1DX5UTavgI6ivn',
@@ -177,6 +184,8 @@ export const playlistsMockData: PlaylistItem[] = [
     tracks: {
       href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DXcTPoXeL0dkL/tracks',
       total: 60,
+      items: []
+
     },
     type: 'playlist',
     uri: 'spotify:playlist:37i9dQZF1DXcTPoXeL0dkL',
@@ -306,7 +315,6 @@ export const playlistWithTracksMockData: Playlist = {
           name: 'Through The Window',
           popularity: 4,
           preview_url: 'https://p.scdn.co/mp3-preview/f1f761c9395bd9d1740ccfd15c683ca3dd4c2c1e?cid=1a742ee646b74af4a2a648a825f35326',
-          track: true,
           track_number: 1,
           type: 'track',
           uri: 'spotify:track:31VyL1X3yYOlcyildvvNu0',
@@ -422,7 +430,6 @@ export const playlistWithTracksMockData: Playlist = {
           name: "90's Flavour",
           popularity: 19,
           preview_url: 'https://p.scdn.co/mp3-preview/94e256e45dda4c3b1e04a6431a67decee1fba707?cid=1a742ee646b74af4a2a648a825f35326',
-          track: true,
           track_number: 1,
           type: 'track',
           uri: 'spotify:track:5wFag2sCvJHkVJworyvPWQ',
@@ -518,7 +525,7 @@ export const playlistWithTracksMockData: Playlist = {
           name: 'O Estrangeiro',
           popularity: 2,
           preview_url: 'https://p.scdn.co/mp3-preview/6e418757320e0b21956dc9cc5964a4c98b8c60d1?cid=1a742ee646b74af4a2a648a825f35326',
-          track: true,
+          
           track_number: 3,
           type: 'track',
           uri: 'spotify:track:3eHMqq1EC30Cn9oQZprFqh',

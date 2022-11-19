@@ -45,6 +45,7 @@ export class SavedItemsEffects {
           .getProperCheckEndpoint(action.ids, action.kind)
           .pipe(
             map((idsStates) => {
+              
               return this.prepareAction(idsStates, action.ids, action.kind);
             })
           );

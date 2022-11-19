@@ -4,6 +4,7 @@ mat-toolbar{
     align-items:center; 
     justify-content:center;
     gap: 1em;
+    
 }
 
 @media (max-width: 520px) {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { filter, finalize, first, Observable, tap } from 'rxjs';
+import { checkSavedItems } from 'src/app/saved-store/saved-item.actions';
 import { loadTrack } from '../track-detail-store/actions/tracks.actions';
 import { TrackState } from '../track-detail-store/reducers/tracks.reducer';
 import { isTrackInStore } from '../track-detail-store/selectors/track.selectors';
@@ -11,7 +12,7 @@ import { isTrackInStore } from '../track-detail-store/selectors/track.selectors'
 })
 export class TrackDetailResolver implements Resolve<boolean> {
   loading = false;
-  constructor(private store: Store<TrackState>) {}
+  constructor(private store: Store) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.store.pipe(
@@ -20,6 +21,7 @@ export class TrackDetailResolver implements Resolve<boolean> {
         next: (isTrackInStore) => {
           if (!this.loading && !isTrackInStore) {
             this.loading = true;
+            this.store.dispatch(checkSavedItems({ids:[route.params['id']], kind:'track'}))
             this.store.dispatch(loadTrack({ id: route.params['id'] }));
           }
         },

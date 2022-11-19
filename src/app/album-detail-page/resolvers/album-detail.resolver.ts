@@ -5,13 +5,15 @@ import { filter, finalize, first, Observable, tap } from 'rxjs';
 import { loadAlbum } from 'src/app/main-page/main-page-store/actions/albums.actions';
 import { AlbumState } from 'src/app/main-page/main-page-store/reducers/albums.reducer';
 import { isAlbumInStore } from 'src/app/main-page/main-page-store/selectors/album.selectors';
+import { checkSavedItems } from 'src/app/saved-store/saved-item.actions';
+import { prepareIdArray } from 'src/app/saved-store/saved-item.helpers';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AlbumDetailResolver implements Resolve<boolean> {
   loading = false;
-  constructor(private store: Store<AlbumState>) {}
+  constructor(private store: Store) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.store.pipe(
@@ -20,6 +22,7 @@ export class AlbumDetailResolver implements Resolve<boolean> {
         next: (isAlbumInStore) => {
           if (!this.loading && !isAlbumInStore) {
             this.loading = true;
+
             this.store.dispatch(loadAlbum({ id: route.params['id'] }));
           }
         },

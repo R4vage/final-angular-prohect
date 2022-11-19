@@ -1,4 +1,7 @@
-import { reducer, initialState } from '../reducers/top-albums.reducer';
+import {
+  reducer,
+  initialState,
+} from '../../../my-music-page/store/reducers/top-albums.reducer';
 
 describe('TopUserAlbum Reducer', () => {
   describe('unknown action', () => {
