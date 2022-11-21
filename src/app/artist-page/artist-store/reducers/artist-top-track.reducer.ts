@@ -1,7 +1,6 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as ArtistTopTrackActions from '../actions/artist-top-track.actions';
-import { Track } from 'src/app/core/models/track.models';
 import { ArtistTopTracks } from 'src/app/core/models/artist.models';
 
 export interface ArtTopTracks {

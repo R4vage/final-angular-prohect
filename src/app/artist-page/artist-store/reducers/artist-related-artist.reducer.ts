@@ -1,7 +1,6 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as ArtistRelatedArtistActions from '../actions/artist-related-artist.actions';
-import { Artist } from 'src/app/core/models/album.models';
 import { ArtistRelatedArtists } from 'src/app/core/models/artist.models';
 
 export interface ArtRelatedArtists {

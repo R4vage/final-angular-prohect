@@ -53,11 +53,7 @@ export const reducer = createReducer(
   on(SavedTrackActions.deleteSavedTrack, (state, action) =>
     adapter.removeOne(action.id, {...state, totalItems: state.totalItems-1})
   ),
-  on(SavedTrackActions.deleteSavedTracks, (state, action) =>
-    adapter.removeMany(action.ids, state)
-  ),
 
-  on(SavedTrackActions.clearSavedTracks, (state) => adapter.removeAll(state))
 );
 
 export const { selectIds, selectEntities, selectAll, selectTotal } =

@@ -57,11 +57,5 @@ export const deleteSavedTrack = createAction(
   props<{ id: string }>()
 );
 
-export const deleteSavedTracks = createAction(
-  '[Track/API] Delete Saved Tracks',
-  props<{ ids: string[] }>()
-);
 
-export const clearSavedTracks = createAction(
-  '[Track/API] Clear Saved Tracks'
-);
+

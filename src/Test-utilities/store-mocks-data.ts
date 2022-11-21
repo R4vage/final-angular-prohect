@@ -4159,10 +4159,10 @@ export const searchesStoreMock: SearchState = {
 };
 
 export const topUserAlbumsStoreMock:TopUserAlbumsState = {
-  ids: [],
-  entities: {},
+  ids: [albumWithTracksMockData.id],
+  entities: {[albumWithTracksMockData.id]:albumWithTracksMockData},
   topAlbumsLoaded: true,
-  totalItems: 0,
+  totalItems: 1,
 };
 
 export const tracksStoreMock:TrackState = {
