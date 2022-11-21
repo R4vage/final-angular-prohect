@@ -1,6 +1,6 @@
 :host{
     display: inline-block;
-    width: 130px;
+    min-width: 130px;
 }
 
 mat-card{
@@ -46,6 +46,10 @@ mat-card{
 
 }
 
+.savedStar{
+    color: gold;
+}
+
 @media (min-width:420px) {
     :host{
         width: 140px;
@@ -54,6 +58,7 @@ mat-card{
 
 @media (min-width:769px) {
     :host{
+        min-width: unset;
         width: 230px;
     }
     mat-card{

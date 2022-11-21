@@ -1,0 +1,16 @@
+<div class="track px-[30px] py-3 grid grid-cols-tableTracks gap-2 text-gray-200 hover:bg-opacity-30 hover:bg-slate-100">
+    <div class="index self-center">{{ index + 1 }}</div>
+    <div class="track-name flex flex-col">
+        <div [routerLink]="['/track', track.id]" class="hover:underline hover:font-medium cursor-pointer">{{ track.name }}</div>
+        <div class="flex flex-row items-center">
+        <mat-icon *ngIf="track.explicit">explicit</mat-icon>
+        <div class="track-artist self-end">{{ track.artists | listArtists }}</div>
+        </div>
+    </div>
+    <div class="flex flex-row justify-end gap-4">
+        <button mat-icon-button (click)="clickHeart()">
+            <mat-icon>{{isSaved?'favorite':'favorite_border'}}</mat-icon>
+        </button>
+        <div class="track-duration text-right self-center hidden md:inline">{{ track.duration_ms / 1000 | secondTrackMusic }}</div>
+    </div>
+</div>

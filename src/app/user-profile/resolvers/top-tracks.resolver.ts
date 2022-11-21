@@ -5,7 +5,7 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, finalize, first, Observable, of, retry, tap } from 'rxjs';
+import { filter, finalize, first, Observable, tap } from 'rxjs';
 import { loadTopUserTracks } from '../user-profile-store/actions/top-track.actions';
 import { TopUserTracksState } from '../user-profile-store/reducers/top-track.reducer';
 import { selectAreTopTracksLoaded } from '../user-profile-store/selectors/top-tracks.selectors';

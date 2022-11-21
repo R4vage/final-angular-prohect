@@ -1,7 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, switchMap } from 'rxjs';
-import { CategoryItem, MainCategoriesResponse } from 'src/app/core/models/categories.models';
+import {
+  CategoryItem,
+  MainCategoriesResponse,
+} from 'src/app/core/models/categories.models';
 import { Playlists } from 'src/app/core/models/playlist.models';
 import { environment } from 'src/environments/environment';
 
@@ -12,17 +15,27 @@ export class CategoriesService {
   readonly URL = 'https://api.spotify.com/v1';
 
   getCategoryPlaylists(categoryId: string, limit = 20, offset = 0) {
-    return this.http.get<CategoryItem>(`${this.URL}/browse/categories/${categoryId}`).pipe(
-      switchMap((categoryItem) => {
-        return this.http
-          .get<{ playlists: Playlists }>(`${this.URL}/browse/categories/${categoryId}/playlists`, { params: this.getQueryParametersAvailableCategories(limit, offset) })
-          .pipe(
-            map((playlists) => {
-              return { ...categoryItem, ...playlists };
-            })
-          );
-      })
-    );
+    return this.http
+      .get<CategoryItem>(`${this.URL}/browse/categories/${categoryId}`)
+      .pipe(
+        switchMap((categoryItem) => {
+          return this.http
+            .get<{ playlists: Playlists }>(
+              `${this.URL}/browse/categories/${categoryId}/playlists`,
+              {
+                params: this.getQueryParametersAvailableCategories(
+                  limit,
+                  offset
+                ),
+              }
+            )
+            .pipe(
+              map((playlists) => {
+                return { ...categoryItem, ...playlists };
+              })
+            );
+        })
+      );
   }
 
   getAvailableCategories(limit = 20, offset = 0) {
@@ -46,7 +59,9 @@ export class CategoriesService {
       });
     }
     if (!environment.production) {
-      console.warn('The limit is between 0 and 50, check if it is in this range');
+      console.warn(
+        'The limit is between 0 and 50, check if it is in this range'
+      );
       console.warn('now it is going to use default values instead');
     }
 

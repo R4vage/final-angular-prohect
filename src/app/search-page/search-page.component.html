@@ -1,0 +1,41 @@
+<div class="flexs-container" *ngIf="searchResults$ | async as results"> 
+  <app-card-flex *ngIf="results.tracks.items.length > 0" name="Tracks">
+    <app-track-card
+      *ngFor="let track of results.tracks.items"
+      [track]="track"
+      class="card"
+    ></app-track-card>
+  </app-card-flex>
+  <app-card-flex *ngIf="results.artists.items.length > 0" name="Artists">
+    <app-artist-card
+      *ngFor="let artist of results.artists.items"
+      [artist]="artist"
+      class="card"
+    ></app-artist-card>
+  </app-card-flex>
+  <app-card-flex *ngIf="results.albums.items.length > 0" name="Albums">
+    <app-album-card
+      *ngFor="let album of results.albums.items"
+      [album]="album"
+      class="card"
+    ></app-album-card>
+  </app-card-flex>
+  <app-card-flex *ngIf="results.playlists.items.length > 0" name="Playlists">
+    <app-playlist-card
+      *ngFor="let playlist of results.playlists.items"
+      [playlist]="playlist"
+      class="card"
+    ></app-playlist-card>
+  </app-card-flex>
+  <h3
+    *ngIf="
+      !results ||
+      (!results.tracks.items.length &&
+      !results.artists.items.length &&
+      !results.albums.items.length &&
+      !results.playlists.items.length)
+    "
+  >
+    There are no results for this search
+  </h3>
+</div>

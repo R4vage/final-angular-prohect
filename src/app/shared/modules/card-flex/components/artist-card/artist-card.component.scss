@@ -3,7 +3,7 @@
 
 :host{
     display: inline-block;
-    width: 130px;
+    width: 150px;
 }
 
 
@@ -20,6 +20,9 @@ mat-card{
         max-height: 190px;
         border-radius: 100px;
         max-width: 180px;
+        width: 120px;
+        height: 120px;
+        
     }
 
     h2{
@@ -29,16 +32,22 @@ mat-card{
         width: max-content;
         max-width: 100%;
     }
-
-    mat-icon{
+    button{
         position: absolute;
         right: 15px;
+        z-index: 2;
     }
+
 
     mat-icon:hover{
         transform: scale(1.5);
     }
 }
+
+.savedStar{
+    color: gold;
+}
+
 
 @media (min-width:420px) {
     :host{

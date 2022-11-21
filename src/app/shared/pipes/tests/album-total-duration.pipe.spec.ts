@@ -11,9 +11,8 @@ describe('AlbumTotalDurationPipe', () => {
   });
   it("should give the total Album's duration in seconds", () => {
     const albumTest = albumWithTracksMockData;
-    const durationAlbumData = 2598;
+    const durationAlbumData = 254.233;
     const dataTransformed = pipe.transform(albumTest);
-
     expect(Math.floor(dataTransformed)).toBe(Math.floor(durationAlbumData));
   });
 });

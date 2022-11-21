@@ -13,6 +13,7 @@ import { logOut } from 'src/app/auth/auth-store/auth.actions';
 import { RefreshResponse } from 'src/app/core/models/authorization.models';
 import { Albums } from '../models/album.models';
 import { TokenInterceptor } from './token.interceptor';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('TokenInterceptor', () => {
   let httpClient: HttpClient;
@@ -25,6 +26,7 @@ describe('TokenInterceptor', () => {
   let store: MockStore;
 
   beforeEach(() => {
+    const snackbarSpy = jasmine.createSpyObj(MatSnackBar, ['open'])
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
@@ -36,6 +38,10 @@ describe('TokenInterceptor', () => {
           provide: HTTP_INTERCEPTORS,
           useClass: TokenInterceptor,
           multi: true,
+        },
+        {
+          provide: MatSnackBar,
+          useValue: snackbarSpy
         },
         provideMockStore({ initialState: initialAuthState }),
       ],

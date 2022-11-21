@@ -6,16 +6,23 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TrackCardComponent } from './components/track-card/track-card.component';
 import { ArtistCardComponent } from './components/artist-card/artist-card.component';
 import { MatIconModule } from '@angular/material/icon';
+import { AlbumCardComponent } from './components/album-card/album-card.component';
+import { PlaylistCardComponent } from './components/playlist-card/playlist-card.component';
+import { RouterModule } from '@angular/router';
+import { TrackService } from 'src/app/track-detail-page/services/track.service';
 
 @NgModule({
   declarations: [
     CardFlexComponent,
     TrackCardComponent,
-    ArtistCardComponent
+    ArtistCardComponent,
+    AlbumCardComponent,
+    PlaylistCardComponent
   ],
   imports: [
     CommonModule,
 
+    RouterModule,
     MatCardModule,
     MatTooltipModule,
     MatIconModule
@@ -23,7 +30,12 @@ import { MatIconModule } from '@angular/material/icon';
   exports:[
     CardFlexComponent,
     TrackCardComponent,
-    ArtistCardComponent
+    ArtistCardComponent,
+    AlbumCardComponent,
+    PlaylistCardComponent
+  ],
+  providers: [
+    TrackService
   ]
 })
 export class CardFlexModule { }

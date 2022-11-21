@@ -5,15 +5,23 @@ import { Observable, EMPTY, of } from 'rxjs';
 import * as topTrackActions from '../actions/top-track.actions';
 import { UserProfileRestService } from '../../services/user-profile-rest.service';
 import { Track } from 'src/app/core/models/track.models';
+import { checkSavedItems } from 'src/app/saved-store/saved-item.actions';
+import { prepareIdArray } from 'src/app/saved-store/saved-item.helpers';
+import { Store } from '@ngrx/store';
+import { SavedItem } from 'src/app/saved-store/saved-item.reducer';
 
 @Injectable()
 export class TopTracksEffect {
-  loadUsers$ = createEffect(() => {
+  loadTracks$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(topTrackActions.loadTopUserTracks),
       concatMap(() =>
         this.restService.getUsersTopTracks().pipe(
           map((data) => {
+            let trackIds = prepareIdArray(data.items);
+            this.savedStore.dispatch(
+              checkSavedItems({ ids: trackIds, kind: 'track' })
+            );
             return topTrackActions.loadTopUserTracksSuccess({
               topUserTracks: data.items,
             });
@@ -28,6 +36,7 @@ export class TopTracksEffect {
 
   constructor(
     private actions$: Actions,
-    private restService: UserProfileRestService
+    private restService: UserProfileRestService,
+    private savedStore: Store<SavedItem>
   ) {}
 }

@@ -1,0 +1,9 @@
+<div class="sticky z-20 top-0 px-[30px] py-4 grid grid-cols-tableTracks gap-2 text-gray-400">
+    <span class=""># </span>
+    <span>TITLE</span>
+    <mat-icon class="place-self-end self-center">browse_gallery</mat-icon>
+  </div>
+  
+  <div *ngFor="let track of tracks; index as i" >
+    <app-track-item  [track]="track" [index]="i" [album]="album"></app-track-item>
+  </div>

@@ -33,10 +33,10 @@ export interface Track {
   name: string;
   popularity: number;
   preview_url: string;
-  track?: boolean;
   track_number: number;
   type: string;
   uri: string;
+  genres?: [];
 }
 
 export interface Artist {

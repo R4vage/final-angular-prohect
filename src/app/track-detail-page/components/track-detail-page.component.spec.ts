@@ -22,6 +22,13 @@ import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/aud
 import { ListArtistsPipe } from 'src/app/shared/pipes/list-artists.pipe';
 import { SecondTrackMusicPipe } from 'src/app/shared/pipes/second-track-music.pipe';
 import { trackMockData } from 'src/Test-utilities/track-mock-data';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Actions } from '@ngrx/effects';
+import { provideMockStore } from '@ngrx/store/testing';
+import {
+  savedItemsMockStore,
+  tracksStoreMock,
+} from 'src/Test-utilities/store-mocks-data';
 
 describe('TrackDetailPageComponent', () => {
   let component: TrackDetailPageComponent;
@@ -32,18 +39,25 @@ describe('TrackDetailPageComponent', () => {
   let router: Router;
   let trackService: TrackService;
   let location: Location;
-
+  let actions$: Actions;
   let snackbar: MatSnackBar;
 
   const ID_TRACK = 'testParamsTrack';
   const TRACK = trackMockData;
-  beforeEach(async () => {
-    const trackServiceSpy = jasmine.createSpyObj(TrackService, ['checkSavedTrack', 'saveTrack', 'deleteTrack']);
-    const snackbarSpy = jasmine.createSpyObj(MatSnackBar, ['open']);
 
+  beforeEach(async () => {
+    const trackServiceSpy = jasmine.createSpyObj(TrackService, [
+      'checkSavedTrack',
+      'saveTrack',
+      'deleteTrack',
+      'changeSavedTrack',
+    ]);
+    const snackbarSpy = jasmine.createSpyObj(MatSnackBar, ['open']);
+    const actionsSpy = jasmine.createSpyObj(Actions, ['pipe']);
     trackServiceSpy.checkSavedTrack.and.returnValue(of([true]));
     trackServiceSpy.saveTrack.and.returnValue(of([true]));
     trackServiceSpy.deleteTrack.and.returnValue(of([true]));
+    actionsSpy.pipe.and.returnValue(of(true));
 
     snackbarSpy.open.and.callFake(noop);
 
@@ -57,18 +71,21 @@ describe('TrackDetailPageComponent', () => {
           { path: 'track', component: TrackDetailPageComponent },
         ]),
       ],
-      declarations: [TrackDetailPageComponent, ListArtistsPipe, AudioPlayerComponent, SecondTrackMusicPipe],
+      declarations: [
+        TrackDetailPageComponent,
+        ListArtistsPipe,
+        AudioPlayerComponent,
+        SecondTrackMusicPipe,
+      ],
       providers: [
         { provide: MatSnackBar, useValue: snackbarSpy },
-
-        {
-          provide: Store,
-          useValue: {
-            pipe(value: unknown): Observable<Track> {
-              return of(TRACK);
-            },
+        provideMockStore({
+          initialState: {
+            tracks: tracksStoreMock,
+            savedItems: savedItemsMockStore,
           },
-        },
+        }),
+        { provide: Actions, useValue: actionsSpy },
         {
           provide: TrackService,
           useValue: trackServiceSpy,
@@ -94,8 +111,6 @@ describe('TrackDetailPageComponent', () => {
     trackService = TestBed.inject(TrackService);
     snackbar = TestBed.inject(MatSnackBar);
 
-    spyOn(component, 'checkSavedTrack').and.callThrough();
-
     router.initialNavigation();
     await router.navigate(['/track', ID_TRACK]);
 
@@ -108,7 +123,6 @@ describe('TrackDetailPageComponent', () => {
     expect(component).toBeTruthy();
     expect(location.path()).toBe(`/track/${ID_TRACK}`);
     expect(component.idTrack).toBe(ID_TRACK);
-    expect(component.checkSavedTrack).toHaveBeenCalledOnceWith(component.idTrack);
   });
 
   it('should create track information section', () => {
@@ -126,7 +140,9 @@ describe('TrackDetailPageComponent', () => {
 
     expect(trackTitle).toBeTruthy();
     expect(trackArtistsList).toBeTruthy();
-    expect(trackArtistsList.nativeElement.textContent).toBe('Tokyo Ska Paradise Orchestra, Lilas Ikuta•2022•04:14');
+    expect(trackArtistsList.nativeElement.textContent).toBe(
+      'Tokyo Ska Paradise Orchestra, Lilas Ikuta•2022•04:14'
+    );
   });
   it('should render audio-player', () => {
     const audioPlayer = el.query(By.css('.audio-player'));
@@ -135,10 +151,12 @@ describe('TrackDetailPageComponent', () => {
   });
 
   it('should display correctly the buttons', async () => {
-    const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
+    const buttons = await loader.getAllHarnesses(
+      MatButtonHarness.with({ selector: '[mat-raised-button]' })
+    );
 
     expect(buttons).toBeTruthy();
-    expect(buttons.length).toBe(2);
+    expect(buttons.length).toBe(1);
   });
 
   it('should get image from track', () => {
@@ -147,66 +165,26 @@ describe('TrackDetailPageComponent', () => {
     expect(image).toBe(TRACK.album.images[0].url);
   });
 
-  it('should check if track was already saved', () => {
-    component.checkSavedTrack(TRACK.id);
-
-    expect(component.isTrackSaved).toBeTrue();
-    expect(component.isTrackNotSaved).toBeFalse();
-  });
-
-  it('should deactivate the buttons when an error appears while checking saved tracks', async () => {
-    (trackService.checkSavedTrack as jasmine.Spy).and.returnValue(throwError(() => new Error('error')));
-    component.checkSavedTrack(TRACK.id);
-
-    expect(component.isTrackSaved).toBeTrue();
-    expect(component.isTrackNotSaved).toBeTrue();
-
-    const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
-
-    buttons.forEach(async (button) => {
-      expect(await button.isDisabled()).toBeTrue();
-    });
-  });
-
   it('should save track when save button is clicked', async () => {
-    component.isTrackSaved = false;
-
-    spyOn(component, 'saveTrack').and.callThrough();
-    const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
-
-    const saveButton = buttons[0];
-
-    expect(snackbar.open).not.toHaveBeenCalled();
-
+    const saveButton = await loader.getHarness(
+      MatButtonHarness.with({ selector: '[mat-raised-button]' })
+    );
     await saveButton.click();
     fixture.detectChanges();
-
-    expect(component.saveTrack).toHaveBeenCalled();
-    expect(component.isTrackSaved).toBeTrue();
-
-    expect(snackbar.open).toHaveBeenCalled();
-
-    expect(await saveButton.isDisabled()).toBeTrue();
+    expect(trackService.changeSavedTrack).toHaveBeenCalledOnceWith(
+      TRACK,
+      false
+    );
   });
 
   it('should delete track when delete button is clicked', async () => {
-    component.isTrackNotSaved = false;
-
-    spyOn(component, 'deleteTrack').and.callThrough();
-    const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
-
-    const deleteButton = buttons[1];
-
-    expect(snackbar.open).not.toHaveBeenCalled();
-
+    component.isSaved = true;
+    fixture.detectChanges();
+    const deleteButton = await loader.getHarness(
+      MatButtonHarness.with({ selector: '[mat-raised-button]' })
+    );
     await deleteButton.click();
     fixture.detectChanges();
-
-    expect(component.deleteTrack).toHaveBeenCalled();
-    expect(component.isTrackNotSaved).toBeTrue();
-
-    expect(snackbar.open).toHaveBeenCalled();
-
-    expect(await deleteButton.isDisabled()).toBeTrue();
+    expect(trackService.changeSavedTrack).toHaveBeenCalled();
   });
 });

@@ -8,12 +8,14 @@
     background: $grey-to-blue-gradient;
     width: 100%;
     gap: 0.5em;
+    color:white;
+    overflow: hidden;
     
     h3{
-        align-self: left;
         font-weight: 800;
         font-family: 'Karla', sans-serif;
-        text-align: left;
+        margin-right: 0;
+        width: 4em;
     }
     h1{
         font-weight: 900;
@@ -21,6 +23,15 @@
         letter-spacing: -5px;
         align-self: center;
         font-family: 'Karla', sans-serif;
+        height: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: max-content;
+        max-width: 60vw;
+        margin: 0;
+        padding-block:1.2rem;
+        padding-inline: 0.2rem;
     }
 }
 
@@ -38,7 +49,7 @@
         background-color: rgb(43, 43, 43);
         color: white;
         border-radius: 100px;
-        box-shadow: 2px 2px 5px 5px rgba(6, 6, 6, 0.609);
+        box-shadow: 0px 0px 5px 5px rgba(73, 72, 72, 0.609);
         max-width: unset;
         object-fit: cover;
     }
@@ -62,16 +73,18 @@
     }
 }
 
-@media (min-width:520px) {
+@media (min-width:769px) {
     :host{
-        padding-inline:1em;
+        padding-inline: 6em;
+        width: 100%;
         display: grid;
         grid-template-areas:"image empty"
                             "image profile"
                             "image title"
                             "image subtitle";
-        grid-template-columns: min-content max-content;
+        grid-template-columns: min-content 100%;
         grid-column-gap: 3em;
+        max-width: 100%;
     .profile{
         grid-area: profile;
     }
@@ -83,17 +96,17 @@
     }
     h1{
         grid-area: title;
+        max-width: 40vw;
+        font-size: 4rem;
     }
 
     }
 }
 
-@media (min-width:769px) {
-    :host{
-        padding-left: 8em;
-
-        h1{
-            font-size: 6rem;
-        }
+@media (min-width:1220) {
+  :host{
+    h1{
+        max-width: 80vw!important;
     }
+  }
 }

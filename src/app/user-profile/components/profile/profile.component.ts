@@ -6,11 +6,6 @@ import { User } from 'src/app/core/models/user-profile.models';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent{
   @Input() user!:User
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

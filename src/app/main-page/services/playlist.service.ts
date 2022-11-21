@@ -1,7 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
 import { map, switchMap, throwError } from 'rxjs';
-import { MainPlaylistResponse, Playlist } from 'src/app/core/models/playlist.models';
+import {
+  MainPlaylistResponse,
+  Playlist,
+} from 'src/app/core/models/playlist.models';
+import { updateSavedItem } from 'src/app/saved-store/saved-item.actions';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,38 +17,35 @@ export class PlaylistService {
   readonly URL = 'https://api.spotify.com/v1';
 
   getPlaylist(playlistId: string, fields?: string) {
-    const queryParams = fields ? new HttpParams().append('fields', fields) : new HttpParams();
-    return this.http.get<Playlist>(`${this.URL}/playlists/${playlistId}`, { params: queryParams });
-  }
-
-  followPlaylist(userId: string, playlistId: string, isInUserPublicPlaylist = true) {
-    return this.checkFollowedPlaylist(userId, playlistId).pipe(
-      switchMap((isPlaylistFollowed) => {
-        if (!isPlaylistFollowed[0]) {
-          return this.http.put(`${this.URL}/playlists/${playlistId}/followers`, { public: isInUserPublicPlaylist });
-        }
-        return throwError(() => Error('The playlist is already followed'));
-      })
-    );
-  }
-
-  unfollowPlaylist(userId: string, playlistId: string) {
-    return this.checkFollowedPlaylist(userId, playlistId).pipe(
-      switchMap((isPlaylistFollowed) => {
-        if (isPlaylistFollowed[0]) {
-          return this.http.delete(`${this.URL}/playlists/${playlistId}/followers`);
-        }
-        return throwError(() => Error("The playlist wasn't in the User's followed Playlists"));
-      })
-    );
-  }
-
-  checkFollowedPlaylist(userId: string, playlistId: string) {
-    const queryParams = new HttpParams().append('ids', userId);
-
-    return this.http.get<boolean[]>(`${this.URL}/playlists/${playlistId}/followers/contains`, {
+    const queryParams = fields
+      ? new HttpParams().append('fields', fields)
+      : new HttpParams();
+    return this.http.get<Playlist>(`${this.URL}/playlists/${playlistId}`, {
       params: queryParams,
     });
+  }
+
+  changePlayStoreState(playlistId: string, saveState: boolean) {
+    this.store.dispatch(
+      updateSavedItem({ id: playlistId, kind: 'playlist', isSaved: !saveState })
+    );
+    if (saveState) {
+      this.snackbar.open('The playlist has been unfollowed!', 'Close', {
+        duration: 2000,
+        panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
+      });
+    } else {
+      this.snackbar.open('The playlist has been followed!', 'Close', {
+        duration: 2000,
+        panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
+      });
+    }
+  }
+
+  unfollowPlaylistStore(playlistId: string) {
+    this.store.dispatch(
+      updateSavedItem({ id: playlistId, kind: 'playlist', isSaved: false })
+    );
   }
 
   getFeaturedPlaylists(limit = 20, offset = 0) {
@@ -66,7 +69,9 @@ export class PlaylistService {
       });
     }
     if (!environment.production) {
-      console.warn('The limit is between 0 and 50, check if it is in this range');
+      console.warn(
+        'The limit is between 0 and 50, check if it is in this range'
+      );
       console.warn('now it is going to use default values instead');
     }
 
@@ -76,5 +81,9 @@ export class PlaylistService {
     });
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private store: Store,
+    private snackbar: MatSnackBar
+  ) {}
 }

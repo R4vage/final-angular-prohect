@@ -6,7 +6,7 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, finalize, first, Observable, of, retry, tap } from 'rxjs';
+import { filter, finalize, first, Observable, tap } from 'rxjs';
 import { User } from 'src/app/core/models/user-profile.models';
 import { loadUser } from '../user-profile-store/actions/user.actions';
 import { selectIsUserLoaded } from '../user-profile-store/selectors/user.selectors';

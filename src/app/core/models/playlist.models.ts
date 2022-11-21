@@ -63,7 +63,7 @@ export interface Owner {
 
 export interface Tracks {
   href: string;
-  items?: Item[];
+  items: Item[];
   limit?: number;
   next?: string | null;
   previous?: null;

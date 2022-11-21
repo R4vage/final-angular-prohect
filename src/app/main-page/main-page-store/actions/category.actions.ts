@@ -11,16 +11,8 @@ export const addCategory = createAction('[Category/API] Add Category', props<{ c
 
 export const upsertCategory = createAction('[Category/API] Upsert Category', props<{ category: CategoryItem }>());
 
-export const addCategories = createAction('[Category/API] Add Categories', props<{ categories: CategoryItem[] }>());
 
-export const upsertCategories = createAction('[Category/API] Upsert Categories', props<{ categories: CategoryItem[] }>());
-
-export const updateCategory = createAction('[Category/API] Update Category', props<{ category: Update<CategoryItem> }>());
-
-export const updateCategories = createAction('[Category/API] Update Categories', props<{ categories: Update<CategoryItem>[] }>());
 
 export const deleteCategory = createAction('[Category/API] Delete Category', props<{ id: string }>());
 
-export const deleteCategories = createAction('[Category/API] Delete Categories', props<{ ids: string[] }>());
 
-export const clearCategories = createAction('[Category/API] Clear Categories');

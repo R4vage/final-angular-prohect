@@ -1,0 +1,13 @@
+<div class="input-container" >
+  <input
+    type="text"
+    max="30"
+    placeholder="Search..."
+    autocomplete="off"
+    name="search"
+    id="search"
+    #search
+    [formControl]="inputControl"
+  />
+  <mat-icon (click)="sendToSearchPage(search.value)">search</mat-icon>
+</div>

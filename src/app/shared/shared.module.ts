@@ -16,8 +16,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SecondTrackMusicPipe } from './pipes/second-track-music.pipe';
 import { AlbumTotalDurationPipe } from './pipes/album-total-duration.pipe';
 import { TracksFromPlaylistPipe } from './pipes/tracks-from-playlist.pipe';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
-const COMPONENTS = [SideNavComponent, NavBarComponent, MusicCardComponent, CardListComponent, AudioPlayerComponent];
+const COMPONENTS = [SideNavComponent, NavBarComponent, MusicCardComponent, CardListComponent, AudioPlayerComponent, SearchBarComponent];
 
 const PIPES = [
   AlbumToMusicPipe,
