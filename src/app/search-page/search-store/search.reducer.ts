@@ -23,7 +23,7 @@ export const reducer = createReducer(
   }),
   on(SearchActions.addSearch, (state) => state),
   on(SearchActions.addSearchFailure, (state, action) => {
-    throw new Error(action.error.message);
+    throw new Error(action.error);
   }),
   on(SearchActions.addSearchs, (state, action) =>
     adapter.addMany(action.searchs, state)

@@ -60,4 +60,18 @@ describe('TopUserAlbum Reducer', () => {
     const state = reducer(undefined, action);
     expect(state.ids.length).toBe(albums.length);
   });
+
+  it('shouldnt modify the store on simple loadTopUserAlbums ', ()=>{
+    const initialState = topUserAlbumsStoreMock;
+    const action = savedAlbumsActions.loadTopUserAlbums()
+    const state = reducer(initialState, action);
+    expect(state).toBe(initialState)
+  })
+
+  it('shouldnt modify the store on loadTopUserAlbums failure and should throw error', ()=>{
+    const initialState = topUserAlbumsStoreMock;
+    const error = "something mockingly failed"
+    const action = savedAlbumsActions.loadTopUserAlbumsFailure({error:error})
+    expect(function (){reducer(initialState, action)}).toThrowError(error);
+  })
 });

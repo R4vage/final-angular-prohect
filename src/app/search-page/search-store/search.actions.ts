@@ -14,7 +14,7 @@ export const addSearchSuccess = createAction(
 
 export const addSearchFailure = createAction(
   '[Search/API] Add Search Failure',
-  props<{ error: HttpErrorResponse }>()
+  props<{ error: string }>()
 );
 
 export const addSearchs = createAction(

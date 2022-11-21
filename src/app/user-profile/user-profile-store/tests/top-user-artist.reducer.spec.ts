@@ -19,4 +19,16 @@ describe('TopUserArtist Reducers', () => {
     expect(state.topUserArtistsLoaded).toBeTrue();
   });
 
+  it('shouldnt modify the store on simple loadTopUserAlbums ', ()=>{
+    const action = topUserArtistActions.loadTopUserArtists()
+    const state = reducer(undefined, action);
+    expect(state).toBe(initialState)
+  })
+
+  it('shouldnt modify the store on loadTopUserAlbums failure and should throw error', ()=>{
+    const error = "something mockingly failed"
+    const action = topUserArtistActions.loadTopUserArtistFailure({error:error})
+    expect(function (){reducer(initialState, action)}).toThrowError(error);
+  })
+
 });

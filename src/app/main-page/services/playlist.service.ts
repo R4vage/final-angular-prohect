@@ -64,9 +64,8 @@ export class PlaylistService {
     }
     if (!environment.production) {
       console.warn(
-        'The limit is between 0 and 50, check if it is in this range'
+        'The limit is between 0 and 50, check if it is in this range. Now it is going to use default values instead'
       );
-      console.warn('now it is going to use default values instead');
     }
 
     return new HttpParams().appendAll({

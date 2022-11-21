@@ -10,5 +10,4 @@ import { sideNavData } from './nav-data';
 })
 export class SideNavComponent {
   sections: NavData[] = sideNavData;
-  constructor() {}
 }

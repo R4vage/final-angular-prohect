@@ -40,4 +40,18 @@ describe('SavedTrack Reducer', () => {
     expect(state.ids[0]).toBe(track.id);
     expect(state.entities[track.id]).toEqual(track);
   });
+
+  it('shouldnt modify the store on simple loadTopUserAlbums ', ()=>{
+    const initialState = savedTracksStoreMock;
+    const action = savedTrackActions.loadSavedTracks()
+    const state = reducer(initialState, action);
+    expect(state).toBe(initialState)
+  })
+
+  it('shouldnt modify the store on loadTopUserAlbums failure and should throw error', ()=>{
+    const initialState = savedTracksStoreMock;
+    const error = "something mockingly failed"
+    const action = savedTrackActions.loadSavedTracksFailure({error:error})
+    expect(function (){reducer(initialState, action)}).toThrowError(error);
+  })
 });
