@@ -1,21 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { provideMockStore } from '@ngrx/store/testing';
 import { Playlists } from 'src/app/core/models/playlist.models';
 import { playlistsMockData } from 'src/Test-utilities/playlist-mock-data';
+import { savedItemsMockStore } from 'src/Test-utilities/store-mocks-data';
 
 import { PlaylistService } from '../playlist.service';
 
 describe('PlaylistService', () => {
   let playlistService: PlaylistService;
-
+  let snackbar: MatSnackBar;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
+    const snackbarSpy = jasmine.createSpyObj(snackbar, ['open'])
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [],
+      providers: [
+        provideMockStore({
+          initialState:{
+            savedItems: savedItemsMockStore
+          }
+        }),
+        {provide: MatSnackBar, useValue:snackbarSpy}
+      ],
     });
     playlistService = TestBed.inject(PlaylistService);
     httpClient = TestBed.inject(HttpClient);

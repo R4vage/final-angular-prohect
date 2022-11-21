@@ -9,41 +9,58 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { noop, Observable, of, throwError } from 'rxjs';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { noop, Observable, of } from 'rxjs';
 import { Playlist } from 'src/app/core/models/playlist.models';
 import { PlaylistService } from 'src/app/main-page/services/playlist.service';
 import { MaterialModule } from 'src/app/material/material.module';
+import { TracksListComponent } from 'src/app/shared/modules/tracks-list/tracks-list.component';
 import { ListArtistsPipe } from 'src/app/shared/pipes/list-artists.pipe';
 import { SecondTrackMusicPipe } from 'src/app/shared/pipes/second-track-music.pipe';
 import { TracksFromPlaylistPipe } from 'src/app/shared/pipes/tracks-from-playlist.pipe';
 import { TrackService } from 'src/app/track-detail-page/services/track.service';
+import { TrackItemComponentMock } from 'src/Test-utilities/mockedComponents/item-track-mock.component';
 import { playlistWithTracksMockData } from 'src/Test-utilities/playlist-mock-data';
-import { PlaylistTracksComponent } from '../playlist-tracks/playlist-tracks.component';
+import {
+  playlistMockItem,
+  playlistsMockStore,
+  savedItemsMockStore,
+} from 'src/Test-utilities/store-mocks-data';
+import { storesSelectorsMock } from 'src/Test-utilities/stores-selectors-mock';
 
 import { PlaylistDetailPageComponent } from './playlist-detail-page.component';
 
 describe('PlaylistDetailPageComponent', () => {
   let component: PlaylistDetailPageComponent;
   let fixture: ComponentFixture<PlaylistDetailPageComponent>;
-
   let el: DebugElement;
-
   let loader: HarnessLoader;
   let router: Router;
   let playlistService: PlaylistService;
   let location: Location;
-
+  let actions: Actions;
   let snackbar: MatSnackBar;
-
+  let store: MockStore;
   const ID_PLAYLIST = 'testParamsPlaylist';
   const ID_USER = 'testman';
-  const PLAYLIST = playlistWithTracksMockData;
+  const PLAYLIST = playlistMockItem;
 
   beforeEach(async () => {
-    const playlistServiceSpy = jasmine.createSpyObj(PlaylistService, ['checkFollowedPlaylist', 'followPlaylist', 'unfollowPlaylist']);
-    const trackServiceSpy = jasmine.createSpyObj(TrackService, ['checkSavedTrack', 'saveTrack', 'deleteTrack']);
-
+    const playlistServiceSpy = jasmine.createSpyObj(PlaylistService, [
+      'checkFollowedPlaylist',
+      'followPlaylist',
+      'unfollowPlaylist',
+      'changePlayStoreState',
+    ]);
+    const trackServiceSpy = jasmine.createSpyObj(TrackService, [
+      'checkSavedTrack',
+      'saveTrack',
+      'deleteTrack',
+    ]);
+    const actionsSpy = jasmine.createSpyObj(Actions, ['pipe']);
+    actionsSpy.pipe.and.returnValue(of(true));
     const snackbarSpy = jasmine.createSpyObj(MatSnackBar, ['open']);
 
     playlistServiceSpy.checkFollowedPlaylist.and.returnValue(of([true]));
@@ -55,7 +72,14 @@ describe('PlaylistDetailPageComponent', () => {
     snackbarSpy.open.and.callFake(noop);
 
     await TestBed.configureTestingModule({
-      declarations: [PlaylistDetailPageComponent, TracksFromPlaylistPipe, SecondTrackMusicPipe, ListArtistsPipe, PlaylistTracksComponent],
+      declarations: [
+        PlaylistDetailPageComponent,
+        TracksFromPlaylistPipe,
+        SecondTrackMusicPipe,
+        ListArtistsPipe,
+        TracksListComponent,
+        TrackItemComponentMock,
+      ],
       imports: [
         MaterialModule,
         NoopAnimationsModule,
@@ -67,14 +91,13 @@ describe('PlaylistDetailPageComponent', () => {
       providers: [
         { provide: MatSnackBar, useValue: snackbarSpy },
         { provide: TrackService, useValue: trackServiceSpy },
-        {
-          provide: Store,
-          useValue: {
-            pipe(value: unknown): Observable<Playlist> {
-              return of(PLAYLIST);
-            },
+        { provide: Actions, useValue: actionsSpy },
+        provideMockStore({
+          initialState: {
+            savedItems: savedItemsMockStore,
+            playlists: playlistsMockStore,
           },
-        },
+        }),
         {
           provide: PlaylistService,
           useValue: playlistServiceSpy,
@@ -92,7 +115,7 @@ describe('PlaylistDetailPageComponent', () => {
 
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
-
+    actions = TestBed.inject(Actions);
     fixture = TestBed.createComponent(PlaylistDetailPageComponent);
     component = fixture.componentInstance;
     el = fixture.debugElement;
@@ -123,94 +146,59 @@ describe('PlaylistDetailPageComponent', () => {
     expect(playlistImage).toBeTruthy();
     expect(playlistImage.attributes['src']).toBe(PLAYLIST.images[0].url);
   });
+
   it('should show title and artist names', () => {
     const playlistTitle = el.query(By.css('.title'));
     const playlistArtistsList = el.query(By.css('.artists'));
+    component.playlist$.subscribe();
 
     expect(playlistTitle).toBeTruthy();
     expect(playlistArtistsList).toBeTruthy();
-    expect(playlistArtistsList.nativeElement.textContent).toBe('The chillest beats to help you relax, study, code, and focus.•4,792,780 followers•Spotify songs');
+    expect(playlistArtistsList.nativeElement.textContent).toBe(
+      'Hacele honor al domingo y terminalo bien arriba.•2 followers•Spotify songs'
+    );
   });
 
   it('should display correctly the buttons', async () => {
-    const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
+    const buttons = await loader.getAllHarnesses(
+      MatButtonHarness.with({ selector: '[mat-raised-button]' })
+    );
 
     expect(buttons).toBeTruthy();
-    expect(buttons.length).toBe(2);
-  });
-
-  it('should display correctly the tracks', () => {
-    const tracks = el.queryAll(By.css('.track'));
-
-    expect(tracks.length).toBe(3);
-
-    const firstTrack = tracks[0];
-    const trackIndex = firstTrack.query(By.css('.index'));
-    const trackName = firstTrack.query(By.css('.track-name'));
-    const trackArtist = firstTrack.query(By.css('.track-artist'));
-    const trackDuration = firstTrack.query(By.css('.track-duration'));
-
-    expect(trackIndex.nativeElement.textContent).toBe('1');
-    expect(trackName.nativeElement.textContent).toContain('Through The Window');
-    expect(trackArtist.nativeElement.textContent).toBe('BLVKSHP');
-    expect(trackDuration.nativeElement.textContent).toBe('02:46');
+    expect(buttons.length).toBe(1);
   });
 
   it('should get image from playlist', () => {
     const image = component.getImage(PLAYLIST);
-
     expect(image).toBe(PLAYLIST.images[0].url);
   });
 
-  it('should check if playlist was already followd', () => {
-
-  });
-
-  it('should deactivate the buttons when an error appears while checking followd playlists', async () => {
-
-
-    const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
-
-    buttons.forEach(async (button) => {
-      expect(await button.isDisabled()).toBeTrue();
-    });
-  });
-
   it('should follow playlist when follow button is clicked', async () => {
-
-    spyOn(component, 'followPlaylist').and.callThrough();
-    const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
-
-    const followButton = buttons[0];
-
-    expect(snackbar.open).not.toHaveBeenCalled();
-
+    const followButton = await loader.getHarness(
+      MatButtonHarness.with({ selector: '[mat-raised-button]' })
+    );
     await followButton.click();
     fixture.detectChanges();
-
-    expect(component.followPlaylist).toHaveBeenCalled();
-
-    expect(snackbar.open).toHaveBeenCalled();
-
-    expect(await followButton.isDisabled()).toBeTrue();
+    expect(playlistService.changePlayStoreState).toHaveBeenCalledOnceWith(
+      ID_PLAYLIST,
+      false
+    );
+    expect(await followButton.isDisabled()).toBeFalse();
   });
 
   it('should unfollow playlist when unfollow button is clicked', async () => {
-
-    spyOn(component, 'unfollowPlaylist').and.callThrough();
-    const buttons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '[mat-raised-button]' }));
-
-    const unfollowButton = buttons[1];
-
-    expect(snackbar.open).not.toHaveBeenCalled();
-
+    component.isSaved = true;
+    spyOn(component, 'clickFollowButton').and.callThrough();
+    const unfollowButton = await loader.getHarness(
+      MatButtonHarness.with({ selector: '[mat-raised-button]' })
+    );
     await unfollowButton.click();
     fixture.detectChanges();
-
-    expect(component.unfollowPlaylist).toHaveBeenCalled();
-
-    expect(snackbar.open).toHaveBeenCalled();
-
-    expect(await unfollowButton.isDisabled()).toBeTrue();
+    expect(component.clickFollowButton).toHaveBeenCalled();
+    expect(playlistService.changePlayStoreState).toHaveBeenCalledOnceWith(
+      ID_PLAYLIST,
+      true
+    );
+    expect(await unfollowButton.isDisabled()).toBeFalse();
   });
 });

@@ -91,11 +91,11 @@ describe('AudioPlayerComponent', () => {
     expect(volumeSliderMaterial).toBeTruthy();
 
     await volumeSliderMaterial?.setValue(60);
-    expect(await volumeSliderMaterial?.getValue()).toBe(60);
+    expect(await volumeSliderMaterial?.getValue()).toBe(59);
     fixture.detectChanges();
 
     expect(component.volumeManager).toHaveBeenCalled();
-    expect(component.audio.volume).toBe(0.6);
+    expect(component.audio.volume).toBe(0.59);
   });
 
   it('should mute music when mute button is pressed', async () => {

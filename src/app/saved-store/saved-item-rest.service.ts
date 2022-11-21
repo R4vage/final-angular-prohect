@@ -9,16 +9,12 @@ import { Kind } from './saved-item.reducer';
 @Injectable({
   providedIn: 'root',
 })
-export class SavedItemRestService implements OnInit{
+export class SavedItemRestService implements OnInit {
   URL = 'https://api.spotify.com/v1';
-  userId! :string;
+  userId!: string;
   constructor(private http: HttpClient, private store: Store<User>) {}
 
-  ngOnInit(): void {
-    this.store.select(selectIdUser).pipe().subscribe(
-      id => this.userId = id
-    )
-  }
+  ngOnInit(): void {}
 
   checkUserSavedTracks(trackIds: string[]): Observable<boolean[]> {
     return this.http.get<boolean[]>(
@@ -40,9 +36,18 @@ export class SavedItemRestService implements OnInit{
     );
   }
 
-  checkUsersPlaylist (playlistid: string): Observable<boolean[]> {
-    return this.http.get<boolean[]>(`${this.URL}/playlists/${playlistid}/followers/contains?ids=${this.userId}`);
-
+  checkUsersPlaylist(playlistid: string): Observable<boolean[]> {
+    this.store
+      .select(selectIdUser)
+      .pipe(take(1))
+      .subscribe({
+        next: (id) => {
+          this.userId = id;
+        },
+      });
+    return this.http.get<boolean[]>(
+      `${this.URL}/playlists/${playlistid}/followers/contains?ids=${this.userId}`
+    );
   }
 
   saveTrack(trackId: string): Observable<void> {
@@ -63,7 +68,9 @@ export class SavedItemRestService implements OnInit{
 
   followPlaylist(playlistId: string): Observable<void> {
     return this.http.put<void>(
-      `${this.URL}/playlists/${playlistId}/followers`,'');
+      `${this.URL}/playlists/${playlistId}/followers`,
+      ''
+    );
   }
 
   removePlaylist(playlistId: string): Observable<void> {
@@ -85,10 +92,7 @@ export class SavedItemRestService implements OnInit{
     );
   }
 
-  getProperCheckEndpoint ( 
-    ids: string[],
-    kind:Kind
-  ):Observable<boolean[]> {
+  getProperCheckEndpoint(ids: string[], kind: Kind): Observable<boolean[]> {
     switch (kind) {
       case 'album':
         return this.checkUserSavedAlbums(ids);
@@ -97,7 +101,7 @@ export class SavedItemRestService implements OnInit{
       case 'track':
         return this.checkUserSavedTracks(ids);
       case 'playlist':
-        return this.checkUsersPlaylist(ids[0])
+        return this.checkUsersPlaylist(ids[0]);
     }
   }
 

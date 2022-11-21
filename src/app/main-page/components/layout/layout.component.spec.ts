@@ -56,7 +56,7 @@ describe('LayoutComponent', () => {
     expect(sidebar).toBeTruthy();
     expect(await button.getText()).toBe('A');
     expect(list).toBeTruthy();
-    expect(list.length).toBe(4);
+    expect(list.length).toBe(2);
     expect(await dashboardButton.getText()).toBe('home Dashboard');
     expect(dashboardIcon).toBeTruthy();
   });

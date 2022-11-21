@@ -9,7 +9,7 @@ import { selectSavedItemById} from 'src/app/saved-store/saved-item.selectors';
 import { TrackService } from 'src/app/track-detail-page/services/track.service';
 
 @Component({
-  selector: 'app-album-track',
+  selector: 'app-track-item',
   templateUrl: './track-item.component.html',
   styleUrls: ['./track-item.component.scss']
 })

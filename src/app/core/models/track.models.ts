@@ -36,6 +36,7 @@ export interface Track {
   track_number: number;
   type: string;
   uri: string;
+  genres?: [];
 }
 
 export interface Artist {

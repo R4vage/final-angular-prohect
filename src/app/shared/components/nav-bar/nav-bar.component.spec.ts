@@ -2,6 +2,7 @@ import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatToolbarHarness } from '@angular/material/toolbar/testing';
 import { SharedModule } from '../../shared.module';
 
@@ -20,29 +21,21 @@ describe('NavBarComponent', () => {
   let component: NavBarComponent;
   let fixture: ComponentFixture<NavBarComponent>;
   let el: DebugElement;
-
-  let testEl: DebugElement;
-  let testComponent: TestComponent;
-  let testFixture: ComponentFixture<TestComponent>;
-
   let loader: HarnessLoader;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedModule],
-      declarations: [NavBarComponent, TestComponent],
+      imports: [
+        SharedModule,
+        MatToolbarModule
+      ],
+      declarations: [NavBarComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavBarComponent);
     component = fixture.componentInstance;
     el = fixture.debugElement;
-
-    testFixture = TestBed.createComponent(TestComponent);
-    testComponent = fixture.componentInstance;
-    testEl = testFixture.debugElement;
-
-    loader = TestbedHarnessEnvironment.loader(testFixture);
-
+    loader = TestbedHarnessEnvironment.loader(fixture);
     fixture.detectChanges();
   });
 
@@ -58,6 +51,6 @@ describe('NavBarComponent', () => {
   it("should contain 'Some content to show'", async () => {
     const matToolBar = await loader.getHarness(MatToolbarHarness);
     const row = await matToolBar.getRowsAsText();
-    expect(row[0]).toContain('Some content to show');
+    expect(row[0]).toContain('Web pagesearch');
   });
 });

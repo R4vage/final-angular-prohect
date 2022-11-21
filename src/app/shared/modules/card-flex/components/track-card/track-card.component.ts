@@ -2,19 +2,12 @@ import {
   Component,
   Input,
   OnInit,
-  ViewChild,
-  ElementRef,
 } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Subscription, take, timer } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { Track } from 'src/app/core/models/track.models';
 import {
-  addSavedTrack,
-  deleteSavedTrack,
-} from 'src/app/my-music-page/store/actions/saved-tracks.actions';
-import {
-  updateSavedItem,
   updateSavedItemFailure,
   updateSavedItemSuccess,
 } from 'src/app/saved-store/saved-item.actions';

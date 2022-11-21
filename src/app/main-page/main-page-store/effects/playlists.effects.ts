@@ -13,7 +13,6 @@ export class PlaylistsEffects {
   loadPlaylist$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadPlaylists),
-
       concatMap(() => {
         return this.playlistService.getFeaturedPlaylists();
       }),

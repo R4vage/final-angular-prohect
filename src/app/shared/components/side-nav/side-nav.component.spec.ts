@@ -50,7 +50,7 @@ describe('SideNavComponent', () => {
     const sections = await sectionList?.getItems();
 
     expect(sections).toBeTruthy();
-    expect(sections?.length).toBe(4);
+    expect(sections?.length).toBe(2);
   });
 
   it('should show a button with a label', async () => {

@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { ArtistPageComponent } from './artist-page.component';
 
@@ -8,7 +10,9 @@ describe('ArtistPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ArtistPageComponent ]
+      declarations: [ ArtistPageComponent ],
+      imports:[RouterTestingModule],
+      providers:[provideMockStore()]
     })
     .compileComponents();
 

@@ -1,21 +1,15 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef,
   OnDestroy,
   OnInit,
-  ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   debounceTime,
-  distinct,
   distinctUntilChanged,
-  filter,
-  fromEvent,
   Subscription,
-  tap,
 } from 'rxjs';
 
 @Component({

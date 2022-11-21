@@ -1,33 +1,44 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { provideMockStore } from '@ngrx/store/testing';
 import { noop, of } from 'rxjs';
 import { Albums } from 'src/app/core/models/album.models';
 import { albumMockData, albumWithTracksMockData } from 'src/Test-utilities/album-mock-data';
+import { savedItemsMockStore, topUserAlbumsStoreMock } from 'src/Test-utilities/store-mocks-data';
 
 import { AlbumService } from '../album.service';
 
 describe('AlbumService', () => {
   let albumService: AlbumService;
-
+  let snackbar: MatSnackBar;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   const ALBUM = albumWithTracksMockData;
 
   beforeEach(() => {
+    const snackbarSpy = jasmine.createSpyObj(snackbar,['open'])
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [],
+      providers: [
+        provideMockStore({
+          initialState:{
+            topUserAlbums: topUserAlbumsStoreMock,
+            savedItems: savedItemsMockStore
+          }
+        }),
+        {provide: MatSnackBar, useValue: snackbarSpy}
+      ],
     });
     albumService = TestBed.inject(AlbumService);
-
+    snackbar = TestBed.inject(MatSnackBar)
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
 
     spyOn(albumService, 'getAlbumReleases').and.callThrough();
-    spyOn(albumService, 'saveAlbum').and.callThrough();
-    spyOn(albumService, 'deleteAlbum').and.callThrough();
   });
 
   it('should be created', () => {

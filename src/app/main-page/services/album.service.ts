@@ -40,8 +40,6 @@ export class AlbumService {
     }
   }
 
-
-
   checkSavedAlbum(albumId: string) {
     const queryParams = new HttpParams().append('ids', albumId);
 

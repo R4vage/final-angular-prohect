@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.subjectUnsubscriber),
         tap((params) => {
-          console.log(params)
           this.code = params['code'];
           this.state = params['state'];
           this.error = params['error'];

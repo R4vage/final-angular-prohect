@@ -35,6 +35,7 @@ export interface AlbumItem {
   tracks?: Tracks;
   type: string;
   uri: string;
+  
 }
 
 export interface Album extends AlbumItem {
