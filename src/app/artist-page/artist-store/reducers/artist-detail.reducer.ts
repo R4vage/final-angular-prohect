@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as ArtistDetailActions from '../actions/artist-detail.actions';
 import { ArtistDetails } from 'src/app/core/models/artist.models';

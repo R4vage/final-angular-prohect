@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Component,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,12 +16,10 @@ import {
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss'],
 })
-export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SearchBarComponent implements AfterViewInit, OnDestroy {
   subscription$!: Subscription;
   inputControl = new FormControl('')
   constructor(private router: Router) {}
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.subscription$ = this.inputControl.valueChanges

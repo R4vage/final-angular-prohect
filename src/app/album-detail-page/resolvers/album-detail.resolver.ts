@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { filter, finalize, first, Observable, tap } from 'rxjs';
 import { loadAlbum } from 'src/app/main-page/main-page-store/actions/albums.actions';
-import { AlbumState } from 'src/app/main-page/main-page-store/reducers/albums.reducer';
 import { isAlbumInStore } from 'src/app/main-page/main-page-store/selectors/album.selectors';
-import { checkSavedItems } from 'src/app/saved-store/saved-item.actions';
-import { prepareIdArray } from 'src/app/saved-store/saved-item.helpers';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,10 @@ export class AlbumDetailResolver implements Resolve<boolean> {
   loading = false;
   constructor(private store: Store) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> {
     return this.store.pipe(
       select(isAlbumInStore(route.params['id'])),
       tap({

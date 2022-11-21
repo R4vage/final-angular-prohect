@@ -1,8 +1,7 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as ArtistAlbumsActions from '../actions/artist-albums.actions';
-import { ArtistAlbums } from 'src/app/core/models/artist.models';
-import { AlbumItem, Albums } from 'src/app/core/models/album.models';
+import { Albums } from 'src/app/core/models/album.models';
 
 export interface ArtAlbums {
   id: string;
@@ -44,10 +43,6 @@ export const reducer = createReducer(
   on(ArtistAlbumsActions.deleteArtistAlbumss, (state, action) =>
     adapter.removeMany(action.ids, state)
   ),
-  //on(ArtistAlbumsActions.load),
-  //on(ArtistAlbumsActions.loadArtistAlbumss, (state, action) =>
-  //  adapter.setAll(action.artistAlbumss, state)
-  //),
   on(ArtistAlbumsActions.clearArtistAlbumss, (state) =>
     adapter.removeAll(state)
   )

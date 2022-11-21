@@ -15,7 +15,12 @@ import { MyMusicPageRestService } from '../../services/my-music-page-rest.servic
 import { Track } from 'src/app/core/models/track.models';
 import { SavedItem } from 'src/app/saved-store/saved-item.reducer';
 import { select, Store } from '@ngrx/store';
-import { addSavedItemsSuccess } from 'src/app/saved-store/saved-item.actions';
+import {
+  addSavedItemsSuccess,
+  updateSavedItems,
+  updateSavedItemSuccess,
+  upsertSavedItems,
+} from 'src/app/saved-store/saved-item.actions';
 import { selectTotalSavedTracksCount } from '../selectors/saved-tracks.selectors';
 
 @Injectable()
@@ -37,7 +42,7 @@ export class SavedTracksEffects {
               });
             });
             this.savedStore.dispatch(
-              addSavedItemsSuccess({ savedItems: newSavedItems })
+              upsertSavedItems({ savedItems: newSavedItems })
             );
 
             return savedTrackActions.loadSavedTracksSuccess({
@@ -63,7 +68,7 @@ export class SavedTracksEffects {
           filter((itemsCount) => {
             return itemsCount.totalItems > 20 && itemsCount.currentItems < 10;
           }),
-          map((itemsCount) => {
+          map(() => {
             return savedTrackActions.loadSavedTracks();
           }),
           catchError((error) =>

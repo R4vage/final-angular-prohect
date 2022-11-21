@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import { User } from '../core/models/user-profile.models';
@@ -9,12 +9,10 @@ import { Kind } from './saved-item.reducer';
 @Injectable({
   providedIn: 'root',
 })
-export class SavedItemRestService implements OnInit {
+export class SavedItemRestService {
   URL = 'https://api.spotify.com/v1';
   userId!: string;
   constructor(private http: HttpClient, private store: Store<User>) {}
-
-  ngOnInit(): void {}
 
   checkUserSavedTracks(trackIds: string[]): Observable<boolean[]> {
     return this.http.get<boolean[]>(

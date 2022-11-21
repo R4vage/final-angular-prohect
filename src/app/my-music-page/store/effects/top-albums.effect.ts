@@ -9,6 +9,7 @@ import { SavedItem } from 'src/app/saved-store/saved-item.reducer';
 import { Store } from '@ngrx/store';
 import {
   addSavedItemsSuccess,
+  upsertSavedItems,
 } from 'src/app/saved-store/saved-item.actions';
 import { selectTotalSavedAlbumsCount } from '../selectors/top-albums.selectors';
 
@@ -31,7 +32,7 @@ export class TopAlbumsEffects {
               });
             });
             this.savedStore.dispatch(
-              addSavedItemsSuccess({ savedItems: newSavedItems })
+              upsertSavedItems({ savedItems: newSavedItems })
             );
 
             return topAlbumsActions.loadTopUserAlbumsSuccess({
@@ -60,7 +61,9 @@ export class TopAlbumsEffects {
           }),
           catchError((error) =>
             of(
-              topAlbumsActions.loadTopUserAlbumsFailure({ error: error.message })
+              topAlbumsActions.loadTopUserAlbumsFailure({
+                error: error.message,
+              })
             )
           )
         );
