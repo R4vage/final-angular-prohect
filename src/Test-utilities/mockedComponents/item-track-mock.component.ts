@@ -7,10 +7,9 @@ import { Track } from 'src/app/core/models/track.models';
   template: '<p>Mocked Component</p>',
 })
 export class TrackItemComponentMock {
-  @Input() track!:Track;
-  @Input() index!:number;
+  @Input() track!: Track;
+  @Input() index!: number;
   @Input() album!: AlbumItem;
   loading = false;
-  isSaved: boolean | undefined = false
-  
+  isSaved: boolean | undefined = false;
 }

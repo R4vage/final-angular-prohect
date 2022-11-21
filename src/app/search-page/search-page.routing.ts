@@ -8,9 +8,9 @@ const routes: Routes = [
     path: '',
     component: SearchPageComponent,
     resolve: {
-        search: SearchResolver
+      search: SearchResolver,
     },
-    runGuardsAndResolvers: 'always'
+    runGuardsAndResolvers: 'always',
   },
 ];
 

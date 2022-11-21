@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { noop, Observable, of, throwError } from 'rxjs';
+import { noop, of } from 'rxjs';
 import { MaterialModule } from 'src/app/material/material.module';
 import { TrackService } from '../services/track.service';
 
@@ -16,13 +16,10 @@ import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Store } from '@ngrx/store';
-import { Track } from 'src/app/core/models/track.models';
 import { AudioPlayerComponent } from 'src/app/shared/components/audio-player/audio-player.component';
 import { ListArtistsPipe } from 'src/app/shared/pipes/list-artists.pipe';
 import { SecondTrackMusicPipe } from 'src/app/shared/pipes/second-track-music.pipe';
 import { trackMockData } from 'src/Test-utilities/track-mock-data';
-import { provideMockActions } from '@ngrx/effects/testing';
 import { Actions } from '@ngrx/effects';
 import { provideMockStore } from '@ngrx/store/testing';
 import {

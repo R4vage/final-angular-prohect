@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { User } from 'src/app/core/models/user-profile.models';
 import * as UserActions from '../actions/user.actions';
 

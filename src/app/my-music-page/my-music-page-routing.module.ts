@@ -10,7 +10,7 @@ const routes: Routes = [
     component: MyMusicPageComponent,
     resolve: {
       topAlbums: TopUserAlbumsResolver,
-      savedTracks: SavedTracksResolver
+      savedTracks: SavedTracksResolver,
     },
   },
 ];

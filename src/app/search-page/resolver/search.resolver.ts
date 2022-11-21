@@ -5,7 +5,7 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, finalize, first, Observable, tap } from 'rxjs';
+import { finalize, first, Observable, tap } from 'rxjs';
 import { addSearch } from '../search-store/search.actions';
 import { SearchState } from '../search-store/search.reducer';
 import { searchHasBeenDone } from '../search-store/search.selectors';
@@ -32,11 +32,7 @@ export class SearchResolver implements Resolve<boolean> {
           }
         },
       }),
-      filter(() => {
-        return true;
-      }),
       first(),
-
       finalize(() => {
         this.loading = false;
       })

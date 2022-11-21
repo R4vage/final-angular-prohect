@@ -9,16 +9,15 @@ import { selectAllTopAlbums } from './store/selectors/top-albums.selectors';
 @Component({
   selector: 'app-my-music-page',
   templateUrl: './my-music-page.component.html',
-  styleUrls: ['./my-music-page.component.scss']
+  styleUrls: ['./my-music-page.component.scss'],
 })
 export class MyMusicPageComponent implements OnInit {
   userAlbums$!: Observable<AlbumItem[]>;
-  savedTracks$!: Observable<Track[]>
-  constructor(private store:Store) { }
+  savedTracks$!: Observable<Track[]>;
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.userAlbums$ = this.store.select(selectAllTopAlbums)
-    this.savedTracks$ = this.store.select(selectAllSavedTracks)
+    this.userAlbums$ = this.store.select(selectAllTopAlbums);
+    this.savedTracks$ = this.store.select(selectAllSavedTracks);
   }
-
 }

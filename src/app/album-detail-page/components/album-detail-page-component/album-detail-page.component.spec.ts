@@ -112,7 +112,6 @@ describe('AlbumDetailPageComponent', () => {
   it('should create and redirect correctly', async () => {
     expect(component).toBeTruthy();
     expect(location.path()).toBe(`/album/${ID_ALBUM}`);
-    console.log(ID_ALBUM)
     expect(component.idAlbum).toBe(ID_ALBUM);
   });
 

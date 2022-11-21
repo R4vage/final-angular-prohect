@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
-import { map, switchMap, throwError } from 'rxjs';
+import { map } from 'rxjs';
 import { Album, AlbumItem, Albums } from 'src/app/core/models/album.models';
 import {
   addTopUserAlbum,

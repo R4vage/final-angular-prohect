@@ -12,18 +12,21 @@ import { selectSearchByValue } from './search-store/search.selectors';
   styleUrls: ['./search-page.component.scss'],
 })
 export class SearchPageComponent implements OnInit {
-  searchResults$!:Observable<SearchResults | undefined>;
-  searchValue!:string;
-  constructor(private route: ActivatedRoute, private store: Store<SearchState>) { }
+  searchResults$!: Observable<SearchResults | undefined>;
+  searchValue!: string;
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store<SearchState>
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe({
       next: (params) => {
         this.searchValue = params['value'];
-        this.searchResults$ = this.store.select(selectSearchByValue(this.searchValue)).pipe(
-          map(result => result?.results)
-        );
-      } 
+        this.searchResults$ = this.store
+          .select(selectSearchByValue(this.searchValue))
+          .pipe(map((result) => result?.results));
+      },
     });
   }
 }

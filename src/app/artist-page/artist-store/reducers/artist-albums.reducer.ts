@@ -24,28 +24,7 @@ export const reducer = createReducer(
   on(ArtistAlbumsActions.addArtistAlbumsSuccess, (state, action) =>
     adapter.addOne(action.artistAlbums, state)
   ),
-  on(ArtistAlbumsActions.addArtistAlbums, (state) => state),
-  on(ArtistAlbumsActions.upsertArtistAlbums, (state, action) =>
-    adapter.upsertOne(action.artistAlbums, state)
-  ),
-  on(ArtistAlbumsActions.upsertArtistAlbumss, (state, action) =>
-    adapter.upsertMany(action.artistAlbumss, state)
-  ),
-  on(ArtistAlbumsActions.updateArtistAlbums, (state, action) =>
-    adapter.updateOne(action.artistAlbums, state)
-  ),
-  on(ArtistAlbumsActions.updateArtistAlbumss, (state, action) =>
-    adapter.updateMany(action.artistAlbumss, state)
-  ),
-  on(ArtistAlbumsActions.deleteArtistAlbums, (state, action) =>
-    adapter.removeOne(action.id, state)
-  ),
-  on(ArtistAlbumsActions.deleteArtistAlbumss, (state, action) =>
-    adapter.removeMany(action.ids, state)
-  ),
-  on(ArtistAlbumsActions.clearArtistAlbumss, (state) =>
-    adapter.removeAll(state)
-  )
+  on(ArtistAlbumsActions.addArtistAlbums, (state) => state)
 );
 
 export const { selectIds, selectEntities, selectAll, selectTotal } =

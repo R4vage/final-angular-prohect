@@ -3,7 +3,7 @@ import { Item, Playlist } from '../core/models/playlist.models';
 import { Track } from '../core/models/track.models';
 
 export function prepareIdArray(
-  itemArray: Artist[] | AlbumItem[] | Track[] | Playlist[] 
+  itemArray: Artist[] | AlbumItem[] | Track[] | Playlist[]
 ): string[] {
   let arrayIds: string[] = [];
   itemArray.map((item) => {
@@ -13,9 +13,9 @@ export function prepareIdArray(
 }
 
 export function prepareIdArrayFromItems(itemArray: Item[]) {
-  let arrayIds: string[] = []
+  let arrayIds: string[] = [];
   itemArray.map((item) => {
-    arrayIds.push(item.track.id)
-  })
-  return arrayIds
+    arrayIds.push(item.track.id);
+  });
+  return arrayIds;
 }

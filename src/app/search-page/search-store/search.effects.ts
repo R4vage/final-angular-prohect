@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { act, Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, take } from 'rxjs/operators';
-import { Observable, EMPTY, of } from 'rxjs';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, concatMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 import * as searchesActions from './search.actions';
-import { AlbumItem } from 'src/app/core/models/album.models';
 import { SearchRestService } from '../services/search-rest.service';
 import { prepareIdArray } from 'src/app/saved-store/saved-item.helpers';
 import { Kind, SavedItem } from 'src/app/saved-store/saved-item.reducer';

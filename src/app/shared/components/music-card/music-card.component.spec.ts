@@ -28,7 +28,7 @@ describe('MusicCardComponent', () => {
     el = fixture.debugElement;
     component.musicData = {
       title: 'Title Card',
-      imageUrl: 'image',
+      imageUrl: './assets/image-not-found.png',
       artist: 'Me',
       date: 'Nov 9, 2022',
       duration: '10 minutes',
@@ -52,7 +52,7 @@ describe('MusicCardComponent', () => {
     const img = el.query(By.css('.image-card'));
 
     const srcImg = img.attributes['src'];
-    expect(srcImg).toBe('image');
+    expect(srcImg).toBe('./assets/image-not-found.png');
   });
 
   it('should have artist', () => {

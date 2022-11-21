@@ -17,7 +17,7 @@ import { TrackService } from 'src/app/track-detail-page/services/track.service';
     TrackCardComponent,
     ArtistCardComponent,
     AlbumCardComponent,
-    PlaylistCardComponent
+    PlaylistCardComponent,
   ],
   imports: [
     CommonModule,
@@ -25,17 +25,15 @@ import { TrackService } from 'src/app/track-detail-page/services/track.service';
     RouterModule,
     MatCardModule,
     MatTooltipModule,
-    MatIconModule
+    MatIconModule,
   ],
-  exports:[
+  exports: [
     CardFlexComponent,
     TrackCardComponent,
     ArtistCardComponent,
     AlbumCardComponent,
-    PlaylistCardComponent
+    PlaylistCardComponent,
   ],
-  providers: [
-    TrackService
-  ]
+  providers: [TrackService],
 })
-export class CardFlexModule { }
+export class CardFlexModule {}

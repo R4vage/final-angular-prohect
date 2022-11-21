@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, tap, filter } from 'rxjs/operators';
+import { catchError, map, concatMap, filter } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as topAlbumsActions from '../actions/top-albums.actions';
 import { MyMusicPageRestService } from '../../services/my-music-page-rest.service';
 import { AlbumItem } from 'src/app/core/models/album.models';
 import { SavedItem } from 'src/app/saved-store/saved-item.reducer';
 import { Store } from '@ngrx/store';
-import {
-  addSavedItemsSuccess,
-  upsertSavedItems,
-} from 'src/app/saved-store/saved-item.actions';
+import { upsertSavedItems } from 'src/app/saved-store/saved-item.actions';
 import { selectTotalSavedAlbumsCount } from '../selectors/top-albums.selectors';
 
 @Injectable()

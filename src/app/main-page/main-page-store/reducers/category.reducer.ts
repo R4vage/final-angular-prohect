@@ -9,7 +9,8 @@ export interface CategoryState extends EntityState<CategoryItem> {
   allCategoriesLoaded: boolean;
 }
 
-export const adapter: EntityAdapter<CategoryItem> = createEntityAdapter<CategoryItem>();
+export const adapter: EntityAdapter<CategoryItem> =
+  createEntityAdapter<CategoryItem>();
 
 export const categoryInitialState: CategoryState = adapter.getInitialState({
   allCategoriesLoaded: false,
@@ -17,10 +18,22 @@ export const categoryInitialState: CategoryState = adapter.getInitialState({
 
 export const reducer = createReducer(
   categoryInitialState,
-  on(CategoryActions.allCategoriesLoaded, (state, action) => adapter.upsertMany(action.categories, { ...state, allCategoriesLoaded: true })),
-  on(CategoryActions.addCategory, (state, action) => adapter.addOne(action.category, state)),
-  on(CategoryActions.upsertCategory, (state, action) => adapter.upsertOne(action.category, state)),
-  on(CategoryActions.deleteCategory, (state, action) => adapter.removeOne(action.id, state)),
+  on(CategoryActions.allCategoriesLoaded, (state, action) =>
+    adapter.upsertMany(action.categories, {
+      ...state,
+      allCategoriesLoaded: true,
+    })
+  ),
+  on(CategoryActions.addCategory, (state, action) =>
+    adapter.addOne(action.category, state)
+  ),
+  on(CategoryActions.upsertCategory, (state, action) =>
+    adapter.upsertOne(action.category, state)
+  ),
+  on(CategoryActions.deleteCategory, (state, action) =>
+    adapter.removeOne(action.id, state)
+  )
 );
 
-export const { selectIds, selectEntities, selectAll, selectTotal } = adapter.getSelectors();
+export const { selectIds, selectEntities, selectAll, selectTotal } =
+  adapter.getSelectors();

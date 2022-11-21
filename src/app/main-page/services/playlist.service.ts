@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
-import { map, switchMap, throwError } from 'rxjs';
+import { map } from 'rxjs';
 import {
   MainPlaylistResponse,
   Playlist,
@@ -40,12 +40,6 @@ export class PlaylistService {
         panelClass: ['bg-emerald-400', 'text-black', 'font-medium'],
       });
     }
-  }
-
-  unfollowPlaylistStore(playlistId: string) {
-    this.store.dispatch(
-      updateSavedItem({ id: playlistId, kind: 'playlist', isSaved: false })
-    );
   }
 
   getFeaturedPlaylists(limit = 20, offset = 0) {

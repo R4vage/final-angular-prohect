@@ -9,10 +9,9 @@ describe('MyMusicPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MyMusicPageComponent ],
-      providers:[provideMockStore()]
-    })
-    .compileComponents();
+      declarations: [MyMusicPageComponent],
+      providers: [provideMockStore()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MyMusicPageComponent);
     component = fixture.componentInstance;

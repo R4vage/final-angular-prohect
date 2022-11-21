@@ -4,7 +4,10 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatIconHarness } from '@angular/material/icon/testing';
-import { MatListHarness, MatListItemHarness } from '@angular/material/list/testing';
+import {
+  MatListHarness,
+  MatListItemHarness,
+} from '@angular/material/list/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from 'src/app/material/material.module';
@@ -20,7 +23,12 @@ describe('SideNavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedModule, MaterialModule, NoopAnimationsModule, RouterTestingModule],
+      imports: [
+        SharedModule,
+        MaterialModule,
+        NoopAnimationsModule,
+        RouterTestingModule,
+      ],
       declarations: [SideNavComponent],
     }).compileComponents();
 
@@ -59,15 +67,21 @@ describe('SideNavComponent', () => {
 
     expect(sections).toBeTruthy();
     (sections as MatListItemHarness[]).forEach(async (sectionItem, index) => {
-      const sectionButton = await sectionItem.getHarnessOrNull(MatButtonHarness);
+      const sectionButton = await sectionItem.getHarnessOrNull(
+        MatButtonHarness
+      );
       const sectionIcon = await sectionButton?.getHarnessOrNull(MatIconHarness);
 
       expect(sectionItem).toBeTruthy();
       expect(sectionButton).toBeTruthy();
       expect(sectionIcon).toBeTruthy();
 
-      expect(await sectionIcon?.getName()).toBe(`${component.sections[index].icon}`);
-      expect(await sectionButton?.getText()).toBe(`${component.sections[index].icon} ${component.sections[index].label}`);
+      expect(await sectionIcon?.getName()).toBe(
+        `${component.sections[index].icon}`
+      );
+      expect(await sectionButton?.getText()).toBe(
+        `${component.sections[index].icon} ${component.sections[index].label}`
+      );
     });
   });
 });

@@ -19,7 +19,7 @@ import { selectSavedItemById } from 'src/app/saved-store/saved-item.selectors';
 })
 export class AlbumDetailPageComponent implements OnInit, OnDestroy {
   album$!: Observable<Album | undefined>;
-  subscription!: Subscription;
+  subscriptions: Subscription[] = [];
   loading = false;
   idAlbum!: string;
   isAlbumSaved = true;
@@ -32,19 +32,21 @@ export class AlbumDetailPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.route.params.subscribe({
-      next: (params) => {
-        this.idAlbum = params['id'];
-        this.album$ = this.store.pipe(
-          select(selectAlbumById(this.idAlbum))
-        ) as Observable<Album>;
-      },
-    });
-    this.store
-      .select(selectSavedItemById(this.idAlbum))
-      .subscribe((savedItem) => {
-        return (this.isAlbumSaved = savedItem?.isSaved as boolean);
-      });
+    this.subscriptions.push(
+      this.route.params.subscribe({
+        next: (params) => {
+          this.idAlbum = params['id'];
+          this.album$ = this.store.pipe(
+            select(selectAlbumById(this.idAlbum))
+          ) as Observable<Album>;
+        },
+      }),
+      this.store
+        .select(selectSavedItemById(this.idAlbum))
+        .subscribe((savedItem) => {
+          return (this.isAlbumSaved = savedItem?.isSaved as boolean);
+        })
+    );
   }
 
   getImage(album: AlbumItem) {
@@ -64,6 +66,6 @@ export class AlbumDetailPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.map((subscription) => subscription.unsubscribe());
   }
 }

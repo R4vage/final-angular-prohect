@@ -4,8 +4,8 @@ import { User } from 'src/app/core/models/user-profile.models';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent{
-  @Input() user!:User
+export class ProfileComponent {
+  @Input() user!: User;
 }

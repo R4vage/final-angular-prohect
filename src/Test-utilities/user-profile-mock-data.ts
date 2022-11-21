@@ -20,7 +20,13 @@ export const userMock: User = {
     },
     href: 'mock',
     id: 'mock',
-    images:[],
+    images:[
+        {
+            url:'./assets/image-not-found.png',
+            height:200,
+            width: 200
+        }
+    ],
     product:'mock',
     type: 'mock',
     uri: 'mock',

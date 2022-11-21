@@ -7,8 +7,7 @@ import { Track } from 'src/app/core/models/track.models';
   templateUrl: './tracks-list.component.html',
   styleUrls: ['./tracks-list.component.scss'],
 })
-export class TracksListComponent{
+export class TracksListComponent {
   @Input() tracks!: Track[] | undefined;
   @Input() album!: AlbumItem;
-  constructor() {}
 }

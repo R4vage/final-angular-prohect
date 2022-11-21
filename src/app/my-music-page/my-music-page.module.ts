@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MyMusicPageComponent } from './my-music-page.component';
 import { MyMusicPageRoutingModule } from './my-music-page-routing.module';
 import { StoreModule } from '@ngrx/store';
-import * as fromTopAlbums from './store/reducers/top-albums.reducer'
-import * as fromSavedTracks from './store/reducers/saved-tracks.reducer'
+import * as fromTopAlbums from './store/reducers/top-albums.reducer';
+import * as fromSavedTracks from './store/reducers/saved-tracks.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { TopAlbumsEffects } from './store/effects/top-albums.effect';
 import { CardFlexModule } from '../shared/modules/card-flex/card-flex.module';
@@ -18,20 +18,17 @@ const Stores = [
   StoreModule.forFeature(
     fromSavedTracks.savedTracksFeatureKey,
     fromSavedTracks.reducer
-  )
-]
-
+  ),
+];
 
 @NgModule({
-  declarations: [
-    MyMusicPageComponent
-  ],
+  declarations: [MyMusicPageComponent],
   imports: [
     CommonModule,
     MyMusicPageRoutingModule,
     Stores,
     EffectsModule.forFeature([TopAlbumsEffects, SavedTracksEffects]),
-    CardFlexModule
-  ]
+    CardFlexModule,
+  ],
 })
-export class MyMusicPageModule { }
+export class MyMusicPageModule {}

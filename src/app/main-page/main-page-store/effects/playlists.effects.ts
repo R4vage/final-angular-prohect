@@ -6,7 +6,12 @@ import { catchError, concatMap, map } from 'rxjs';
 import { checkSavedItems } from 'src/app/saved-store/saved-item.actions';
 import { prepareIdArrayFromItems } from 'src/app/saved-store/saved-item.helpers';
 import { PlaylistService } from '../../services/playlist.service';
-import { allPlaylistsLoaded, loadPlaylist, loadPlaylists, upsertPlaylist } from '../actions/playlists.actions';
+import {
+  allPlaylistsLoaded,
+  loadPlaylist,
+  loadPlaylists,
+  upsertPlaylist,
+} from '../actions/playlists.actions';
 
 @Injectable()
 export class PlaylistsEffects {
@@ -33,8 +38,10 @@ export class PlaylistsEffects {
         throw err;
       }),
       map((playlist) => {
-        let trackIds = prepareIdArrayFromItems(playlist.tracks.items.slice(0,20));
-        this.store.dispatch(checkSavedItems({ ids: trackIds, kind: 'track' }))
+        let trackIds = prepareIdArrayFromItems(
+          playlist.tracks.items.slice(0, 20)
+        );
+        this.store.dispatch(checkSavedItems({ ids: trackIds, kind: 'track' }));
         this.store.dispatch(
           checkSavedItems({ ids: [playlist.id], kind: 'playlist' })
         );
@@ -43,5 +50,10 @@ export class PlaylistsEffects {
     );
   });
 
-  constructor(private actions$: Actions, private playlistService: PlaylistService, private router: Router, private store: Store) {}
+  constructor(
+    private actions$: Actions,
+    private playlistService: PlaylistService,
+    private router: Router,
+    private store: Store
+  ) {}
 }

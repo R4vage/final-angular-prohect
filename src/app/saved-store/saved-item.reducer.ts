@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as SavedItemActions from './saved-item.actions';
 
@@ -12,16 +12,12 @@ export interface SavedItem {
 
 export const savedItemsFeatureKey = 'savedItems';
 
-export interface SavedState extends EntityState<SavedItem> {
-  // additional entities state properties
-}
+export interface SavedState extends EntityState<SavedItem> {}
 
 export const adapter: EntityAdapter<SavedItem> =
   createEntityAdapter<SavedItem>();
 
-export const initialState: SavedState = adapter.getInitialState({
-  // additional entity state properties
-});
+export const initialState: SavedState = adapter.getInitialState({});
 
 export const reducer = createReducer(
   initialState,
@@ -60,17 +56,7 @@ export const reducer = createReducer(
   ),
   on(SavedItemActions.updateSavedItems, (state, action) =>
     adapter.updateMany(action.savedItems, state)
-  ),
-  on(SavedItemActions.deleteSavedItem, (state, action) =>
-    adapter.removeOne(action.id, state)
-  ),
-  on(SavedItemActions.deleteSavedItems, (state, action) =>
-    adapter.removeMany(action.ids, state)
-  ),
-  on(SavedItemActions.loadSavedItems, (state, action) =>
-    adapter.setAll(action.savedItems, state)
-  ),
-  on(SavedItemActions.clearSavedItems, (state) => adapter.removeAll(state))
+  )
 );
 
 export const { selectIds, selectEntities, selectAll, selectTotal } =
