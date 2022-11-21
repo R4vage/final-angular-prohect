@@ -1,3 +1,4 @@
+import { UserSavedTracksResponse } from 'src/app/core/models/rest.models';
 import { Track } from 'src/app/core/models/track.models';
 
 export const trackMockData: Track = {
@@ -92,3 +93,16 @@ export const trackMockData: Track = {
   type: 'track',
   uri: 'spotify:track:1yoIBbCENxL0dSkkhy88iB',
 };
+
+export const userSavedTracksMock: UserSavedTracksResponse = {
+  href: 'mock',
+  items: [{
+    added_at: 'mock',
+    track: trackMockData
+  }],
+  limit: 50,
+  next: null,
+  offset: 0,
+  previous: null,
+  total: 13,
+}

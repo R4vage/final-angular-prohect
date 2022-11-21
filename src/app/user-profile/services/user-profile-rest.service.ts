@@ -10,17 +10,12 @@ import { User } from 'src/app/core/models/user-profile.models';
 })
 export class UserProfileRestService {
   URL = 'https://api.spotify.com/v1'
-  options = {
-    params:{
-      'Content-Type': 'application/json'
-    }
-  }
+
   constructor(private http: HttpClient) { }
 
   getProfile():Observable<User>{
-    return this.http.get<User>(`${this.URL}/me`, this.options)
+    return this.http.get<User>(`${this.URL}/me`)
   }
-
 
   getUsersTopArtists():Observable<UserTopArtistsResponse> {
     return this.http.get<UserTopArtistsResponse>(`${this.URL}/me/top/artists?time_range=medium_term&limit=10`)

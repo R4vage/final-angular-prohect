@@ -1,21 +1,41 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { noop, of } from 'rxjs';
+import { savedItemsMockStore, savedTracksStoreMock } from 'src/Test-utilities/store-mocks-data';
 import { trackMockData } from 'src/Test-utilities/track-mock-data';
 
 import { TrackService } from './track.service';
 
 describe('TrackService', () => {
   let trackService: TrackService;
-
+  let snackbar: MatSnackBar;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
+  let store: MockStore;
 
   const TRACK = trackMockData;
   beforeEach(() => {
+    const snackbarSpy = jasmine.createSpyObj(snackbar, ['open'])
+    
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
+      providers: [TrackService,
+      {
+        provide:MatSnackBar,
+        useValue: snackbarSpy
+      },
+      provideMockStore({
+        initialState: {
+          savedItems: savedItemsMockStore,
+          savedTracks: savedTracksStoreMock
+        },
+        selectors: []
+      })
+    
+    ]
     });
     trackService = TestBed.inject(TrackService);
 
@@ -191,6 +211,14 @@ describe('TrackService', () => {
 
     expect(trackService.deleteTrack).toHaveBeenCalledTimes(1);
   });
+
+/*   it("should save track if isSaved is false and changeSaved is triggered", ()=> {
+    trackService.changeSavedTrack(trackMockData, true);
+    spyOn(trackService, 'deleteTrackStore').and.callThrough(); 
+    expect(trackService.deleteTrackStore).toHaveBeenCalledTimes(1);
+    expect(snackbar.open).toHaveBeenCalledTimes(1)
+
+  }) */
 
   afterEach(() => {
     httpTestingController.verify();

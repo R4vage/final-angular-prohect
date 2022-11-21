@@ -2,17 +2,11 @@ import {
   Component,
   Input,
   OnInit,
-  Output,
-  EventEmitter,
   OnDestroy,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
 } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { debounceTime, fromEvent, Subscription, take, timer } from 'rxjs';
-import { ArtistPageRestService } from 'src/app/artist-page/services/artist-page-rest.service';
+import { Subscription, take } from 'rxjs';
 import { Artist } from 'src/app/core/models/album.models';
 import {
   updateSavedItem,

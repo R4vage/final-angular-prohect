@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { MyMusicPageComponent } from '../my-music-page.component';
 
@@ -8,7 +9,8 @@ describe('MyMusicPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MyMusicPageComponent ]
+      declarations: [ MyMusicPageComponent ],
+      providers:[provideMockStore()]
     })
     .compileComponents();
 

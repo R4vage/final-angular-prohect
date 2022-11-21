@@ -12,6 +12,8 @@ import * as fromSearchActions from './search-store/search.selectors'
 import { DefaultProjectorFn, MemoizedSelector } from '@ngrx/store';
 import { Search, SearchState } from './search-store/search.reducer';
 import { SearchResults } from '../core/models/rest.models';
+import { RouterTestingModule } from '@angular/router/testing';
+import { savedItemsMockStore } from 'src/Test-utilities/store-mocks-data';
 
 describe('SearchPageComponent', () => {
   let component: SearchPageComponent;
@@ -20,7 +22,6 @@ describe('SearchPageComponent', () => {
   let searchValue = 'mockValue';
   let store: MockStore;
   let debug: DebugElement;
-  let mockSelectSearchByValue: MemoizedSelector<SearchState, Search[]>;
 
   beforeEach(async () => {  
 
@@ -29,16 +30,15 @@ describe('SearchPageComponent', () => {
 
       declarations: [ SearchPageComponent ],
       providers:[
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            params: of({value: searchValue}),
+        provideMockStore({
+          initialState: {
+            savedItems: savedItemsMockStore,
+            searches: searchStoreMock
           }
-        },
-        provideMockStore(/* {
-          initialState: resultsMockData,
-          selectors: SearchStoreSelectorsMock
-        } */)
+        })
+      ],
+      imports: [
+        RouterTestingModule
       ]
     })
     .compileComponents();

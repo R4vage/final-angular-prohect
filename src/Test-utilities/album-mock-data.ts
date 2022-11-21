@@ -1,4 +1,6 @@
 import { Album, AlbumItem } from 'src/app/core/models/album.models';
+import { UserAlbumsResponse } from 'src/app/core/models/rest.models';
+import { trackMockData } from './track-mock-data';
 
 export const albumMockData: AlbumItem[] = [
   {
@@ -325,6 +327,7 @@ export const albumWithTracksMockData: Album = {
   tracks: {
     href: 'https://api.spotify.com/v1/albums/4PR6koe67C7YosjAYriYh4/tracks?offset=0&limit=50&locale=es-419,es',
     items: [
+      trackMockData
       
     ],
     limit: 50,
@@ -336,3 +339,17 @@ export const albumWithTracksMockData: Album = {
   type: 'album',
   uri: 'spotify:album:4PR6koe67C7YosjAYriYh4',
 };
+
+
+export const userAlbumsResponseMock: UserAlbumsResponse = {
+  href: 'mock',
+  items: [{
+    added_at: 'mock',
+    album: albumMockData[0]
+  }],
+  limit: 50,
+  next: null,
+  offset: 0,
+  previous: null,
+  total: 13,
+}
