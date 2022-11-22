@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subscription, take } from 'rxjs';
@@ -48,13 +43,11 @@ export class ArtistCardComponent implements OnInit, OnDestroy {
     if (!this.loading) {
       this.changeArtistSaveState();
       this.loading = true;
-      this.actions$.pipe(
-        ofType(updateSavedItemSuccess, updateSavedItemFailure),
-        take(1)
-      )
-      .subscribe(() => {
-        this.loading = false;
-      });
+      this.actions$
+        .pipe(ofType(updateSavedItemSuccess, updateSavedItemFailure), take(1))
+        .subscribe(() => {
+          this.loading = false;
+        });
     }
   }
 

@@ -1,15 +1,7 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-} from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  Subscription,
-} from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-bar',
@@ -18,16 +10,16 @@ import {
 })
 export class SearchBarComponent implements AfterViewInit, OnDestroy {
   subscription$!: Subscription;
-  inputControl = new FormControl('')
+  inputControl = new FormControl('');
   constructor(private router: Router) {}
 
   ngAfterViewInit(): void {
     this.subscription$ = this.inputControl.valueChanges
       .pipe(debounceTime(700), distinctUntilChanged())
       .subscribe((inputValue) => {
-        if (inputValue){
-        let value = inputValue.trim().toLowerCase();
-        this.sendToSearchPage(value);
+        if (inputValue) {
+          let value = inputValue.trim().toLowerCase();
+          this.sendToSearchPage(value);
         }
       });
   }

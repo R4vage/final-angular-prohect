@@ -1,7 +1,9 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { albumMockData, userAlbumsResponseMock } from 'src/Test-utilities/album-mock-data';
-import { topUserAlbumsStoreMock } from 'src/Test-utilities/store-mocks-data';
+import { userAlbumsResponseMock } from 'src/Test-utilities/album-mock-data';
 import { userSavedTracksMock } from 'src/Test-utilities/track-mock-data';
 
 import { MyMusicPageRestService } from '../services/my-music-page-rest.service';
@@ -16,7 +18,7 @@ describe('MyMusicPageRestService', () => {
       providers: [MyMusicPageRestService],
     });
     service = TestBed.inject(MyMusicPageRestService);
-    httpTestingController = TestBed.inject(HttpTestingController)
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {
@@ -33,7 +35,7 @@ describe('MyMusicPageRestService', () => {
     );
     expect(req.request.method).toEqual('GET');
     req.flush(userAlbumsResponseMock);
-    expect(service.getUsersTopAlbums).toHaveBeenCalledTimes(1)
+    expect(service.getUsersTopAlbums).toHaveBeenCalledTimes(1);
   });
 
   it('should prepare the correct request for getting users saved tracks', () => {
@@ -46,6 +48,6 @@ describe('MyMusicPageRestService', () => {
     );
     expect(req.request.method).toEqual('GET');
     req.flush(userSavedTracksMock);
-    expect(service.getUsersSavedTracks).toHaveBeenCalledTimes(1)
+    expect(service.getUsersSavedTracks).toHaveBeenCalledTimes(1);
   });
 });

@@ -8,7 +8,7 @@ import { MatToolbarHarness } from '@angular/material/toolbar/testing';
 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { provideMockStore } from '@ngrx/store/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { MaterialModule } from 'src/app/material/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -21,6 +21,7 @@ describe('LayoutComponent', () => {
   let fixture: ComponentFixture<LayoutComponent>;
   let loader: HarnessLoader;
   let el: DebugElement;
+  let store: MockStore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -34,7 +35,7 @@ describe('LayoutComponent', () => {
     el = fixture.debugElement;
 
     loader = TestbedHarnessEnvironment.loader(fixture);
-
+    store = TestBed.inject(MockStore)
     fixture.detectChanges();
   });
 
@@ -73,4 +74,10 @@ describe('LayoutComponent', () => {
     expect(outlet).toBeTruthy();
     expect(outlet.nativeElement.innerHTML).not.toBeNull();
   });
+
+  it('should dispatch logout', async () => {
+    spyOn(store, 'dispatch')
+    component.logOut();
+    expect(store.dispatch).toHaveBeenCalledOnceWith(Object({ type: '[Top Menu] Logout' }))
+  })
 });

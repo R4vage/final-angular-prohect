@@ -9,6 +9,7 @@ import { TopUserAlbumsState } from "src/app/my-music-page/store/reducers/top-alb
 import { SavedState } from "src/app/saved-store/saved-item.reducer";
 import { SearchState } from "src/app/search-page/search-store/search.reducer";
 import { TrackState } from "src/app/track-detail-page/track-detail-store/reducers/tracks.reducer";
+import { TopUserArtistState } from "src/app/user-profile/user-profile-store/reducers/top-artists.reducer";
 import { albumWithTracksMockData } from "./album-mock-data";
 import { artistMockData } from "./artists-mock-data";
 import { trackMockData } from "./track-mock-data";
@@ -1176,7 +1177,16 @@ export const playlistMockItem:Playlist =   {
   tracks: {
     href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWU4vz8xTaZmg/tracks',
     total: 100,
-    items: []
+    items: [
+      {
+        added_at: new Date(131),
+        added_by: {external_urls:{spotify:''}, href:'', id:'mock', type:'', uri:'asd'},
+        is_local:true,
+        primary_color:null,
+        video_thumbnail:{url:null},
+        track:trackMockData
+    }
+    ]
   },
   followers:{
     href:null,
@@ -4302,3 +4312,381 @@ export const userStoreMock:User = {
   uri: 'spotify:user:kme8nnikb0ylimns97in2bwkz',
   userLoaded: true,
 };
+
+export const topUserArtistsStoreMock:TopUserArtistState = {
+  "ids": [
+      "2suw8cZRpUiapwhFP8tASj",
+      "19eLuQmk9aCobbVDHc6eek",
+      "16GcWuvvybAoaHr0NqT8Eh",
+      "5R3NywPPOyhLfdvutgg0me",
+      "1dfeR4HaWDbWqFHLkxsg1d",
+      "3AA28KZvwAUcZuOKwyblJQ",
+      "0HNW5s2MMFqwKdnf2cmoeB",
+      "28INUgyzTTRbvSphrJbgZ2",
+      "5qw3MMovQQEq4URS46Ij5C",
+      "0WwSkZ7LtFUFjGjMZBMt6T"
+  ],
+  "entities": {
+      "2suw8cZRpUiapwhFP8tASj": {
+          "external_urls": {
+              "spotify": "https://open.spotify.com/artist/2suw8cZRpUiapwhFP8tASj"
+          },
+          "followers": {
+              "href": null,
+              "total": 27508
+          },
+          "genres": [
+              
+          ],
+          "href": "https://api.spotify.com/v1/artists/2suw8cZRpUiapwhFP8tASj",
+          "id": "2suw8cZRpUiapwhFP8tASj",
+          "images": [
+              {
+                  "height": 640,
+                  "url": "https://i.scdn.co/image/ab67616d0000b273142fadf98b3989f310f0fc19",
+                  "width": 640
+              },
+              {
+                  "height": 300,
+                  "url": "https://i.scdn.co/image/ab67616d00001e02142fadf98b3989f310f0fc19",
+                  "width": 300
+              },
+              {
+                  "height": 64,
+                  "url": "https://i.scdn.co/image/ab67616d00004851142fadf98b3989f310f0fc19",
+                  "width": 64
+              }
+          ],
+          "name": "Goodnight Moon ASMR",
+          "popularity": 42,
+          "type": "artist",
+          "uri": "spotify:artist:2suw8cZRpUiapwhFP8tASj"
+      },
+      "19eLuQmk9aCobbVDHc6eek": {
+          "external_urls": {
+              "spotify": "https://open.spotify.com/artist/19eLuQmk9aCobbVDHc6eek"
+          },
+          "followers": {
+              "href": null,
+              "total": 2570514
+          },
+          "genres": [
+
+          ],
+          "href": "https://api.spotify.com/v1/artists/19eLuQmk9aCobbVDHc6eek",
+          "id": "19eLuQmk9aCobbVDHc6eek",
+          "images": [
+              {
+                  "height": 1000,
+                  "url": "https://i.scdn.co/image/ab6772690000c46c4a0e9d5e55f9f3721c3243c5",
+                  "width": 1000
+              },
+              {
+                  "height": 640,
+                  "url": "https://i.scdn.co/image/ab6772690000dd224a0e9d5e55f9f3721c3243c5",
+                  "width": 640
+              },
+              {
+                  "height": 200,
+                  "url": "https://i.scdn.co/image/ab6772690000bac34a0e9d5e55f9f3721c3243c5",
+                  "width": 200
+              },
+              {
+                  "height": 64,
+                  "url": "https://i.scdn.co/image/ab67726900008f744a0e9d5e55f9f3721c3243c5",
+                  "width": 64
+              }
+          ],
+          "name": "Louis Armstrong",
+          "popularity": 69,
+          "type": "artist",
+          "uri": "spotify:artist:19eLuQmk9aCobbVDHc6eek"
+      },
+      "16GcWuvvybAoaHr0NqT8Eh": {
+          "external_urls": {
+              "spotify": "https://open.spotify.com/artist/16GcWuvvybAoaHr0NqT8Eh"
+          },
+          "followers": {
+              "href": null,
+              "total": 1551804
+          },
+          "genres": [
+
+          ],
+          "href": "https://api.spotify.com/v1/artists/16GcWuvvybAoaHr0NqT8Eh",
+          "id": "16GcWuvvybAoaHr0NqT8Eh",
+          "images": [
+              {
+                  "height": 640,
+                  "url": "https://i.scdn.co/image/ab6761610000e5eb854713444dd710e1fb4a1b69",
+                  "width": 640
+              },
+              {
+                  "height": 320,
+                  "url": "https://i.scdn.co/image/ab67616100005174854713444dd710e1fb4a1b69",
+                  "width": 320
+              },
+              {
+                  "height": 160,
+                  "url": "https://i.scdn.co/image/ab6761610000f178854713444dd710e1fb4a1b69",
+                  "width": 160
+              }
+          ],
+          "name": "Alabama Shakes",
+          "popularity": 59,
+          "type": "artist",
+          "uri": "spotify:artist:16GcWuvvybAoaHr0NqT8Eh"
+      },
+      "5R3NywPPOyhLfdvutgg0me": {
+          "external_urls": {
+              "spotify": "https://open.spotify.com/artist/5R3NywPPOyhLfdvutgg0me"
+          },
+          "followers": {
+              "href": null,
+              "total": 542454
+          },
+          "genres": [
+
+          ],
+          "href": "https://api.spotify.com/v1/artists/5R3NywPPOyhLfdvutgg0me",
+          "id": "5R3NywPPOyhLfdvutgg0me",
+          "images": [
+              {
+                  "height": 640,
+                  "url": "https://i.scdn.co/image/ab6761610000e5eb8f1b0552958857772686f221",
+                  "width": 640
+              },
+              {
+                  "height": 320,
+                  "url": "https://i.scdn.co/image/ab676161000051748f1b0552958857772686f221",
+                  "width": 320
+              },
+              {
+                  "height": 160,
+                  "url": "https://i.scdn.co/image/ab6761610000f1788f1b0552958857772686f221",
+                  "width": 160
+              }
+          ],
+          "name": "Los Abuelos De La Nada",
+          "popularity": 61,
+          "type": "artist",
+          "uri": "spotify:artist:5R3NywPPOyhLfdvutgg0me"
+      },
+      "1dfeR4HaWDbWqFHLkxsg1d": {
+          "external_urls": {
+              "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+          },
+          "followers": {
+              "href": null,
+              "total": 43670237
+          },
+          "genres": [
+
+          ],
+          "href": "https://api.spotify.com/v1/artists/1dfeR4HaWDbWqFHLkxsg1d",
+          "id": "1dfeR4HaWDbWqFHLkxsg1d",
+          "images": [
+              {
+                  "height": 806,
+                  "url": "https://i.scdn.co/image/b040846ceba13c3e9c125d68389491094e7f2982",
+                  "width": 999
+              },
+              {
+                  "height": 516,
+                  "url": "https://i.scdn.co/image/af2b8e57f6d7b5d43a616bd1e27ba552cd8bfd42",
+                  "width": 640
+              },
+              {
+                  "height": 161,
+                  "url": "https://i.scdn.co/image/c06971e9ff81696699b829484e3be165f4e64368",
+                  "width": 200
+              },
+              {
+                  "height": 52,
+                  "url": "https://i.scdn.co/image/6dd0ffd270903d1884edf9058c49f58b03db893d",
+                  "width": 64
+              }
+          ],
+          "name": "Queen",
+          "popularity": 83,
+          "type": "artist",
+          "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+      },
+      "3AA28KZvwAUcZuOKwyblJQ": {
+          "external_urls": {
+              "spotify": "https://open.spotify.com/artist/3AA28KZvwAUcZuOKwyblJQ"
+          },
+          "followers": {
+              "href": null,
+              "total": 9518696
+          },
+          "genres": [
+           
+          ],
+          "href": "https://api.spotify.com/v1/artists/3AA28KZvwAUcZuOKwyblJQ",
+          "id": "3AA28KZvwAUcZuOKwyblJQ",
+          "images": [
+              {
+                  "height": 640,
+                  "url": "https://i.scdn.co/image/ab6761610000e5ebc19b16a0104300245c65c164",
+                  "width": 640
+              },
+              {
+                  "height": 320,
+                  "url": "https://i.scdn.co/image/ab67616100005174c19b16a0104300245c65c164",
+                  "width": 320
+              },
+              {
+                  "height": 160,
+                  "url": "https://i.scdn.co/image/ab6761610000f178c19b16a0104300245c65c164",
+                  "width": 160
+              }
+          ],
+          "name": "Gorillaz",
+          "popularity": 79,
+          "type": "artist",
+          "uri": "spotify:artist:3AA28KZvwAUcZuOKwyblJQ"
+      },
+      "0HNW5s2MMFqwKdnf2cmoeB": {
+          "external_urls": {
+              "spotify": "https://open.spotify.com/artist/0HNW5s2MMFqwKdnf2cmoeB"
+          },
+          "followers": {
+              "href": null,
+              "total": 1945
+          },
+          "genres": [
+         
+          ],
+          "href": "https://api.spotify.com/v1/artists/0HNW5s2MMFqwKdnf2cmoeB",
+          "id": "0HNW5s2MMFqwKdnf2cmoeB",
+          "images": [
+              {
+                  "height": 640,
+                  "url": "https://i.scdn.co/image/ab6761610000e5eb0452b6fcc5f54576abc968ba",
+                  "width": 640
+              },
+              {
+                  "height": 320,
+                  "url": "https://i.scdn.co/image/ab676161000051740452b6fcc5f54576abc968ba",
+                  "width": 320
+              },
+              {
+                  "height": 160,
+                  "url": "https://i.scdn.co/image/ab6761610000f1780452b6fcc5f54576abc968ba",
+                  "width": 160
+              }
+          ],
+          "name": "Atlas ASMR",
+          "popularity": 21,
+          "type": "artist",
+          "uri": "spotify:artist:0HNW5s2MMFqwKdnf2cmoeB"
+      },
+      "28INUgyzTTRbvSphrJbgZ2": {
+          "external_urls": {
+              "spotify": "https://open.spotify.com/artist/28INUgyzTTRbvSphrJbgZ2"
+          },
+          "followers": {
+              "href": null,
+              "total": 593796
+          },
+          "genres": [
+
+          ],
+          "href": "https://api.spotify.com/v1/artists/28INUgyzTTRbvSphrJbgZ2",
+          "id": "28INUgyzTTRbvSphrJbgZ2",
+          "images": [
+              {
+                  "height": 640,
+                  "url": "https://i.scdn.co/image/ab6761610000e5ebad836b81ffe6679bc8467648",
+                  "width": 640
+              },
+              {
+                  "height": 320,
+                  "url": "https://i.scdn.co/image/ab67616100005174ad836b81ffe6679bc8467648",
+                  "width": 320
+              },
+              {
+                  "height": 160,
+                  "url": "https://i.scdn.co/image/ab6761610000f178ad836b81ffe6679bc8467648",
+                  "width": 160
+              }
+          ],
+          "name": "C2C",
+          "popularity": 45,
+          "type": "artist",
+          "uri": "spotify:artist:28INUgyzTTRbvSphrJbgZ2"
+      },
+      "5qw3MMovQQEq4URS46Ij5C": {
+          "external_urls": {
+              "spotify": "https://open.spotify.com/artist/5qw3MMovQQEq4URS46Ij5C"
+          },
+          "followers": {
+              "href": null,
+              "total": 4532
+          },
+          "genres": [
+
+          ],
+          "href": "https://api.spotify.com/v1/artists/5qw3MMovQQEq4URS46Ij5C",
+          "id": "5qw3MMovQQEq4URS46Ij5C",
+          "images": [
+              {
+                  "height": 640,
+                  "url": "https://i.scdn.co/image/ab67616d0000b273649308b15a74e39feab03df6",
+                  "width": 640
+              },
+              {
+                  "height": 300,
+                  "url": "https://i.scdn.co/image/ab67616d00001e02649308b15a74e39feab03df6",
+                  "width": 300
+              },
+              {
+                  "height": 64,
+                  "url": "https://i.scdn.co/image/ab67616d00004851649308b15a74e39feab03df6",
+                  "width": 64
+              }
+          ],
+          "name": "Catplant ASMR",
+          "popularity": 33,
+          "type": "artist",
+          "uri": "spotify:artist:5qw3MMovQQEq4URS46Ij5C"
+      },
+      "0WwSkZ7LtFUFjGjMZBMt6T": {
+          "external_urls": {
+              "spotify": "https://open.spotify.com/artist/0WwSkZ7LtFUFjGjMZBMt6T"
+          },
+          "followers": {
+              "href": null,
+              "total": 6172626
+          },
+          "genres": [
+
+          ],
+          "href": "https://api.spotify.com/v1/artists/0WwSkZ7LtFUFjGjMZBMt6T",
+          "id": "0WwSkZ7LtFUFjGjMZBMt6T",
+          "images": [
+              {
+                  "height": 640,
+                  "url": "https://i.scdn.co/image/ab6761610000e5eb4bdaa8c5e65b64f50549c393",
+                  "width": 640
+              },
+              {
+                  "height": 320,
+                  "url": "https://i.scdn.co/image/ab676161000051744bdaa8c5e65b64f50549c393",
+                  "width": 320
+              },
+              {
+                  "height": 160,
+                  "url": "https://i.scdn.co/image/ab6761610000f1784bdaa8c5e65b64f50549c393",
+                  "width": 160
+              }
+          ],
+          "name": "Dire Straits",
+          "popularity": 74,
+          "type": "artist",
+          "uri": "spotify:artist:0WwSkZ7LtFUFjGjMZBMt6T"
+      }
+  },
+  "topUserArtistsLoaded": true
+}

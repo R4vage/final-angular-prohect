@@ -79,9 +79,9 @@ export const categoryWithPlaylists: CategoryItem = {
     items: [
       {
         collaborative: false,
-        description: 'Descubre los nuevos talentos de Colombia, Ecuador, Venezuela y Perú. Foto: ICON.',
+        description: 'Descubre los nuevos talentos de Colombia, Ecuador, Venezuela y Perú',
         external_urls: {
-          spotify: 'https://open.spotify.com/playlist/37i9dQZF1DXbzFWXFlsp56',
+          spotify: '',
         },
         href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DXbzFWXFlsp56',
         id: '37i9dQZF1DXbzFWXFlsp56',
@@ -119,9 +119,9 @@ export const categoryWithPlaylists: CategoryItem = {
         collaborative: false,
         description: 'From across the globe. New artists on the horizon. Cover: Cat Burns.',
         external_urls: {
-          spotify: 'https://open.spotify.com/playlist/37i9dQZF1DWTU63finroJM',
+          spotify: '',
         },
-        href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWTU63finroJM',
+        href: '',
         id: '37i9dQZF1DWTU63finroJM',
         images: [
           {
@@ -194,7 +194,7 @@ export const categoryWithPlaylists: CategoryItem = {
       {
         collaborative: false,
         description:
-          'The most exciting new artists on the rise from the African continent & diaspora. Cover: <a href="https://open.spotify.com/artist/2LiqbH7OhqP0yuaG8VL1wJ?si=s7Ba4WY_RJ63_SmmSavT-g">Black Sherif </a>',
+          'The most exciting new artists on the rise from the African continent & diaspora',
         external_urls: {
           spotify: 'https://open.spotify.com/playlist/37i9dQZF1DWYc8Z858eGwP',
         },
@@ -270,7 +270,7 @@ export const categoryWithPlaylists: CategoryItem = {
       },
       {
         collaborative: false,
-        description: 'Unearthing up-and-coming Korean acts. Cover: SOLE',
+        description: '',
         external_urls: {
           spotify: 'https://open.spotify.com/playlist/37i9dQZF1DX9IALXsyt8zk',
         },
@@ -422,7 +422,7 @@ export const categoryWithPlaylists: CategoryItem = {
       },
       {
         collaborative: false,
-        description: '2022 全新陣容出列！鎖定華語樂壇的最強新聲代！大推潛力無限的亞洲聲勢力！Cover: Marz23',
+        description: '',
         external_urls: {
           spotify: 'https://open.spotify.com/playlist/37i9dQZF1DX2P3E6UOxZyt',
         },
@@ -461,7 +461,7 @@ export const categoryWithPlaylists: CategoryItem = {
       {
         collaborative: false,
         description:
-          'Spotifyが注目するニューカマー・プレイリスト。Cover: Bialystocks / \n Early Noise Night#14プレイリストは<a href="spotify:playlist:37i9dQZF1DWW1l6u9Tapgr">こちら</a>。/ Music+Talk(アーティストインタビュー)は<a href="spotify:show:5ILS4cRYK00Zs2ISBiAWCF">こちら</a>。',
+          '',
         external_urls: {
           spotify: 'https://open.spotify.com/playlist/37i9dQZF1DX4OR8pnFkwhR',
         },
@@ -499,7 +499,7 @@ export const categoryWithPlaylists: CategoryItem = {
       },
       {
         collaborative: false,
-        description: 'Descubre los nuevos talentos de Argentina, Chile y Uruguay. \nFoto: Zoe Gotusso.',
+        description: '',
         external_urls: {
           spotify: 'https://open.spotify.com/playlist/37i9dQZF1DX6nghHfwjiMg',
         },
@@ -537,7 +537,7 @@ export const categoryWithPlaylists: CategoryItem = {
       },
       {
         collaborative: false,
-        description: 'Découvrez notre sélection des artistes à suivre. Photo : Zaho de Sagazan',
+        description: '',
         external_urls: {
           spotify: 'https://open.spotify.com/playlist/37i9dQZF1DWWNlI0CRgWup',
         },
@@ -575,7 +575,7 @@ export const categoryWithPlaylists: CategoryItem = {
       },
       {
         collaborative: false,
-        description: 'Odkryj swojego nowego ulubionego artystę. Cover: <a href="spotify:artist:3gC2pjwYVTQdMuHUucgODF">NEL</a> ',
+        description: '',
         external_urls: {
           spotify: 'https://open.spotify.com/playlist/37i9dQZF1DX1aXwAOtpwvU',
         },
@@ -613,7 +613,7 @@ export const categoryWithPlaylists: CategoryItem = {
       },
       {
         collaborative: false,
-        description: 'Deretan musisi dalam negeri yang patut diantisipasi. Cover: Jinan Laetitia',
+        description: '',
         external_urls: {
           spotify: 'https://open.spotify.com/playlist/37i9dQZF1DWYxUz0Ouugmb',
         },
@@ -651,7 +651,7 @@ export const categoryWithPlaylists: CategoryItem = {
       },
       {
         collaborative: false,
-        description: '50 Canadian artists to watch, handpicked by our curators. Cover: DillanPonders',
+        description: '',
         external_urls: {
           spotify: 'https://open.spotify.com/playlist/37i9dQZF1DX5WmphwNfZfk',
         },
@@ -689,7 +689,7 @@ export const categoryWithPlaylists: CategoryItem = {
       },
       {
         collaborative: false,
-        description: 'Discover your new favourite artists with a focus on Germany, Switzerland, Austria. Cover: LIE NING',
+        description: '',
         external_urls: {
           spotify: 'https://open.spotify.com/playlist/37i9dQZF1DX3Vl51vsat7a',
         },
@@ -727,7 +727,7 @@ export const categoryWithPlaylists: CategoryItem = {
       },
       {
         collaborative: false,
-        description: '發掘世一超新聲，香港RADAR超新聲正式展開！Cover:盧華LOWA',
+        description: '發',
         external_urls: {
           spotify: 'https://open.spotify.com/playlist/37i9dQZF1DX1OL0nzXOfhW',
         },
@@ -766,7 +766,7 @@ export const categoryWithPlaylists: CategoryItem = {
       {
         collaborative: false,
         description:
-          'ที่สุดศิลปินรุ่นใหม่ของประเทศไทย ศิลปิน: Jeff Satur, YourMOOD, Blackbeans, The White Hair Cut, THEMOONWILLALWAYSBEWITHME, BELL WARISARA, HYBS, Saran, SPRITE, Only Monday ',
+          'ที่สุดศิลปินรุ่นใหม่ขอARISARA, HYBS, Saran, SPRITE, Only Monday ',
         external_urls: {
           spotify: 'https://open.spotify.com/playlist/37i9dQZF1DX4Q8j1DJOWem',
         },

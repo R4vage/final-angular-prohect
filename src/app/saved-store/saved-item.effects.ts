@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
-import { act, Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  catchError,
-  map,
-  concatMap,
-  tap,
-  filter,
-  mergeMap,
-} from 'rxjs/operators';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as savedItemsActions from './saved-item.actions';
 import { SavedItemRestService } from './saved-item-rest.service';
@@ -45,7 +38,6 @@ export class SavedItemsEffects {
           .getProperCheckEndpoint(action.ids, action.kind)
           .pipe(
             map((idsStates) => {
-              
               return this.prepareAction(idsStates, action.ids, action.kind);
             })
           );

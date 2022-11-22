@@ -6,23 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared.module';
 
-
-
 @NgModule({
-  declarations: [
-    TracksListComponent,
-    TrackItemComponent,
-
-
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    SharedModule,
-    MatIconModule,
-  ],
-  exports: [
-    TracksListComponent
-  ]
+  declarations: [TracksListComponent, TrackItemComponent],
+  imports: [CommonModule, RouterModule, SharedModule, MatIconModule],
+  exports: [TracksListComponent],
 })
-export class TracksListModule { }
+export class TracksListModule {}

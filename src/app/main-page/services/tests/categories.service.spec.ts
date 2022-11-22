@@ -1,9 +1,15 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Categories } from 'src/app/core/models/categories.models';
 import { Playlists } from 'src/app/core/models/playlist.models';
-import { categoriesMockData, categoryWithPlaylists } from 'src/Test-utilities/categories-mock-data';
+import {
+  categoriesMockData,
+  categoryWithPlaylists,
+} from 'src/Test-utilities/categories-mock-data';
 
 import { CategoriesService } from '../categories.service';
 
@@ -33,19 +39,22 @@ describe('CategoriesService', () => {
   });
 
   it('should get query parameters with default values', () => {
-    const queryParameters = categoryService.getQueryParametersAvailableCategories();
+    const queryParameters =
+      categoryService.getQueryParametersAvailableCategories();
     expect(queryParameters.get('limit')).toBe('20');
     expect(queryParameters.get('offset')).toBe('0');
   });
 
   it('should get query parameters with limit = 10 and offset = 2', () => {
-    const queryParameters = categoryService.getQueryParametersAvailableCategories(10, 2);
+    const queryParameters =
+      categoryService.getQueryParametersAvailableCategories(10, 2);
     expect(queryParameters.get('limit')).toBe('10');
     expect(queryParameters.get('offset')).toBe('2');
   });
 
   it('should give default query parameters when given incorrect values', () => {
-    const incorrectQueryParameters = categoryService.getQueryParametersAvailableCategories(100, 3);
+    const incorrectQueryParameters =
+      categoryService.getQueryParametersAvailableCategories(100, 3);
     expect(incorrectQueryParameters.get('limit')).toBe('20');
     expect(incorrectQueryParameters.get('offset')).toBe('0');
   });
@@ -67,7 +76,9 @@ describe('CategoriesService', () => {
         expect(categoriesData).toEqual(categories);
       },
     });
-    const req = httpTestingController.expectOne(`${categoryService.URL}/browse/categories?Content-Type=application/json&limit=20&offset=0`);
+    const req = httpTestingController.expectOne(
+      `${categoryService.URL}/browse/categories?Content-Type=application/json&limit=20&offset=0`
+    );
 
     expect(req.request.method).toBe('GET');
     expect(req.request.params.get('limit')).toBe('20');
@@ -89,13 +100,17 @@ describe('CategoriesService', () => {
       total: 100,
     };
 
-    categoryService.getAvailableCategories(categories.limit, categories.offset).subscribe({
-      next: (categoriesData) => {
-        expect(categoriesData).toBeTruthy();
-        expect(categoriesData).toEqual(categories);
-      },
-    });
-    const req = httpTestingController.expectOne(`${categoryService.URL}/browse/categories?Content-Type=application/json&limit=${categories.limit}&offset=${categories.offset}`);
+    categoryService
+      .getAvailableCategories(categories.limit, categories.offset)
+      .subscribe({
+        next: (categoriesData) => {
+          expect(categoriesData).toBeTruthy();
+          expect(categoriesData).toEqual(categories);
+        },
+      });
+    const req = httpTestingController.expectOne(
+      `${categoryService.URL}/browse/categories?Content-Type=application/json&limit=${categories.limit}&offset=${categories.offset}`
+    );
 
     expect(req.request.method).toBe('GET');
     expect(req.request.params.get('limit')).toBe(`${categories.limit}`);
@@ -118,7 +133,9 @@ describe('CategoriesService', () => {
         fail('Expected to succeed');
       },
     });
-    const req = httpTestingController.expectOne(`${categoryService.URL}/browse/categories/${CATEGORY.id}`);
+    const req = httpTestingController.expectOne(
+      `${categoryService.URL}/browse/categories/${CATEGORY.id}`
+    );
 
     expect(req.request.method).toBe('GET');
 
@@ -126,7 +143,9 @@ describe('CategoriesService', () => {
 
     expect(categoryService.getCategoryPlaylists).toHaveBeenCalledTimes(1);
 
-    const secondReq = httpTestingController.expectOne(`${categoryService.URL}/browse/categories/${CATEGORY.id}/playlists?Content-Type=application/json&limit=20&offset=0`);
+    const secondReq = httpTestingController.expectOne(
+      `${categoryService.URL}/browse/categories/${CATEGORY.id}/playlists?Content-Type=application/json&limit=20&offset=0`
+    );
 
     expect(req.request.method).toBe('GET');
 
@@ -144,11 +163,15 @@ describe('CategoriesService', () => {
         expect(error).toBeInstanceOf(HttpErrorResponse);
         const err: HttpErrorResponse = error;
         expect(err.status).toBe(401);
-        expect(err.message).toBe(`Http failure response for ${categoryService.URL}/browse/categories/${CATEGORY.id}: ${err.status} Failed`);
+        expect(err.message).toBe(
+          `Http failure response for ${categoryService.URL}/browse/categories/${CATEGORY.id}: ${err.status} Failed`
+        );
         expect(err.statusText).toBe('Failed');
       },
     });
-    const req = httpTestingController.expectOne(`${categoryService.URL}/browse/categories/${CATEGORY.id}`);
+    const req = httpTestingController.expectOne(
+      `${categoryService.URL}/browse/categories/${CATEGORY.id}`
+    );
 
     expect(req.request.method).toBe('GET');
 

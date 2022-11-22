@@ -27,4 +27,6 @@ export const authReducer = createReducer(
   })
 );
 
-export const metaReducers: MetaReducer<AuthState>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<AuthState>[] = !environment.production
+  ? []
+  : [];

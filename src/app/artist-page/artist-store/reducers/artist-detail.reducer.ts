@@ -27,32 +27,9 @@ export const reducer = createReducer(
     adapter.addOne(action.artistDetail, state)
   ),
   on(ArtistDetailActions.addArtistDetail, (state) => state),
-  on(ArtistDetailActions.upsertArtistDetail, (state, action) =>
-    adapter.upsertOne(action.artistDetail, state)
-  ),
+
   on(ArtistDetailActions.addArtistDetails, (state, action) =>
     adapter.addMany(action.artistDetails, state)
-  ),
-  on(ArtistDetailActions.upsertArtistDetails, (state, action) =>
-    adapter.upsertMany(action.artistDetails, state)
-  ),
-  on(ArtistDetailActions.updateArtistDetail, (state, action) =>
-    adapter.updateOne(action.artistDetail, state)
-  ),
-  on(ArtistDetailActions.updateArtistDetails, (state, action) =>
-    adapter.updateMany(action.artistDetails, state)
-  ),
-  on(ArtistDetailActions.deleteArtistDetail, (state, action) =>
-    adapter.removeOne(action.id, state)
-  ),
-  on(ArtistDetailActions.deleteArtistDetails, (state, action) =>
-    adapter.removeMany(action.ids, state)
-  ),
-  on(ArtistDetailActions.loadArtistDetails, (state, action) =>
-    adapter.setAll(action.artistDetails, state)
-  ),
-  on(ArtistDetailActions.clearArtistDetails, (state) =>
-    adapter.removeAll(state)
   )
 );
 

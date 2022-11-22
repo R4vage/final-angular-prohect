@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { filter, finalize, first, Observable, tap } from 'rxjs';
 import { loadAlbums } from '../main-page-store/actions/albums.actions';
@@ -13,7 +17,10 @@ export class AlbumsResolver implements Resolve<boolean> {
   loading = false;
   constructor(private store: Store<AlbumState>) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> {
     return this.store.pipe(
       select(areAlbumsLoaded),
       tap({

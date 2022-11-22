@@ -5,4 +5,6 @@ export interface RootState {}
 
 export const reducers: ActionReducerMap<RootState> = {};
 
-export const metaReducers: MetaReducer<RootState>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<RootState>[] = !environment.production
+  ? []
+  : [];

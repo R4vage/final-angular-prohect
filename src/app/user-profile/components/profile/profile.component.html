@@ -1,9 +1,13 @@
-
-
 <h3 class="profile">Profile</h3>
 <div class="user-image">
-    <img *ngIf="user.images[0]?.url;else user_letter" [src]="user.images[0].url.toString()">
-    <ng-template #user_letter><div><mat-icon>person_outline</mat-icon></div></ng-template>
+  <img
+    *ngIf="user.images[0]?.url; else user_letter"
+    [src]="user.images[0].url.toString()"
+    id="user-image"
+  />
+  <ng-template #user_letter
+    ><div><mat-icon>person_outline</mat-icon></div></ng-template
+  >
 </div>
-<h1>{{user.display_name}}</h1>
-<h3 class="country">{{user.country}}</h3>
+<h1>{{ user.display_name }}</h1>
+<h3 class="country">{{ user.country }}</h3>

@@ -9,6 +9,4 @@ import { MusicCard } from 'src/app/core/models/music-card.models';
 })
 export class MusicCardComponent {
   @Input() musicData!: MusicCard;
-
-  constructor() {}
 }

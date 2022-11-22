@@ -1,13 +1,21 @@
-<app-profile  *ngIf="user$ | async as user" [user]="user"></app-profile>
+<app-profile *ngIf="user$ | async as user" [user]="user"></app-profile>
 <div class="flexs-container">
-    <app-card-flex name="Top Tracks" *ngIf="(topUserTracks$ | async)?.length">
-        <app-track-card *ngFor="let track of topUserTracks$ | async" [track]="track" class="card"></app-track-card>
-    </app-card-flex>
-    <app-card-flex name="Top Artists" *ngIf="(topUserArtists$ | async)?.length">     
-           <app-artist-card *ngFor="let artist of topUserArtists$ | async" [artist]="artist" class="card"></app-artist-card>
-    </app-card-flex>
+  <app-card-flex name="Top Tracks" *ngIf="(topUserTracks$ | async)?.length">
+    <app-track-card
+      *ngFor="let track of topUserTracks$ | async"
+      [track]="track"
+      class="card"
+    ></app-track-card>
+  </app-card-flex>
+  <app-card-flex name="Top Artists" *ngIf="(topUserArtists$ | async)?.length">
+    <app-artist-card
+      *ngFor="let artist of topUserArtists$ | async"
+      [artist]="artist"
+      class="card"
+    ></app-artist-card>
+  </app-card-flex>
 </div>
 
 <ng-template #loading>
-    <p>No items found</p>
+  <p>No items found</p>
 </ng-template>

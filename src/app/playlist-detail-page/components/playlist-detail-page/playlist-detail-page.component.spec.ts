@@ -10,10 +10,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Actions } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { noop, Observable, of } from 'rxjs';
-import { Playlist } from 'src/app/core/models/playlist.models';
+import { noop, of } from 'rxjs';
 import { PlaylistService } from 'src/app/main-page/services/playlist.service';
 import { MaterialModule } from 'src/app/material/material.module';
 import { TracksListComponent } from 'src/app/shared/modules/tracks-list/tracks-list.component';
@@ -22,14 +20,11 @@ import { SecondTrackMusicPipe } from 'src/app/shared/pipes/second-track-music.pi
 import { TracksFromPlaylistPipe } from 'src/app/shared/pipes/tracks-from-playlist.pipe';
 import { TrackService } from 'src/app/track-detail-page/services/track.service';
 import { TrackItemComponentMock } from 'src/Test-utilities/mockedComponents/item-track-mock.component';
-import { playlistWithTracksMockData } from 'src/Test-utilities/playlist-mock-data';
 import {
   playlistMockItem,
   playlistsMockStore,
   savedItemsMockStore,
 } from 'src/Test-utilities/store-mocks-data';
-import { storesSelectorsMock } from 'src/Test-utilities/stores-selectors-mock';
-
 import { PlaylistDetailPageComponent } from './playlist-detail-page.component';
 
 describe('PlaylistDetailPageComponent', () => {

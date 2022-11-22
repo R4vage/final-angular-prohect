@@ -4,12 +4,12 @@ import { Kind, SavedItem } from './saved-item.reducer';
 
 export const checkSavedItem = createAction(
   '[SavedItem/API] Check SavedItem',
-  props<{id:string, kind: Kind}>()
-)
+  props<{ id: string; kind: Kind }>()
+);
 export const checkSavedItems = createAction(
   '[SavedItem/API] Check SavedItems',
-  props<{ids:string[], kind: Kind}>()
-)
+  props<{ ids: string[]; kind: Kind }>()
+);
 
 export const addSavedItem = createAction(
   '[SavedItem/API] Add SavedItem',
@@ -26,7 +26,7 @@ export const addSavedItemFailure = createAction(
 
 export const addSavedItems = createAction(
   '[SavedItem/API] Add SavedItems',
-  props<{ ids: string[], kind:Kind }>()
+  props<{ ids: string[]; kind: Kind }>()
 );
 export const addSavedItemsSuccess = createAction(
   '[SavedItem/API] Add SavedItems Success',
@@ -39,7 +39,7 @@ export const addSavedItemsFailure = createAction(
 
 export const updateSavedItem = createAction(
   '[SavedItem/API] Update SavedItem',
-  props<{ id: string, kind: Kind, isSaved: boolean }>()
+  props<{ id: string; kind: Kind; isSaved: boolean }>()
 );
 export const updateSavedItemSuccess = createAction(
   '[SavedItem/API] Update SavedItem Success',
@@ -60,31 +60,11 @@ export const upsertSavedItems = createAction(
   props<{ savedItems: SavedItem[] }>()
 );
 
-
 export const updateSavedItems = createAction(
   '[SavedItem/API] Update SavedItems',
   props<{ savedItems: Update<SavedItem>[] }>()
 );
 
-export const deleteSavedItem = createAction(
-  '[SavedItem/API] Delete SavedItem',
-  props<{ id: string }>()
-);
-
-export const deleteSavedItems = createAction(
-  '[SavedItem/API] Delete SavedItems',
-  props<{ ids: string[] }>()
-);
-
-export const clearSavedItems = createAction(
-  '[SavedItem/API] Clear SavedItems'
-);
-
 export const alreadyLoaded = createAction(
   '[SavedItem/API] Already Loaded SavedItems'
-)
-
-export const loadSavedItems = createAction(
-  '[SavedItem/API] Load SavedItems', 
-  props<{ savedItems: SavedItem[] }>()
 );

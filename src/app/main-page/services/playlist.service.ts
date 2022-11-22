@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
-import { map, switchMap, throwError } from 'rxjs';
+import { map } from 'rxjs';
 import {
   MainPlaylistResponse,
   Playlist,
@@ -42,12 +42,6 @@ export class PlaylistService {
     }
   }
 
-  unfollowPlaylistStore(playlistId: string) {
-    this.store.dispatch(
-      updateSavedItem({ id: playlistId, kind: 'playlist', isSaved: false })
-    );
-  }
-
   getFeaturedPlaylists(limit = 20, offset = 0) {
     return this.http
       .get<MainPlaylistResponse>(`${this.URL}/browse/featured-playlists`, {
@@ -70,9 +64,8 @@ export class PlaylistService {
     }
     if (!environment.production) {
       console.warn(
-        'The limit is between 0 and 50, check if it is in this range'
+        'The limit is between 0 and 50, check if it is in this range. Now it is going to use default values instead'
       );
-      console.warn('now it is going to use default values instead');
     }
 
     return new HttpParams().appendAll({

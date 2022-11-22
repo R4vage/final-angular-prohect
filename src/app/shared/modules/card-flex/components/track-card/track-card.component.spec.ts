@@ -5,9 +5,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Actions } from '@ngrx/effects';
 import { provideMockStore } from '@ngrx/store/testing';
-import { MaterialModule } from 'src/app/material/material.module';
 import { TrackService } from 'src/app/track-detail-page/services/track.service';
-import { savedItemsMockStore, savedTracksStoreMock, topUserAlbumsStoreMock } from 'src/Test-utilities/store-mocks-data';
+import {
+  savedItemsMockStore,
+  savedTracksStoreMock,
+} from 'src/Test-utilities/store-mocks-data';
 import { trackMockData } from 'src/Test-utilities/track-mock-data';
 
 import { TrackCardComponent } from './track-card.component';
@@ -19,27 +21,28 @@ describe('TrackCardComponent', () => {
   let trackService: TrackService;
   beforeEach(async () => {
     const actionsSpy = jasmine.createSpyObj(actions, ['pipe']);
-    const trackServiceSpy = jasmine.createSpyObj(trackService, ['changeSavedTrack'])
+    const trackServiceSpy = jasmine.createSpyObj(trackService, [
+      'changeSavedTrack',
+    ]);
 
     await TestBed.configureTestingModule({
-      
       imports: [
         MatCardModule,
         MatIconModule,
         RouterTestingModule,
-        MatTooltipModule
+        MatTooltipModule,
       ],
       declarations: [TrackCardComponent],
       providers: [
         provideMockStore({
-          initialState:{
+          initialState: {
             savedItems: savedItemsMockStore,
-            savedTracks: savedTracksStoreMock
-          }
+            savedTracks: savedTracksStoreMock,
+          },
         }),
-        {provide: Actions, useValue: actionsSpy},
-        {provide: TrackService, useValue: trackServiceSpy}
-      ]
+        { provide: Actions, useValue: actionsSpy },
+        { provide: TrackService, useValue: trackServiceSpy },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TrackCardComponent);

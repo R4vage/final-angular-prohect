@@ -17,7 +17,8 @@ describe('AudioPlayerComponent', () => {
   let el: DebugElement;
   let loader: HarnessLoader;
 
-  const MUSIC_URL = 'https://p.scdn.co/mp3-preview/753b3d84774ae1a257bbd4fb114d0a33db06c83e?cid=1a742ee646b74af4a2a648a825f35326';
+  const MUSIC_URL =
+    'https://p.scdn.co/mp3-preview/753b3d84774ae1a257bbd4fb114d0a33db06c83e?cid=1a742ee646b74af4a2a648a825f35326';
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -86,23 +87,30 @@ describe('AudioPlayerComponent', () => {
   });
 
   it('should change volume when slider is used', async () => {
-    const volumeSliderMaterial = await loader.getHarnessOrNull(MatSliderHarness.with({ selector: '.volume-bar' }));
+    const volumeSliderMaterial = await loader.getHarnessOrNull(
+      MatSliderHarness.with({ selector: '.volume-bar' })
+    );
 
     expect(volumeSliderMaterial).toBeTruthy();
 
     await volumeSliderMaterial?.setValue(60);
-    expect(await volumeSliderMaterial?.getValue()).toBe(59);
-    fixture.detectChanges();
+    let value = await volumeSliderMaterial?.getValue()
+    let valuesBetween = (value && value < 61 && value > 58 )
 
+    expect(valuesBetween).toBeTrue();
+    fixture.detectChanges();
+    let componentValueBetween = ( component.audio.volume < 0.65 && component.audio.volume > 0.5)
     expect(component.volumeManager).toHaveBeenCalled();
-    expect(component.audio.volume).toBe(0.59);
+    expect(componentValueBetween).toBeTrue();
   });
 
   it('should mute music when mute button is pressed', async () => {
     expect(component.isPlayingAudio).toBe(false);
     component.audio.volume = 1;
 
-    const muteButton = await loader.getHarnessOrNull(MatButtonHarness.with({ selector: '.mute-button' }));
+    const muteButton = await loader.getHarnessOrNull(
+      MatButtonHarness.with({ selector: '.mute-button' })
+    );
 
     expect(muteButton).toBeTruthy();
     await muteButton?.click();
@@ -120,7 +128,9 @@ describe('AudioPlayerComponent', () => {
     expect(component.isPlayingAudio).toBe(false);
     component.audio.volume = 1;
 
-    const muteButton = await loader.getHarnessOrNull(MatButtonHarness.with({ selector: '.mute-button' }));
+    const muteButton = await loader.getHarnessOrNull(
+      MatButtonHarness.with({ selector: '.mute-button' })
+    );
 
     expect(muteButton).toBeTruthy();
     await muteButton?.click();
@@ -138,7 +148,9 @@ describe('AudioPlayerComponent', () => {
 
   it("should change music's current time when changed corresponding slider", async () => {
     component.durationSong = 30;
-    const currentSliderMaterial = await loader.getHarness(MatSliderHarness.with({ selector: '.current-time-slider' }));
+    const currentSliderMaterial = await loader.getHarness(
+      MatSliderHarness.with({ selector: '.current-time-slider' })
+    );
 
     expect(currentSliderMaterial).toBeTruthy();
 
@@ -148,7 +160,9 @@ describe('AudioPlayerComponent', () => {
 
     expect(component.currentTimeManager).toHaveBeenCalled();
     expect(component.audio.pause).toHaveBeenCalled();
-    expect(component.audio.currentTime).toBe((10 * component.durationSong) / 100);
+    expect(component.audio.currentTime).toBe(
+      (10 * component.durationSong) / 100
+    );
     expect(component.isPlayingAudio).toBeFalse();
   });
 

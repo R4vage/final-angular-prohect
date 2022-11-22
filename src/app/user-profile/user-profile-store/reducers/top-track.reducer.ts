@@ -17,30 +17,6 @@ export const initialState: TopUserTracksState = adapter.getInitialState({
 
 export const reducer = createReducer(
   initialState,
-  on(TopUserTrackActions.addTopUserTrack, (state, action) =>
-    adapter.addOne(action.topUserTrack, state)
-  ),
-  on(TopUserTrackActions.upsertTopUserTrack, (state, action) =>
-    adapter.upsertOne(action.topUserTrack, state)
-  ),
-  on(TopUserTrackActions.addTopUserTracks, (state, action) =>
-    adapter.addMany(action.topUserTracks, state)
-  ),
-  on(TopUserTrackActions.upsertTopUserTracks, (state, action) =>
-    adapter.upsertMany(action.topUserTracks, state)
-  ),
-  on(TopUserTrackActions.updateTopUserTrack, (state, action) =>
-    adapter.updateOne(action.topUserTrack, state)
-  ),
-  on(TopUserTrackActions.updateTopUserTracks, (state, action) =>
-    adapter.updateMany(action.topUserTracks, state)
-  ),
-  on(TopUserTrackActions.deleteTopUserTrack, (state, action) =>
-    adapter.removeOne(action.id, state)
-  ),
-  on(TopUserTrackActions.deleteTopUserTracks, (state, action) =>
-    adapter.removeMany(action.ids, state)
-  ),
 
   on(TopUserTrackActions.loadTopUserTracks, (state) => state),
   on(TopUserTrackActions.loadTopUserTracksSuccess, (state, action) =>
@@ -51,10 +27,7 @@ export const reducer = createReducer(
   ),
   on(TopUserTrackActions.loadTopUserTracksFailure, (state, action) => {
     throw new Error(action.error);
-  }),
-  on(TopUserTrackActions.clearTopUserTracks, (state) =>
-    adapter.removeAll(state)
-  )
+  })
 );
 
 export const { selectIds, selectEntities, selectAll, selectTotal } =

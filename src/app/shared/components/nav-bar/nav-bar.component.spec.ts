@@ -25,10 +25,7 @@ describe('NavBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        SharedModule,
-        MatToolbarModule
-      ],
+      imports: [SharedModule, MatToolbarModule],
       declarations: [NavBarComponent],
     }).compileComponents();
 

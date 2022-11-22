@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { filter, finalize, first, Observable, tap } from 'rxjs';
 import { loadPlaylists } from '../main-page-store/actions/playlists.actions';
@@ -13,7 +17,10 @@ export class PlaylistsResolver implements Resolve<boolean> {
   loading = false;
   constructor(private store: Store<PlaylistState>) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> {
     return this.store.pipe(
       select(arePlaylistsLoaded),
       tap({

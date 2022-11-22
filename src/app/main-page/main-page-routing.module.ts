@@ -88,8 +88,11 @@ const routes: Routes = [
           ),
       },
       {
-        path:'my-music',
-        loadChildren:() => import ('../my-music-page/my-music-page.module').then((m) => m.MyMusicPageModule)
+        path: 'my-music',
+        loadChildren: () =>
+          import('../my-music-page/my-music-page.module').then(
+            (m) => m.MyMusicPageModule
+          ),
       },
       {
         path: '**',

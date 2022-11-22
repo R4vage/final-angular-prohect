@@ -3,10 +3,9 @@ import { PlaylistItem } from 'src/app/core/models/playlist.models';
 
 @Component({
   selector: 'app-playlist-card',
-  templateUrl: './playlist-card.component.html',
-  styleUrls: ['./playlist-card.component.scss'],
+  template: '<div>Mocked Playlist Card</div>'
 })
-export class PlaylistCardComponent {
+export class PlaylistCardComponentMock {
   @Input() playlist!: PlaylistItem;
   @Input() buttons = false;
 }

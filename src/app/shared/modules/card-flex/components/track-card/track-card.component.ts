@@ -1,8 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subscription, take } from 'rxjs';
@@ -27,14 +23,17 @@ export class TrackCardComponent implements OnInit {
   loading = false;
 
   isSaved!: boolean;
-  constructor(private store: Store<SavedItem>, private actions$: Actions, private trackService:TrackService) {}
+  constructor(
+    private store: Store<SavedItem>,
+    private actions$: Actions,
+    private trackService: TrackService
+  ) {}
 
   ngOnInit(): void {
     this.subscription$ = this.store
       .select(selectSavedItemById(this.track.id))
       .subscribe((savedItem) => (this.isSaved = savedItem?.isSaved as boolean));
   }
-
 
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
@@ -43,18 +42,13 @@ export class TrackCardComponent implements OnInit {
   clickStar(event: MouseEvent) {
     event.stopPropagation();
     if (!this.loading) {
-      this.trackService.changeSavedTrack(this.track, this.isSaved)
+      this.trackService.changeSavedTrack(this.track, this.isSaved);
       this.loading = true;
       this.actions$
-        .pipe(
-          ofType(updateSavedItemSuccess, updateSavedItemFailure), 
-          take(1),
-        )
+        .pipe(ofType(updateSavedItemSuccess, updateSavedItemFailure), take(1))
         .subscribe(() => {
-            this.loading = false;
-          },
-        );
+          this.loading = false;
+        });
     }
   }
-
 }

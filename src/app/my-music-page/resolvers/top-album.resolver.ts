@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
-  Router,
   Resolve,
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, finalize, first, Observable, of, retry, tap } from 'rxjs';
+import { filter, finalize, first, Observable, tap } from 'rxjs';
 import { loadTopUserAlbums } from '../store/actions/top-albums.actions';
 import { TopUserAlbumsState } from '../store/reducers/top-albums.reducer';
 import { selectAreTopAlbumsLoaded } from '../store/selectors/top-albums.selectors';

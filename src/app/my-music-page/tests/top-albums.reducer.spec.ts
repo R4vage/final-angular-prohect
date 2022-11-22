@@ -35,24 +35,43 @@ describe('TopUserAlbum Reducer', () => {
 
   it('should add one item to store on upsert item', () => {
     const album: AlbumItem = albumMockData[0];
-    const action = savedAlbumsActions.upsertTopUserAlbum({ topUserAlbum: album });
+    const action = savedAlbumsActions.upsertTopUserAlbum({
+      topUserAlbum: album,
+    });
     const state = reducer(undefined, action);
-    console.log(state)
     expect(state.ids[0]).toBe(album.id);
     expect(state.entities[album.id]).toEqual(album);
   });
 
   it('should add albums to store on upsert albums', () => {
     const albums: AlbumItem[] = albumMockData;
-    const action = savedAlbumsActions.upsertTopUserAlbums({ topUserAlbums: albums });
+    const action = savedAlbumsActions.upsertTopUserAlbums({
+      topUserAlbums: albums,
+    });
     const state = reducer(undefined, action);
     expect(state.ids.length).toBe(albums.length);
   });
 
   it('should add albums to store on add albums', () => {
     const albums: AlbumItem[] = albumMockData;
-    const action = savedAlbumsActions.addTopUserAlbums({ topUserAlbums: albums });
+    const action = savedAlbumsActions.addTopUserAlbums({
+      topUserAlbums: albums,
+    });
     const state = reducer(undefined, action);
     expect(state.ids.length).toBe(albums.length);
   });
+
+  it('shouldnt modify the store on simple loadTopUserAlbums ', ()=>{
+    const initialState = topUserAlbumsStoreMock;
+    const action = savedAlbumsActions.loadTopUserAlbums()
+    const state = reducer(initialState, action);
+    expect(state).toBe(initialState)
+  })
+
+  it('shouldnt modify the store on loadTopUserAlbums failure and should throw error', ()=>{
+    const initialState = topUserAlbumsStoreMock;
+    const error = "something mockingly failed"
+    const action = savedAlbumsActions.loadTopUserAlbumsFailure({error:error})
+    expect(function (){reducer(initialState, action)}).toThrowError(error);
+  })
 });

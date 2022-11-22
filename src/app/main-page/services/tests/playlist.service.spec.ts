@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -16,16 +19,16 @@ describe('PlaylistService', () => {
   let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
-    const snackbarSpy = jasmine.createSpyObj(snackbar, ['open'])
+    const snackbarSpy = jasmine.createSpyObj(snackbar, ['open']);
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
         provideMockStore({
-          initialState:{
-            savedItems: savedItemsMockStore
-          }
+          initialState: {
+            savedItems: savedItemsMockStore,
+          },
         }),
-        {provide: MatSnackBar, useValue:snackbarSpy}
+        { provide: MatSnackBar, useValue: snackbarSpy },
       ],
     });
     playlistService = TestBed.inject(PlaylistService);
@@ -40,19 +43,24 @@ describe('PlaylistService', () => {
   });
 
   it('should get query parameters with default values', () => {
-    const queryParameters = playlistService.getQueryParametersFeaturedPlaylists();
+    const queryParameters =
+      playlistService.getQueryParametersFeaturedPlaylists();
     expect(queryParameters.get('limit')).toBe('20');
     expect(queryParameters.get('offset')).toBe('0');
   });
 
   it('should get query parameters with limit = 10 and offset = 2', () => {
-    const queryParameters = playlistService.getQueryParametersFeaturedPlaylists(10, 2);
+    const queryParameters = playlistService.getQueryParametersFeaturedPlaylists(
+      10,
+      2
+    );
     expect(queryParameters.get('limit')).toBe('10');
     expect(queryParameters.get('offset')).toBe('2');
   });
 
   it('should give default query parameters when given incorrect values', () => {
-    const incorrectQueryParameters = playlistService.getQueryParametersFeaturedPlaylists(100, 3);
+    const incorrectQueryParameters =
+      playlistService.getQueryParametersFeaturedPlaylists(100, 3);
     expect(incorrectQueryParameters.get('limit')).toBe('20');
     expect(incorrectQueryParameters.get('offset')).toBe('0');
   });
@@ -74,7 +82,9 @@ describe('PlaylistService', () => {
         expect(playlistsData).toEqual(playlists);
       },
     });
-    const req = httpTestingController.expectOne(`${playlistService.URL}/browse/featured-playlists?Content-Type=application/json&limit=20&offset=0`);
+    const req = httpTestingController.expectOne(
+      `${playlistService.URL}/browse/featured-playlists?Content-Type=application/json&limit=20&offset=0`
+    );
 
     expect(req.request.method).toBe('GET');
     expect(req.request.params.get('limit')).toBe('20');
@@ -96,12 +106,14 @@ describe('PlaylistService', () => {
       total: 100,
     };
 
-    playlistService.getFeaturedPlaylists(playlists.limit, playlists.offset).subscribe({
-      next: (playlistsData) => {
-        expect(playlistsData).toBeTruthy();
-        expect(playlistsData).toEqual(playlists);
-      },
-    });
+    playlistService
+      .getFeaturedPlaylists(playlists.limit, playlists.offset)
+      .subscribe({
+        next: (playlistsData) => {
+          expect(playlistsData).toBeTruthy();
+          expect(playlistsData).toEqual(playlists);
+        },
+      });
     const req = httpTestingController.expectOne(
       `${playlistService.URL}/browse/featured-playlists?Content-Type=application/json&limit=${playlists.limit}&offset=${playlists.offset}`
     );

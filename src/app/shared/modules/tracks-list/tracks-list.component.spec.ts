@@ -11,19 +11,13 @@ describe('TracksListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ 
-        TracksListComponent,
-        TrackItemComponentMock
-      ],
-      imports: [
-        MatIconModule
-      ]
-    })
-    .compileComponents();
+      declarations: [TracksListComponent, TrackItemComponentMock],
+      imports: [MatIconModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TracksListComponent);
     component = fixture.componentInstance;
-    component.tracks = [trackMockData]
+    component.tracks = [trackMockData];
     fixture.detectChanges();
   });
 
