@@ -4,8 +4,8 @@
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon> menu </mat-icon>
     </button>
-    <mat-menu #menu="matMenu" class="bg-slate-800">
-      <button (click)="logOut()" color="accent" mat-raised-button class="w-full">
+    <mat-menu #menu="matMenu" class="bg-slate-800" id="menu">
+      <button (click)="logOut()" color="accent" mat-raised-button class="w-full" id="logout">
         <mat-icon>logout</mat-icon>
         <span>Log out</span>
       </button>

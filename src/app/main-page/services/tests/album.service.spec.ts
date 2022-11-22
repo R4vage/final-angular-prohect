@@ -5,8 +5,9 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { provideMockStore } from '@ngrx/store/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Albums } from 'src/app/core/models/album.models';
+import { updateSavedItem } from 'src/app/saved-store/saved-item.actions';
 import {
   albumMockData,
   albumWithTracksMockData,
@@ -23,11 +24,11 @@ describe('AlbumService', () => {
   let snackbar: MatSnackBar;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
-
+  let store: MockStore;
   const ALBUM = albumWithTracksMockData;
 
   beforeEach(() => {
-    const snackbarSpy = jasmine.createSpyObj(snackbar, ['open']);
+    const snackbarSpy = jasmine.createSpyObj(MatSnackBar, ['open']);
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -45,7 +46,7 @@ describe('AlbumService', () => {
     snackbar = TestBed.inject(MatSnackBar);
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-
+    store = TestBed.inject(MockStore);
     spyOn(albumService, 'getAlbumReleases').and.callThrough();
   });
 
@@ -187,7 +188,6 @@ describe('AlbumService', () => {
 
   it('should check if a album is saved', () => {
     spyOn(albumService, 'checkSavedAlbum').and.callThrough();
-
     albumService.checkSavedAlbum(ALBUM.id).subscribe({
       next: (album) => {
         expect(album).toBeTruthy();
@@ -200,17 +200,13 @@ describe('AlbumService', () => {
     const req = httpTestingController.expectOne(
       `${albumService.URL}/me/albums/contains?ids=${ALBUM.id}`
     );
-
     expect(req.request.method).toBe('GET');
-
     req.flush([true]);
-
     expect(albumService.checkSavedAlbum).toHaveBeenCalledTimes(1);
   });
 
   it('should fail when server gives an error while trying to check if album is saved', () => {
     spyOn(albumService, 'checkSavedAlbum').and.callThrough();
-
     albumService.checkSavedAlbum(ALBUM.id).subscribe({
       next: () => {
         fail('Expected to fail');
@@ -230,10 +226,49 @@ describe('AlbumService', () => {
     );
 
     expect(req.request.method).toBe('GET');
-
     req.flush('Test error', { status: 401, statusText: 'Failed' });
-
     expect(albumService.checkSavedAlbum).toHaveBeenCalledTimes(1);
+  });
+
+  it('should dispatch action to store on changeSaveState for delete', () => {
+    spyOn(store, 'dispatch');
+    albumService.changeAlbumState(albumMockData[0], true);
+    expect(store.dispatch).toHaveBeenCalledTimes(2);
+    expect(store.dispatch).toHaveBeenCalledWith(
+      Object({
+        id: albumMockData[0].id,
+        kind: 'album',
+        isSaved: false,
+        type: '[SavedItem/API] Update SavedItem',
+      })
+    );
+    expect(store.dispatch).toHaveBeenCalledWith(
+      Object({
+        id: albumMockData[0].id,
+        type: '[TopUserAlbum/API] Delete TopUserAlbum',
+      })
+    );
+  });
+
+  it('should dispatch action to store on changeSaveState for save', () => {
+    spyOn(store, 'dispatch');
+    albumService.changeAlbumState(albumMockData[0], false);
+    expect(store.dispatch).toHaveBeenCalledTimes(2);
+    expect(store.dispatch).toHaveBeenCalledWith(
+      Object({
+        id: albumMockData[0].id,
+        kind: 'album',
+        isSaved: true,
+        type: '[SavedItem/API] Update SavedItem',
+      })
+    );
+    expect(store.dispatch).toHaveBeenCalledWith(
+      Object({
+        topUserAlbum: albumMockData[0],
+        type: '[TopUserAlbum/API] Add TopUserAlbum',
+      })
+    );
+
   });
 
   afterEach(() => {

@@ -1177,7 +1177,16 @@ export const playlistMockItem:Playlist =   {
   tracks: {
     href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DWU4vz8xTaZmg/tracks',
     total: 100,
-    items: []
+    items: [
+      {
+        added_at: new Date(131),
+        added_by: {external_urls:{spotify:''}, href:'', id:'mock', type:'', uri:'asd'},
+        is_local:true,
+        primary_color:null,
+        video_thumbnail:{url:null},
+        track:trackMockData
+    }
+    ]
   },
   followers:{
     href:null,

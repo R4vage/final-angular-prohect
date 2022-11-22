@@ -3,7 +3,7 @@ import { Track } from 'src/app/core/models/track.models';
 
 export const loadSavedTracks = createAction('[Track/API] Load Saved Tracks');
 export const loadSavedTracksSuccess = createAction(
-  '[Track/API] Add Saved Tracks Success',
+  '[Track/API] Load Saved Tracks Success',
   props<{ tracks: Track[]; totalItems: number }>()
 );
 export const loadSavedTracksFailure = createAction(
