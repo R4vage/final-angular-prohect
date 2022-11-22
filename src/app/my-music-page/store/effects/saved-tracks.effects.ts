@@ -53,7 +53,7 @@ export class SavedTracksEffects {
       concatMap(() => {
         return this.savedStore.select(selectTotalSavedTracksCount).pipe(
           filter((itemsCount) => {
-            return itemsCount.totalItems > 20 && itemsCount.currentItems < 10;
+            return itemsCount.totalItems > 9 && itemsCount.currentItems < 10;
           }),
           map(() => {
             return savedTrackActions.loadSavedTracks();
